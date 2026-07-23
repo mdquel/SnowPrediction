@@ -14,8 +14,8 @@
     "R2": 0.1438,
     "NSE": 0.1438,
     "Bias": -0.3054,
-    "SPAEF": 0.1076,
-    "SPAEF_std": 0.2219,
+    "SPAEF": 0.3106,
+    "SPAEF_std": 0.2299,
     "SPAEF_n_tiles": 220
   }
 }

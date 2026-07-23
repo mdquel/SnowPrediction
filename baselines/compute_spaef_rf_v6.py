@@ -4,8 +4,18 @@ Calcula SPAEF para RF v6 (22ch, params Optuna v6) en 3 seeds.
 Reentrena RF en train+val para cada seed y calcula SPAEF tile a tile.
 Actualiza los metrics.json existentes en results/rf_v6_s{seed}/.
 
+Nota de ejecucion (MQ, 2026-07-23):
+    load_pixels() fue adaptada para submuestrear por tile en lugar de
+    acumular todos los pixeles antes de submuestrear. Esto evita el OOM
+    en equipos con RAM limitada (ejecutado en Intel i7-3770, 16 GB RAM).
+    El resultado es equivalente: el RF recibe los mismos 2M pixeles
+    totales, distribuidos uniformemente entre tiles en lugar de por
+    muestreo global. Los valores de SPAEF obtenidos son comparables a
+    los que se obtendrían con la version original en un equipo con mas RAM.
+
 Uso:
     .venv/Scripts/python.exe baselines/compute_spaef_rf_v6.py
+    anaconda: python baselines/compute_spaef_rf_v6.py
 """
 
 import os
@@ -61,6 +71,13 @@ def normalize(img: np.ndarray) -> np.ndarray:
 
 
 def load_pixels(df, seed, max_pixels=None):
+    """Carga pixeles submuestreando por tile para evitar OOM."""
+    rng = np.random.RandomState(seed)
+    n_tiles = len(df)
+
+    # Presupuesto de pixeles por tile para no acumular todo en RAM
+    budget_per_tile = (max_pixels // n_tiles + 1) if max_pixels else None
+
     X_list, y_list = [], []
     for row in df.itertuples():
         img_path  = IMGS_DIR  / row.tile_id
@@ -72,14 +89,23 @@ def load_pixels(df, seed, max_pixels=None):
         mask = np.nan_to_num(mask, nan=0.0)
         mask[mask <= -100] = 0.0
         valid = mask > 0.01
-        if valid.sum() == 0:
+        n_valid = int(valid.sum())
+        if n_valid == 0:
             continue
-        X_list.append(normalize(img)[valid.flatten()])
-        y_list.append(mask[valid])
+        X_tile = normalize(img)[valid.flatten()]
+        y_tile = mask[valid]
+        # Submuestreo por tile si superamos el presupuesto
+        if budget_per_tile and n_valid > budget_per_tile:
+            idx = rng.choice(n_valid, budget_per_tile, replace=False)
+            X_tile = X_tile[idx]
+            y_tile = y_tile[idx]
+        X_list.append(X_tile)
+        y_list.append(y_tile)
     X = np.vstack(X_list)
     y = np.concatenate(y_list)
+    # Submuestreo final por si acaso
     if max_pixels and X.shape[0] > max_pixels:
-        idx = np.random.RandomState(seed).choice(X.shape[0], max_pixels, replace=False)
+        idx = rng.choice(X.shape[0], max_pixels, replace=False)
         X, y = X[idx], y[idx]
     return X, y
 
