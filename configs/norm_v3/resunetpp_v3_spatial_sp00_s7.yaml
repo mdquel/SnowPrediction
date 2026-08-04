@@ -1,0 +1,46 @@
+experiment:
+  name: resunetpp_v3_spatial_sp00_s7
+# Control experiment: split espacial con lambda=0 (MSE puro).
+# Identico a resunetpp_v3_spatial_s7.yaml salvo lambda_pearson y rutas de salida.
+# Necesario para comparar split espacial vs temporal a igualdad de loss.
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: dataset_v4_ms_sx200_spatial.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: spatial
+  use_sce: false
+  augmentation: false
+  norm_version: v3_spatial
+model:
+  architecture: resunetpp
+  in_channels: 22
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: spatial_mse
+  lambda_pearson: 0.0
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+  masked_loss: true
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/norm_v3/spatial/weights
+  results_dir: results/norm_v3/spatial/resunetpp_v3_spatial_sp00_s7
+  model_name: resunetpp_v3_spatial_sp00_s7

@@ -1,0 +1,49 @@
+experiment:
+  name: resunetpp_v3_sp00_s7
+
+# Barrido lambda con NORMALIZACION V3 (empirica + exclusion de artefactos).
+# ResUNet++ hiperparametros Optuna Trial 17, split temporal, 50 epocas.
+# Identico a configs/resunetpp_v4_ms_sx200_hpo_sp*.yaml salvo norm_version.
+# Aislado en results/norm_v3/lambda/ (no colisiona con otros experimentos).
+
+data:
+  root: "dataset_v4_ms_sx200"
+  csv_file: "dataset_v4_ms_sx200.csv"
+  images_dir: "images"
+  masks_dir: "masks"
+  source: "lidar"
+  split_type: "temporal"
+  use_sce: false
+  augmentation: false
+  norm_version: "v3"
+
+model:
+  architecture: "resunetpp"
+  in_channels: 22
+  out_channels: 1
+  features: [64, 128, 256, 512]
+  dropout_p: 0.077
+  num_groups: 8
+
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 1.287e-04
+  epochs: 50
+  loss: "spatial_mse"
+  lambda_pearson: 0.0
+  masked_loss: true
+  weight_decay: 1.239e-04
+  optimizer: "adamw"
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: "auto"
+
+evaluation:
+  save_predictions: true
+
+output:
+  models_dir: "results/norm_v3/lambda/weights"
+  results_dir: "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds"
+  model_name: "resunetpp_v3_sp00_s7_preds"
