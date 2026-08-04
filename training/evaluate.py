@@ -91,6 +91,10 @@ def evaluate_model(model:       torch.nn.Module,
     tiles_small   = 0   # < 10 pixeles con nieve
     s_imgs, s_masks, s_preds, s_ids = [], [], [], []
 
+    #mdquel - Volcado opcional de predicciones por tile (para analisis posterior)
+    save_preds = config.get('evaluation', {}).get('save_predictions', False)
+    dump_ids, dump_preds, dump_targets, dump_valids = [], [], [], []
+
     with torch.no_grad():
         for batch in tqdm(test_loader, desc="  Test"):
 
@@ -110,6 +114,14 @@ def evaluate_model(model:       torch.nn.Module,
                 outputs = model(images.to(device)).cpu().numpy()  # (B,1,H,W)
             targets = masks.cpu().numpy()                          # (B,1,H,W)
             valids_np = valids.cpu().numpy() if valids is not None else None
+            
+            #mdquel - guadarmos las predicciones
+            if save_preds:
+                dump_ids.extend(list(ids))
+                dump_preds.append(outputs[:, 0].astype(np.float32))
+                dump_targets.append(targets[:, 0].astype(np.float32))
+                if valids_np is not None:
+                    dump_valids.append(valids_np[:, 0].astype(np.float32))            
 
             # Guardar ejemplos para visualizacion (maximo 3 tiles)
             if len(s_imgs) < 3:
@@ -200,6 +212,19 @@ def evaluate_model(model:       torch.nn.Module,
     with open(metrics_path, 'w', encoding='utf-8') as f:
         json.dump(metrics_out, f, indent=2)
     print(f"  Metricas guardadas en: {metrics_path}")
+
+    #mdquel - guardado de las predicciones
+    if save_preds and dump_ids:
+        preds_path = os.path.join(results_dir, f"{exp}_predictions.npz")
+        arrays = {
+            'tile_ids': np.array(dump_ids),
+            'preds':    np.concatenate(dump_preds,   axis=0),
+            'targets':  np.concatenate(dump_targets, axis=0),
+        }
+        if dump_valids:
+            arrays['valids'] = np.concatenate(dump_valids, axis=0)
+        np.savez_compressed(preds_path, **arrays)
+        print(f"  Predicciones guardadas en: {preds_path}")
 
     # Figuras
     scatter_path = os.path.join(results_dir, f"{exp}_scatter.png")
