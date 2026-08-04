@@ -1,0 +1,19 @@
+{
+  "experiment": "rf_v6_s42",
+  "seed": 42,
+  "best_params": {
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 1,
+    "max_features": "log2",
+    "min_samples_split": 2
+  },
+  "test_metrics": {
+    "MAE": 0.5149,
+    "RMSE": 0.6753,
+    "R2": 0.1397,
+    "NSE": 0.1397,
+    "Bias": -0.308,
+    "SPAEF": 0.1043,
+    "SPAEF_std": 0.2205,
+    "SPAEF_n

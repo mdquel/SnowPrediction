@@ -1,0 +1,21 @@
+{
+  "experiment": "rf_v6_s7",
+  "seed": 7,
+  "best_params": {
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 1,
+    "max_features": "log2",
+    "min_samples_split": 2
+  },
+  "test_metrics": {
+    "MAE": 0.5134,
+    "RMSE": 0.6738,
+    "R2": 0.1438,
+    "NSE": 0.1438,
+    "Bias": -0.3054,
+    "SPAEF": 0.1076,
+    "SPAEF_std": 0.2219,
+    "SPAEF_n_tiles": 220
+  }
+}
