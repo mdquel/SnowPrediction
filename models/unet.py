@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from models.resunet import ResUNetPP
 from models.unet_gn import UNetGN
+from models.resunetpp_dual import ResUNetPPDual
 
 
 class DoubleConv(nn.Module):
@@ -247,6 +248,13 @@ def build_model(config: dict) -> nn.Module:
         model = ResUNetPP(in_channels=in_ch, out_channels=out_ch,
                           features=features, dropout_p=dropout_p,
                           num_groups=num_groups)
+    elif arch == 'resunetpp_dual':
+        features  = cfg.get('features', [64, 128, 256, 512])
+        num_groups = cfg.get('num_groups', 8)
+        model = ResUNetPPDual(in_channels=in_ch, out_channels=out_ch,
+                              features=features, dropout_p=dropout_p,
+                              num_groups=num_groups,
+                              normalize_pattern=cfg.get('normalize_pattern', False))
 
     else:
         raise ValueError(f"Arquitectura desconocida: '{arch}'. "

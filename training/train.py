@@ -105,11 +105,65 @@ class SpatialMSELoss(nn.Module):
         pearson_loss = (1.0 - rho).mean()
         return mse + self.lambda_pearson * pearson_loss
 
+class DualHeadLoss(nn.Module):
+    """Loss para arquitecturas de doble cabeza (patron + escala).
+
+        L = MSE(hs, target)
+            + lambda_mu    * (mu_pred    - mu_real)^2
+            + lambda_sigma * (sigma_pred - sigma_real)^2
+
+    mu_real y sigma_real son la media y desviacion tipica del target dentro
+    de cada tile, sobre pixeles validos. Sin estos terminos extra la red
+    puede ignorar la separacion: la cabeza de patron aprenderia valores
+    absolutos y la de escala se quedaria en mu=0, sigma=1.
+    """
+
+    MIN_VALID_PX = 10
+
+    def __init__(self, lambda_mu: float = 1.0, lambda_sigma: float = 1.0):
+        super().__init__()
+        self.lambda_mu = lambda_mu
+        self.lambda_sigma = lambda_sigma
+
+    def forward(self, outputs, target: torch.Tensor,
+                valid: torch.Tensor = None) -> torch.Tensor:
+        if isinstance(outputs, tuple):
+            hs, mu_pred, sigma_pred = outputs
+        else:
+            hs, mu_pred, sigma_pred = outputs, None, None
+
+        B = hs.shape[0]
+        p = hs.view(B, -1)
+        t = target.view(B, -1)
+        v = torch.ones_like(t) if valid is None else valid.view(B, -1)
+
+        mse = ((p - t) ** 2 * v).sum() / v.sum().clamp(min=1.0)
+
+        if mu_pred is None:
+            return mse
+
+        n = v.sum(dim=1)
+        n_safe = n.clamp(min=1.0)
+        mu_real = (t * v).sum(dim=1) / n_safe
+        var_real = ((t - mu_real.unsqueeze(1)) ** 2 * v).sum(dim=1) / n_safe
+        sigma_real = torch.sqrt(var_real.clamp(min=1e-8))
+
+        w = (n >= self.MIN_VALID_PX).float()
+        w_sum = w.sum().clamp(min=1.0)
+
+        loss_mu = (((mu_pred - mu_real) ** 2) * w).sum() / w_sum
+        loss_sigma = (((sigma_pred - sigma_real) ** 2) * w).sum() / w_sum
+
+        return mse + self.lambda_mu * loss_mu + self.lambda_sigma * loss_sigma
 
 def get_loss_fn(loss_name: str, huber_delta: float = 0.5,
-                lambda_pearson: float = 0.5) -> nn.Module:
+                lambda_pearson: float = 0.5,
+                lambda_mu: float = 1.0,
+                lambda_sigma: float = 1.0) -> nn.Module:
     if loss_name == 'spatial_mse':
         return SpatialMSELoss(lambda_pearson=lambda_pearson)
+    if loss_name == 'dual_head':
+        return DualHeadLoss(lambda_mu=lambda_mu, lambda_sigma=lambda_sigma)
     losses = {
         'mae':   nn.L1Loss(),
         'mse':   nn.MSELoss(),
@@ -118,7 +172,7 @@ def get_loss_fn(loss_name: str, huber_delta: float = 0.5,
     if loss_name not in losses:
         raise ValueError(
             f"Loss desconocida: '{loss_name}'. "
-            f"Usa 'mae', 'mse', 'huber' o 'spatial_mse'."
+            f"Usa 'mae', 'mse', 'huber', 'spatial_mse' o 'dual_head'."
         )
     return losses[loss_name]
 
@@ -155,10 +209,11 @@ def _train_epoch(model, loader, optimizer, criterion, device, grad_clip=0.0) -> 
     for batch in pbar:
         images, masks, valid = _unpack_batch(batch, device)
         optimizer.zero_grad()
+        outputs = model(images)          # tensor o tupla (hs, mu, sigma)
         if valid is not None:
-            loss = criterion(model(images), masks, valid)
+            loss = criterion(outputs, masks, valid)
         else:
-            loss = criterion(model(images), masks)
+            loss = criterion(outputs, masks)
         loss.backward()
         if grad_clip > 0:
             torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
@@ -169,15 +224,18 @@ def _train_epoch(model, loader, optimizer, criterion, device, grad_clip=0.0) -> 
 
 
 def _val_epoch(model, loader, criterion, device) -> float:
+    # model.eval() hace que el modelo dual devuelva solo hs, sin mu ni sigma:
+    # la val loss es MSE puro y por tanto comparable entre arquitecturas.
     model.eval()
     total = 0.0
     with torch.no_grad():
         for batch in tqdm(loader, desc="  Val  ", leave=False):
             images, masks, valid = _unpack_batch(batch, device)
+            outputs = model(images)
             if valid is not None:
-                total += criterion(model(images), masks, valid).item()
+                total += criterion(outputs, masks, valid).item()
             else:
-                total += criterion(model(images), masks).item()
+                total += criterion(outputs, masks).item()
     return total / len(loader)
 
 
@@ -224,12 +282,16 @@ def train_model(model:        nn.Module,
     huber_delta     = cfg_tr.get('huber_delta', 0.5)
     lambda_pearson  = cfg_tr.get('lambda_pearson', 0.5)
     masked_loss     = cfg_tr.get('masked_loss', False)
-    if masked_loss and cfg_tr['loss'] != 'spatial_mse':
-        raise ValueError("masked_loss=true requiere loss 'spatial_mse' "
-                         "(las demas losses no aceptan mascara de validez).")
+    mask_aware      = ('spatial_mse', 'dual_head')
+    if masked_loss and cfg_tr['loss'] not in mask_aware:
+        raise ValueError(f"masked_loss=true requiere una loss que acepte "
+                         f"mascara de validez {mask_aware}; "
+                         f"recibida '{cfg_tr['loss']}'.")
     criterion       = get_loss_fn(cfg_tr['loss'],
                                   huber_delta=huber_delta,
-                                  lambda_pearson=lambda_pearson)
+                                  lambda_pearson=lambda_pearson,
+                                  lambda_mu=cfg_tr.get('lambda_mu', 1.0),
+                                  lambda_sigma=cfg_tr.get('lambda_sigma', 1.0))
     epochs       = cfg_tr['epochs']
 
     # LR scheduler — 'plateau' (ReduceLROnPlateau), 'cosine' (CosineAnnealingLR),
