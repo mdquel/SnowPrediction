@@ -1,0 +1,47 @@
+experiment:
+  name: resunetpp_dual_loyo2021
+# E2 - Leave-One-Year-Out: test = 2021, val = 2024, train = 2022, 2023, 2025.
+# Identico a resunetpp_v3_sp00_s7.yaml salvo el CSV de splits.
+# Hiperparametros NO re-optimizados por fold (control experimental).
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: loyo/dataset_loyo2021.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+model:
+  architecture: resunetpp_dual
+  in_channels: 22
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: dual_head
+  lambda_mu: 1.0
+  lambda_sigma: 1.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/norm_v3/loyo_dual/weights
+  results_dir: results/norm_v3/loyo_dual/resunetpp_dual_loyo2021
+  model_name: resunetpp_dual_loyo2021
