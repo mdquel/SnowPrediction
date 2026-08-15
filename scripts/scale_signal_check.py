@@ -60,7 +60,12 @@ PPACC_CSV = os.path.join('datos jesus', 'correo2', 'ppAcc.csv')
 MEANSD_XLSX = os.path.join('Articulo 1', 'Data', 'izas', 'csv', 'Izas_mean_SD.xlsx')
 
 CANDIDATES = ['t2m_7d', 't2m_15d', 't2m_30d', 'ppAcc_mm',
-              'snow_pct', 'snow_unclouded_pct']
+              'snow_pct', 'snow_unclouded_pct',
+              # indices de grados-dia: capturan fusion acumulada, que la
+              # temperatura media no ve. No importa la media, importa
+              # cuanto tiempo estuvo por encima del punto de fusion.
+              'pdd_15d', 'pdd_30d', 'pdd_60d', 'pdd_season',
+              'ndd_season', 'n_dias_fusion_30d']
 
 
 def load_mean_sd(path):
@@ -71,6 +76,57 @@ def load_mean_sd(path):
     for c in ('mean_SD', 'std_SD'):
         d[c] = pd.to_numeric(d[c], errors='coerce')
     return d[['fecha', 'mean_SD', 'std_SD']].dropna(subset=['mean_SD'])
+
+
+def load_daily_clean(path, tmin=-25.0, tmax=30.0, max_gap=3):
+    """Serie diaria de temperatura, limpia y con rejilla completa.
+
+    Misma limpieza que clean_temp_and_recompute.py: filtro de rango
+    fisico, reindexado diario e interpolacion solo de huecos cortos.
+    """
+    cols = ['idx', 'day', 'temp_C', 'WS_ms', 'WD_deg', 'RH_perc', 'Rad_Wm']
+    d = pd.read_csv(path, skiprows=1, names=cols)
+    d['day'] = pd.to_datetime(d['day'], errors='coerce')
+    d['temp_C'] = pd.to_numeric(d['temp_C'], errors='coerce')
+    d = d.dropna(subset=['day']).drop_duplicates('day').set_index('day').sort_index()
+    d.loc[(d['temp_C'] < tmin) | (d['temp_C'] > tmax), 'temp_C'] = np.nan
+    d = d.reindex(pd.date_range(d.index.min(), d.index.max(), freq='D'))
+    d['temp_C'] = d['temp_C'].interpolate(limit=max_gap, limit_area='inside')
+    return d['temp_C']
+
+
+def degree_day_indices(temp, date):
+    """Indices de grados-dia para una fecha de vuelo.
+
+    Por que ademas de la temperatura media
+    --------------------------------------
+    La media no distingue entre estar 30 dias a 0 C y estar 15 a -5 y 15
+    a +5: ambos promedian 0. Pero el segundo caso funde nieve y el primero
+    no. Los grados-dia positivos (PDD) suman solo lo que excede de 0 C, que
+    es lo que gobierna la fusion; es el indice clasico en nivologia.
+
+    Definiciones calculadas:
+        pdd_Nd    : suma de max(T, 0) en los N dias previos
+        ndd_season: suma de max(-T, 0) desde el 1 de octubre (frio acumulado,
+                    proxy de capacidad de acumular nieve)
+        pdd_season: suma de max(T, 0) desde el 1 de octubre (fusion acumulada
+                    en lo que va de temporada)
+        n_dias_fusion_30d : dias con T > 0 en los 30 previos
+    """
+    out = {}
+    for n in (15, 30, 60):
+        w = temp.loc[date - pd.Timedelta(days=n):date - pd.Timedelta(days=1)]
+        out[f'pdd_{n}d'] = float(np.maximum(w, 0).sum()) if len(w) else np.nan
+    w30 = temp.loc[date - pd.Timedelta(days=30):date - pd.Timedelta(days=1)]
+    out['n_dias_fusion_30d'] = float((w30 > 0).sum()) if len(w30) else np.nan
+
+    # inicio de temporada hidrologica: 1 de octubre anterior
+    oct1 = pd.Timestamp(year=date.year if date.month >= 10 else date.year - 1,
+                        month=10, day=1)
+    ws = temp.loc[oct1:date - pd.Timedelta(days=1)]
+    out['pdd_season'] = float(np.maximum(ws, 0).sum()) if len(ws) else np.nan
+    out['ndd_season'] = float(np.maximum(-ws, 0).sum()) if len(ws) else np.nan
+    return out
 
 
 def load_ppacc(path):
@@ -107,6 +163,8 @@ def main():
     ap.add_argument('--snow', default=SNOW_CSV)
     ap.add_argument('--ppacc', default=PPACC_CSV)
     ap.add_argument('--meansd', default=MEANSD_XLSX)
+    ap.add_argument('--daily', default=os.path.join('datos jesus', 'correo3',
+                                                    'meteo_izas_daily.csv'))
     args = ap.parse_args()
 
     # --- referencia ---
@@ -136,6 +194,14 @@ def main():
                       left_on='fecha', right_on='fecha_vuelo', how='left')
     else:
         print(f'[aviso] falta {args.snow}')
+
+    # --- grados-dia desde la serie diaria limpia ---
+    if os.path.exists(args.daily):
+        temp = load_daily_clean(args.daily)
+        dd = pd.DataFrame([degree_day_indices(temp, f) for f in df['fecha']])
+        df = pd.concat([df.reset_index(drop=True), dd], axis=1)
+    else:
+        print(f'[aviso] falta {args.daily}: sin indices de grados-dia')
 
     # --- control estacional ---
     doy = df['fecha'].dt.dayofyear
