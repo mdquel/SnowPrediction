@@ -119,6 +119,73 @@ class SnowDataset(Dataset):
         # config training.masked_loss. Default False = 2-tupla legacy.
         self.return_valid = False     # se puede sobreescribir desde main.py
 
+        # --- Senales de escala externas (E4) ---
+        # Escalares por FECHA de vuelo (cobertura de nieve, grados-dia,
+        # precipitacion acumulada) que alimentan la cabeza de escala del
+        # modelo dual. No son canales de imagen: entran directamente en la
+        # cabeza, sin pasar por las convoluciones.
+        #
+        # Motivacion: E3 fallo porque la cabeza de escala tenia que estimar
+        # la magnitud desde la topografia, que es identica todos los anyos.
+        # Aqui se le da una senal que si varia entre anyos y correlaciona
+        # con la magnitud real (cobertura de nieve, r parcial +0.678).
+        #
+        # Se normalizan con constantes FIJAS, iguales en todos los folds:
+        # si cada fold usase las suyas, el modelo veria escalas distintas y
+        # los resultados no serian comparables entre folds.
+        self.scale_signals = None       # dict {fecha_str: np.ndarray}
+        self.scale_signal_cols = None   # lista de nombres, para trazabilidad
+        self.n_scale_signals = 0
+
+    # Rangos observados sobre las 23 fechas admisibles (build_scale_signals.py).
+    # Cada senal se lleva a [0, 1] con (x - min) / (max - min).
+    SCALE_NORM = {
+        'snow_pct':  (0.0, 100.0),      # porcentaje, rango natural
+        'pdd_15d':   (0.0, 110.0),      # observado 0.99 - 103.10
+        'pdd_30d':   (0.0, 170.0),      # observado 5.10 - 160.08
+        'ppAcc_mm':  (0.0, 2000.0),     # observado 353.86 - 1895.86
+    }
+
+    def load_scale_signals(self, csv_path: str, cols: list):
+        """Carga las senales de escala desde el CSV consolidado.
+
+        El CSV tiene una fila por fecha de vuelo. Se indexan por fecha en
+        formato YYYYMMDD, que es como aparece en el tile_id.
+
+        Las fechas no admisibles (sin las cuatro senales) no deberian
+        aparecer en el dataframe si se uso un CSV de fold de E4; si aun
+        asi apareciese alguna, se avisa y se le asignan ceros.
+        """
+        sig = pd.read_csv(csv_path)
+        sig = sig[sig['admisible'] == True]
+        table = {}
+        for _, r in sig.iterrows():
+            key = pd.to_datetime(r['fecha']).strftime('%Y%m%d')
+            vals = []
+            for c in cols:
+                lo, hi = self.SCALE_NORM.get(c, (0.0, 1.0))
+                vals.append((float(r[c]) - lo) / (hi - lo))
+            table[key] = np.array(vals, dtype=np.float32)
+        self.scale_signals = table
+        self.scale_signal_cols = list(cols)
+        self.n_scale_signals = len(cols)
+
+        # comprobar cobertura de las fechas presentes en este split
+        dates = {str(d) for d in self.df['date'].astype(str)}
+        faltan = sorted(dates - set(table.keys()))
+        if faltan:
+            print(f"  [AVISO] {len(faltan)} fechas sin senales de escala: "
+                  f"{', '.join(faltan[:5])}{' ...' if len(faltan) > 5 else ''}")
+            print(f"          se les asignaran ceros; revisa el CSV del fold.")
+
+    def _get_scale(self, tile_id: str) -> np.ndarray:
+        """Senales de escala del tile, a partir de su fecha."""
+        key = str(tile_id).split('_')[0]
+        if self.scale_signals is None:
+            return np.zeros(0, dtype=np.float32)
+        return self.scale_signals.get(
+            key, np.zeros(self.n_scale_signals, dtype=np.float32))
+
     def __len__(self):
         return len(self.df)
 
@@ -152,6 +219,19 @@ class SnowDataset(Dataset):
 
         if self.augment:
             image, mask, valid = self._augment(image, mask, valid)
+
+        # Senales de escala (E4): se anaden al final para no romper el
+        # desempaquetado de los flujos que no las usan.
+        if self.n_scale_signals > 0:
+            scale = torch.from_numpy(self._get_scale(tile_id))
+            if self.return_valid:
+                return (torch.from_numpy(image.copy()),
+                        torch.from_numpy(mask.copy()).unsqueeze(0),
+                        torch.from_numpy(valid.copy()).unsqueeze(0),
+                        scale)
+            return (torch.from_numpy(image.copy()),
+                    torch.from_numpy(mask.copy()).unsqueeze(0),
+                    scale)
 
         if self.return_valid:
             return (torch.from_numpy(image.copy()),
@@ -387,6 +467,29 @@ class SnowDatasetEval(SnowDataset):
             image = image[self.channel_indices, :, :]
         else:
             image = image[:self.n_channels, :, :]
+
+        # Senales de escala (E4): se anaden al final para no romper el
+        # desempaquetado de los flujos que no las usan.
+        if self.n_scale_signals > 0:
+            scale = torch.from_numpy(self._get_scale(tile_id))
+            if self.return_valid:
+                return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),
+                        torch.from_numpy(valid).unsqueeze(0), tile_id, scale)
+            return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),
+                    tile_id, scale)
+
+        if self.return_valid:
+            return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),
+                    torch.from_numpy(valid).unsqueeze(0), tile_id)
+        return torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0), tile_id
+
+        if self.n_scale_signals > 0:
+            scale = torch.from_numpy(self._get_scale(tile_id))
+            if self.return_valid:
+                return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),
+                        torch.from_numpy(valid).unsqueeze(0), tile_id, scale)
+            return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),
+                    tile_id, scale)
 
         if self.return_valid:
             return (torch.from_numpy(image), torch.from_numpy(mask).unsqueeze(0),

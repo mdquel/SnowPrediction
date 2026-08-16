@@ -110,6 +110,17 @@ def run_train(config: dict):
     val_ds.norm_version      = norm_version
     val_ds.return_valid      = masked_loss
 
+    # --- Senales de escala externas (E4) ---
+    # Escalares por fecha que alimentan la cabeza de escala del modelo dual.
+    # Si la config no las declara, los datasets no las cargan y el
+    # comportamiento es el de siempre.
+    sig_csv = cfg_data.get('scale_signals_csv')
+    sig_cols = cfg_data.get('scale_signal_cols')
+    if sig_csv and sig_cols:
+        print(f"Senales de escala: {sig_cols}  <- {sig_csv}")
+        train_ds.load_scale_signals(sig_csv, sig_cols)
+        val_ds.load_scale_signals(sig_csv, sig_cols)
+
     train_loader = DataLoader(
         train_ds,
         batch_size=cfg_tr['batch_size'],
@@ -164,6 +175,13 @@ def run_evaluate(config: dict):
     # Devolver la mascara de validez para calcular metricas full-domain y de
     # deteccion (falsos positivos) ademas de las snow-only.
     test_ds.return_valid    = True
+
+    sig_csv = cfg_data.get('scale_signals_csv')
+    sig_cols = cfg_data.get('scale_signal_cols')
+    if sig_csv and sig_cols:
+        print(f"Senales de escala: {sig_cols}  <- {sig_csv}")
+        test_ds.load_scale_signals(sig_csv, sig_cols)    
+    
     test_loader = DataLoader(
         test_ds,
         batch_size=cfg_tr['batch_size'],

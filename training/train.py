@@ -194,12 +194,33 @@ def get_device(device_str: str) -> torch.device:
 # ----------------------------------------------------------------------
 
 def _unpack_batch(batch, device):
-    """Batch de 2 elementos (legacy) o 3 (con mascara de validez)."""
-    if len(batch) == 3:
-        images, masks, valid = batch
-        return images.to(device), masks.to(device), valid.to(device)
-    images, masks = batch
-    return images.to(device), masks.to(device), None
+    """Desempaqueta un batch. Devuelve (images, masks, valid, scale).
+
+    Formatos admitidos, por orden de aparicion historica:
+        2 elementos: (images, masks)                        legacy
+        3 elementos: (images, masks, valid)                 masked_loss
+        3 elementos: (images, masks, scale)                 E4 sin mascara
+        4 elementos: (images, masks, valid, scale)          E4 con mascara
+
+    Los dos casos de 3 se distinguen por la forma del tercer elemento:
+    la mascara de validez es (B, 1, H, W) y las senales son (B, n).
+    """
+    scale = None
+    if len(batch) == 4:
+        images, masks, valid, scale = batch
+    elif len(batch) == 3:
+        images, masks, third = batch
+        if third.dim() == 2:            # (B, n) -> senales de escala
+            valid, scale = None, third
+        else:                            # (B, 1, H, W) -> mascara
+            valid = third
+    else:
+        images, masks = batch
+        valid = None
+
+    return (images.to(device), masks.to(device),
+            valid.to(device) if valid is not None else None,
+            scale.to(device) if scale is not None else None)
 
 
 def _train_epoch(model, loader, optimizer, criterion, device, grad_clip=0.0) -> float:
@@ -207,9 +228,9 @@ def _train_epoch(model, loader, optimizer, criterion, device, grad_clip=0.0) -> 
     total = 0.0
     pbar  = tqdm(loader, desc="  Train", leave=False)
     for batch in pbar:
-        images, masks, valid = _unpack_batch(batch, device)
+        images, masks, valid, scale = _unpack_batch(batch, device)
         optimizer.zero_grad()
-        outputs = model(images)          # tensor o tupla (hs, mu, sigma)
+        outputs = model(images, scale) if scale is not None else model(images)
         if valid is not None:
             loss = criterion(outputs, masks, valid)
         else:
@@ -230,8 +251,8 @@ def _val_epoch(model, loader, criterion, device) -> float:
     total = 0.0
     with torch.no_grad():
         for batch in tqdm(loader, desc="  Val  ", leave=False):
-            images, masks, valid = _unpack_batch(batch, device)
-            outputs = model(images)
+            images, masks, valid, scale = _unpack_batch(batch, device)
+            outputs = model(images, scale) if scale is not None else model(images)
             if valid is not None:
                 total += criterion(outputs, masks, valid).item()
             else:
