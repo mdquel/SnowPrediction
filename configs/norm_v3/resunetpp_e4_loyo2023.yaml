@@ -1,0 +1,47 @@
+experiment:
+  name: resunetpp_e4_loyo2023
+# E4 - baseline (ResUNet++ estandar), test = 2023, val = 2024.
+# Solo fechas con las cuatro senales de escala disponibles (23 de 27).
+# Train submuestreado a 2284 tiles en los cuatro folds.
+# Hiperparametros NO re-optimizados (control experimental).
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: loyo_e4/dataset_e4_loyo2023.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+model:
+  architecture: resunetpp
+  in_channels: 22
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: spatial_mse
+  lambda_pearson: 0.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/norm_v3/loyo_e4_base/weights
+  results_dir: results/norm_v3/loyo_e4_base/resunetpp_e4_loyo2023
+  model_name: resunetpp_e4_loyo2023
