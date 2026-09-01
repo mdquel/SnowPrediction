@@ -137,14 +137,28 @@ class SnowDataset(Dataset):
         self.scale_signal_cols = None   # lista de nombres, para trazabilidad
         self.n_scale_signals = 0
 
-    # Rangos observados sobre las 23 fechas admisibles (build_scale_signals.py).
-    # Cada senal se lleva a [0, 1] con (x - min) / (max - min).
+    # Limites FISICOS, no derivados de los datos. Cada senal se lleva a
+    # [0, 1] con (x - min) / (max - min).
+    #
+    # La version anterior usaba el rango observado en las 23 fechas
+    # admisibles, incluido el anyo de test de cada fold. Aunque el efecto
+    # numerico sea pequeno (son limites redondeados con holgura y un
+    # reescalado afin, no una estandarizacion por media y desviacion), es
+    # la misma clase de fuga que se corrigio con NORM_V3_SPATIAL, y no
+    # cabe cometerla en un trabajo cuya seccion de credibilidad es
+    # precisamente una auditoria de este tipo de errores.
+    #
+    # Justificacion de cada limite:
+    #   snow_pct : porcentaje, rango natural 0-100.
+    #   pdd_15d  : 15 dias a 10 C de media diaria maxima plausible.
+    #   pdd_30d  : 30 dias con el mismo criterio.
+    #   ppAcc_mm : precipitacion anual maxima plausible en la cuenca.
     SCALE_NORM = {
-        'snow_pct':  (0.0, 100.0),      # porcentaje, rango natural
-        'pdd_15d':   (0.0, 110.0),      # observado 0.99 - 103.10
-        'pdd_30d':   (0.0, 170.0),      # observado 5.10 - 160.08
-        'ppAcc_mm':  (0.0, 2000.0),     # observado 353.86 - 1895.86
-    }
+        'snow_pct':  (0.0,  100.0),
+        'pdd_15d':   (0.0,  150.0),
+        'pdd_30d':   (0.0,  300.0),
+        'ppAcc_mm':  (0.0, 2500.0),
+    }    
 
     def load_scale_signals(self, csv_path: str, cols: list):
         """Carga las senales de escala desde el CSV consolidado.

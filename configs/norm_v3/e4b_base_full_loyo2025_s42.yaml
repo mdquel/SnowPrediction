@@ -1,0 +1,48 @@
+experiment:
+  name: e4b_base_full_loyo2025_s42
+# E4b - baseline (ResUNet++ estandar)
+# test = 2025, val = 2024, seed = 42.
+# Solo fechas con las cuatro senales de escala (23 de 27).
+# Train: sin submuestrear (3866 tiles)
+# Hiperparametros NO re-optimizados (control experimental).
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: loyo_e4b/dataset_e4b_full_loyo2025.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+model:
+  architecture: resunetpp
+  in_channels: 22
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 42
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: spatial_mse
+  lambda_pearson: 0.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/norm_v3/loyo_e4b_base/weights
+  results_dir: results/norm_v3/loyo_e4b_base/e4b_base_full_loyo2025_s42
+  model_name: e4b_base_full_loyo2025_s42

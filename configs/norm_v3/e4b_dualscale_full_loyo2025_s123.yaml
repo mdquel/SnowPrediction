@@ -1,0 +1,51 @@
+experiment:
+  name: e4b_dualscale_full_loyo2025_s123
+# E4b - doble cabeza CON senales de escala externas
+# test = 2025, val = 2024, seed = 123.
+# Solo fechas con las cuatro senales de escala (23 de 27).
+# Train: sin submuestrear (3866 tiles)
+# Hiperparametros NO re-optimizados (control experimental).
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: loyo_e4b/dataset_e4b_full_loyo2025.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+  scale_signals_csv: data/scale_signals.csv
+  scale_signal_cols: ['snow_pct', 'pdd_15d', 'pdd_30d', 'ppAcc_mm']
+model:
+  architecture: resunetpp_dual_scale
+  in_channels: 22
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 123
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: dual_head
+  lambda_mu: 1.0
+  lambda_sigma: 1.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/norm_v3/loyo_e4b_dualscale/weights
+  results_dir: results/norm_v3/loyo_e4b_dualscale/e4b_dualscale_full_loyo2025_s123
+  model_name: e4b_dualscale_full_loyo2025_s123
