@@ -98,9 +98,12 @@ def evaluate_model(model:       torch.nn.Module,
     with torch.no_grad():
         for batch in tqdm(test_loader, desc="  Test"):
 
-            # 2/3 elementos (legacy) o 4 (con mascara de validez)
-            valids = None
-            if len(batch) == 4:
+            # 2/3 elementos (legacy), 4 (con mascara de validez)
+            # o 5 (E4: ademas senales de escala)
+            valids = scale = None
+            if len(batch) == 5:
+                images, masks, valids, ids, scale = batch
+            elif len(batch) == 4:
                 images, masks, valids, ids = batch
             elif len(batch) == 3:
                 images, masks, ids = batch
@@ -110,6 +113,8 @@ def evaluate_model(model:       torch.nn.Module,
 
             if use_tta:
                 outputs = _predict_with_tta(model, images, device)
+            elif scale is not None:
+                outputs = model(images.to(device), scale.to(device)).cpu().numpy()
             else:
                 outputs = model(images.to(device)).cpu().numpy()  # (B,1,H,W)
             targets = masks.cpu().numpy()                          # (B,1,H,W)
