@@ -99,7 +99,7 @@ SNOW_THRESHOLD = 0.01     # m, mismo criterio que el pipeline
 HS_SAMPLE_TILES = 150     # tiles por anyo para estimar HS medio
 
 CONFIG_TEMPLATE = """experiment:
-  name: resunetpp_v3_loyo{year}
+  name: {name}
 # E2 - Leave-One-Year-Out: test = {year}, val = {val_year}, train = {train_years}.
 # Identico a resunetpp_v3_sp00_s7.yaml salvo el CSV de splits.
 # Hiperparametros NO re-optimizados por fold (control experimental).
@@ -125,7 +125,7 @@ model:
   dropout_p: 0.077
   num_groups: 8
 training:
-  seed: 7
+  seed: {seed}
   batch_size: 8
   learning_rate: 0.0001287
   epochs: 50
@@ -142,8 +142,8 @@ evaluation:
   save_predictions: true
 output:
   models_dir: results/norm_v3/loyo/weights
-  results_dir: results/norm_v3/loyo/resunetpp_v3_loyo{year}
-  model_name: resunetpp_v3_loyo{year}
+  results_dir: results/norm_v3/{outdir}/{name}
+  model_name: {name}
 """
 
 
@@ -190,7 +190,7 @@ def build_fold(df, test_year, train_cap=None, seed=0):
         train_idx = fold.index[fold['exp_temporal_split'] == 'train']
         if len(train_idx) > train_cap:
             sub = (fold.loc[train_idx]
-                   .groupby('year', group_keys=False)[fold.columns.tolist()]
+                   .groupby('year', group_keys=False)
                    .apply(lambda g: g.sample(
                        max(1, int(round(train_cap * len(g) / len(train_idx)))),
                        random_state=seed)))
@@ -204,6 +204,17 @@ def main():
     ap = argparse.ArgumentParser(description='Genera folds LOYO (E2)')
     ap.add_argument('--dry-run', action='store_true',
                     help='muestra la tabla sin escribir ficheros')
+    ap.add_argument('--seeds', nargs='+', type=int, default=[42, 123],
+                    help='semillas para las que generar configs. La 7 ya '
+                         'existe como resunetpp_v3_loyo<YYYY>.yaml (E2).')
+    ap.add_argument('--write-csv', action='store_true',
+                    help='reescribir los CSV de folds. Por defecto NO se '
+                         'tocan: las semillas nuevas deben usar EXACTAMENTE '
+                         'la misma particion que E2, o la comparacion entre '
+                         'semillas mezclaria dos cosas distintas.')
+    ap.add_argument('--outdir', default='loyo_seeds',
+                    help='subcarpeta de results/norm_v3 para los resultados. '
+                         'Separada de loyo/ para no pisar los de E2.')
     ap.add_argument('--no-balance-train', dest='balance_train',
                     action='store_false',
                     help='NO igualar el tamano del train entre folds '
@@ -264,14 +275,18 @@ def main():
         })
 
         if not args.dry_run:
-            csv_path = os.path.join(CSV_OUT_DIR, f'dataset_loyo{year}.csv')
-            fold.to_csv(csv_path, index=False)
+            if args.write_csv:
+                csv_path = os.path.join(CSV_OUT_DIR, f'dataset_loyo{year}.csv')
+                fold.to_csv(csv_path, index=False)
 
-            cfg_path = os.path.join(CFG_OUT_DIR, f'resunetpp_v3_loyo{year}.yaml')
-            with open(cfg_path, 'w', encoding='utf-8') as f:
-                f.write(CONFIG_TEMPLATE.format(
-                    year=year, val_year=val_year,
-                    train_years=', '.join(str(y) for y in train_years)))
+            for seed in args.seeds:
+                name = f'resunetpp_v3_loyo{year}_s{seed}'
+                cfg_path = os.path.join(CFG_OUT_DIR, f'{name}.yaml')
+                with open(cfg_path, 'w', encoding='utf-8') as f:
+                    f.write(CONFIG_TEMPLATE.format(
+                        name=name, seed=seed, outdir=args.outdir,
+                        year=year, val_year=val_year,
+                        train_years=', '.join(str(y) for y in train_years)))
 
     # aviso sobre la confusion tamano/anomalia
     abs_anom = [r['abs_anomaly'] for r in rows]
@@ -292,12 +307,18 @@ def main():
         return
 
     print()
-    print(f'CSVs escritos en  : {CSV_OUT_DIR}/')
-    print(f'Configs escritas  : {CFG_OUT_DIR}/resunetpp_v3_loyo<YYYY>.yaml')
+    print(f'Configs escritas: {CFG_OUT_DIR}/resunetpp_v3_loyo<YYYY>_s<SEED>.yaml')
+    print(f'Semillas: {args.seeds}   Resultados en: results/norm_v3/{args.outdir}/')
+    if not args.write_csv:
+        print('CSV de folds NO reescritos (se reutilizan los de E2).')
     print()
-    print('Para lanzar los cinco folds:')
-    for year in TEST_YEARS:
-        print(f'  python main.py --config {CFG_OUT_DIR}/resunetpp_v3_loyo{year}.yaml --mode both')
+    print('Para lanzarlos:')
+    print('  for y in 2021 2022 2023 2025; do')
+    print('    for s in ' + ' '.join(str(x) for x in args.seeds) + '; do')
+    print(f'      python main.py --config {CFG_OUT_DIR}/' +
+          'resunetpp_v3_loyo${y}_s${s}.yaml --mode both || break 2')
+    print('    done')
+    print('  done')
 
 
 if __name__ == '__main__':
