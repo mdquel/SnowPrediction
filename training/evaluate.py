@@ -2,6 +2,32 @@ import os
 import json
 import datetime
 import numpy as np
+
+def _cat64(chunks):
+    """Une trozos de arrays y promueve a float64.
+
+    Equivale exactamente a np.array(lista_de_floats_de_python) construida
+    con .tolist(), pero sin crear un objeto Python por pixel.
+    """
+    if not chunks:
+        return np.array([])
+    return np.concatenate(chunks).astype(np.float64)
+
+
+def _cat_like_tolist(chunks):
+    """Como _cat64, pero respetando el tipo que habria dado np.array(tolist()).
+
+    tolist() de floats da float64; de enteros, int64; de booleanos, bool.
+    """
+    if not chunks:
+        return np.array([])
+    arr = np.concatenate(chunks)
+    if arr.dtype.kind == 'f':
+        return arr.astype(np.float64)
+    if arr.dtype.kind in 'iu':
+        return arr.astype(np.int64)
+    return arr
+
 import torch
 import pandas as pd
 from torch.utils.data import DataLoader
@@ -141,15 +167,15 @@ def evaluate_model(model:       torch.nn.Module,
             # snow-only: pixeles con nieve real (> 0.01 m)
             snow = tgt_flat > 0.01
             if snow.sum() > 0:
-                all_preds.extend(out_flat[snow].tolist())
-                all_targets.extend(tgt_flat[snow].tolist())
+                all_preds.append(out_flat[snow])
+                all_targets.append(tgt_flat[snow])
 
             # full-domain: todos los pixeles con dato LiDAR (incl. suelo desnudo)
             if valids_np is not None:
                 vflat = valids_np.squeeze(1).flatten() > 0.5
                 if vflat.sum() > 0:
-                    all_preds_full.extend(out_flat[vflat].tolist())
-                    all_targets_full.extend(tgt_flat[vflat].tolist())
+                    all_preds_full.append(out_flat[vflat])
+                    all_targets_full.append(tgt_flat[vflat])
 
             # SPAEF y MSPAEF por tile (sobre pixeles con nieve de cada tile);
             # solo se cuentan si AMBOS son validos -> mismo conjunto de tiles
@@ -168,8 +194,8 @@ def evaluate_model(model:       torch.nn.Module,
                 spaef_per_tile.append(spaef_val)
                 mspaef_per_tile.append(mspaef_val)
 
-    y_pred = np.array(all_preds)
-    y_true = np.array(all_targets)
+    y_pred = _cat64(all_preds)
+    y_true = _cat64(all_targets)
 
     metrics = compute_metrics(y_true, y_pred)
 
@@ -193,8 +219,8 @@ def evaluate_model(model:       torch.nn.Module,
 
     # full-domain + deteccion (solo si el dataset aporto la mascara de validez)
     if all_targets_full:
-        yf_true = np.array(all_targets_full)
-        yf_pred = np.array(all_preds_full)
+        yf_true = _cat64(all_targets_full)
+        yf_pred = _cat64(all_preds_full)
         mfull = compute_metrics(yf_true, yf_pred)
         metrics['R2_full']   = mfull['R2']
         metrics['MAE_full']  = mfull['MAE']
@@ -271,8 +297,8 @@ def run_naive_benchmark(train_df:  pd.DataFrame,
             if os.path.exists(path):
                 m     = np.load(path).flatten().astype(float)
                 valid = m[(m != -9999) & np.isfinite(m) & (m >= 0)]
-                values.extend(valid.tolist())
-        return np.array(values)
+                values.append(valid)
+        return _cat_like_tolist(values)
 
     print("Calculando benchmark naive...")
     train_vals = _load_values(train_df)

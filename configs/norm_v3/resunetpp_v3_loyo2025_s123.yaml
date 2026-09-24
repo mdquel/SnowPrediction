@@ -41,6 +41,6 @@ training:
 evaluation:
   save_predictions: true
 output:
-  models_dir: results/norm_v3/loyo/weights
+  models_dir: results/norm_v3/loyo_seeds/weights
   results_dir: results/norm_v3/loyo_seeds/resunetpp_v3_loyo2025_s123
   model_name: resunetpp_v3_loyo2025_s123

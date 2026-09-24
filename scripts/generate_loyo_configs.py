@@ -141,7 +141,7 @@ training:
 evaluation:
   save_predictions: true
 output:
-  models_dir: results/norm_v3/loyo/weights
+  models_dir: results/norm_v3/{outdir}/weights
   results_dir: results/norm_v3/{outdir}/{name}
   model_name: {name}
 """
