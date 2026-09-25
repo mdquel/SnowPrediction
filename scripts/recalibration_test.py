@@ -285,9 +285,14 @@ def run_fold(fold, arm, npz_glob, signals, masks_dir, alpha,
         pred_means_raw = means_by_date(data, 'preds')
         test_dates = [d for d in sorted(test_means_real) if d in sig.index]
 
+        # Error de la RED al estimar la media de cada fecha: misma cantidad
+        # que estima el regresor, para que el criterio compare igual con igual.
+        mae_red = float(np.mean([abs(pred_means_raw[d] - test_means_real[d])
+                                 for d in test_dates if d in pred_means_raw]))
         row = {'experimento': name,
                'n_train_fechas': len(train_dates),
                'n_test_fechas': len(test_dates),
+               'mae_media_red': mae_red,
                'r2_sin_recal': evaluate(data, pred_means_raw, {}, 'none'),
                'r2_oraculo_mult': evaluate(data, pred_means_raw, test_means_real, 'mult'),
                'r2_oraculo_add': evaluate(data, pred_means_raw, test_means_real, 'add')}
@@ -318,6 +323,10 @@ PRESETS = {
     'e2': dict(
         npz=os.path.join('loyo', 'resunetpp_v3_loyo{fold}', '*_predictions.npz'),
         fold_csv='dataset_v4_ms_sx200/loyo/dataset_loyo{fold}.csv'),
+    # E2 con semillas 42 y 123: misma particion, resultados en loyo_seeds
+    'e2seeds': dict(
+        npz=os.path.join('loyo_seeds', 'resunetpp_v3_loyo{fold}_s*', '*_predictions.npz'),
+        fold_csv='dataset_v4_ms_sx200/loyo/dataset_loyo{fold}.csv'),
 }
 
 
@@ -340,6 +349,7 @@ def main():
     sig['fecha_key'] = pd.to_datetime(sig['fecha']).dt.strftime('%Y%m%d')
 
     all_out = {}
+    criterio = []   # (experimento, prediccion_correcta)
     resumen = []
     for fold in args.folds:
         pattern = os.path.join(args.results_dir,
@@ -381,6 +391,21 @@ def main():
         print(f"  {'media REAL (oraculo)':<34}{orac_m:>9.4f}{orac_a:>9.4f}{100:>9.0f}%")
         print()
 
+        # Criterio de E5 aplicado modelo a modelo
+        print('  Criterio: recalibrar ayuda si MAE regresor < MAE red')
+        print(f"  {'modelo':<32}{'MAE regr':>9}{'MAE red':>9}"
+              f"{'predice':>10}{'ganancia':>10}{'acierta':>9}")
+        for r in rows:
+            mr, mn = r['mae_media_cobertura'], r['mae_media_red']
+            g = r['r2_pred_add_cobertura'] - r['r2_sin_recal']
+            predice_ayuda = mr < mn
+            ok = (predice_ayuda and g > 0) or (not predice_ayuda and g <= 0)
+            criterio.append((r['experimento'], ok))
+            print(f"  {r['experimento']:<32}{mr:>9.3f}{mn:>9.3f}"
+                  f"{'ayuda' if predice_ayuda else 'empeora':>10}"
+                  f"{g:>+10.3f}{'SI' if ok else 'NO':>9}")
+        print()
+
         # configuracion PRINCIPAL fijada a priori: cobertura, aditiva
         pa = np.mean([r['r2_pred_add_cobertura'] for r in rows])
         resumen.append((fold, base, pa, orac_a))
@@ -398,6 +423,14 @@ def main():
         print(f"  {'MEDIA':<8}{mb:>11.3f}{mp:>13.3f}{mo:>10.3f}{mp-mb:>+10.3f}")
         n_up = sum(1 for x in resumen if x[2] > x[1])
         print(f'  folds que mejoran: {n_up} de {len(resumen)}')
+
+    if criterio:
+        n_ok = sum(1 for _, ok in criterio if ok)
+        print()
+        print(f'CRITERIO DE E5: acierta en {n_ok} de {len(criterio)} modelos')
+        fallos = [e for e, ok in criterio if not ok]
+        if fallos:
+            print('  falla en: ' + ', '.join(fallos))
 
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
     with open(args.out, 'w', encoding='utf-8') as f:
