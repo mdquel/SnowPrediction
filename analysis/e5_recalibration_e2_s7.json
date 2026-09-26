@@ -1,0 +1,100 @@
+{
+  "preset": "e2",
+  "arm": "base",
+  "alpha": 1.0,
+  "principal": "cobertura, aditiva (fijada a priori)",
+  "folds": {
+    "2021": [
+      {
+        "experimento": "resunetpp_v3_loyo2021",
+        "n_train_fechas": 14,
+        "n_test_fechas": 4,
+        "mae_media_red": 0.3297426135754361,
+        "r2_sin_recal": 0.23325039076326615,
+        "r2_oraculo_mult": 0.36137145883879906,
+        "r2_oraculo_add": 0.46261653245999634,
+        "mae_media_cobertura": 0.09595890455344022,
+        "r2_pred_mult_cobertura": 0.34326639351348465,
+        "r2_pred_add_cobertura": 0.44547926453118936,
+        "mae_media_cobertura+pdd30": 0.12855228888339765,
+        "r2_pred_mult_cobertura+pdd30": 0.33419438736800666,
+        "r2_pred_add_cobertura+pdd30": 0.4360314795272501,
+        "mae_media_cobertura+pdd+pp": 0.12293090978053184,
+        "r2_pred_mult_cobertura+pdd+pp": 0.3683627136192037,
+        "r2_pred_add_cobertura+pdd+pp": 0.43948777908206915,
+        "mae_media_las_cuatro": 0.10371936593213849,
+        "r2_pred_mult_las_cuatro": 0.3657428295003854,
+        "r2_pred_add_las_cuatro": 0.4446482598805138
+      }
+    ],
+    "2022": [
+      {
+        "experimento": "resunetpp_v3_loyo2022",
+        "n_train_fechas": 12,
+        "n_test_fechas": 6,
+        "mae_media_red": 0.14856249590737572,
+        "r2_sin_recal": 0.5157600035310608,
+        "r2_oraculo_mult": 0.6513578285461057,
+        "r2_oraculo_add": 0.6040341142432221,
+        "mae_media_cobertura": 0.3320448170455802,
+        "r2_pred_mult_cobertura": -0.12696140191143113,
+        "r2_pred_add_cobertura": 0.12202446535498446,
+        "mae_media_cobertura+pdd30": 0.2998338452149524,
+        "r2_pred_mult_cobertura+pdd30": -0.02650801534861058,
+        "r2_pred_add_cobertura+pdd30": 0.18638515160902835,
+        "mae_media_cobertura+pdd+pp": 0.2330460579369852,
+        "r2_pred_mult_cobertura+pdd+pp": 0.24956415710077084,
+        "r2_pred_add_cobertura+pdd+pp": 0.3643577121747996,
+        "mae_media_las_cuatro": 0.24683102320435513,
+        "r2_pred_mult_las_cuatro": 0.2192209609318717,
+        "r2_pred_add_las_cuatro": 0.34497496833796704
+      }
+    ],
+    "2023": [
+      {
+        "experimento": "resunetpp_v3_loyo2023",
+        "n_train_fechas": 15,
+        "n_test_fechas": 3,
+        "mae_media_red": 0.17955176153521388,
+        "r2_sin_recal": 0.29843331643232507,
+        "r2_oraculo_mult": 0.5746880653565666,
+        "r2_oraculo_add": 0.5753375847418007,
+        "mae_media_cobertura": 0.325783559615429,
+        "r2_pred_mult_cobertura": -0.39597692854047617,
+        "r2_pred_add_cobertura": 0.21245952078663144,
+        "mae_media_cobertura+pdd30": 0.4756685479125416,
+        "r2_pred_mult_cobertura+pdd30": -1.2358288343155808,
+        "r2_pred_add_cobertura+pdd30": -0.19024258850915365,
+        "mae_media_cobertura+pdd+pp": 0.41569051792355727,
+        "r2_pred_mult_cobertura+pdd+pp": -0.8076184921453027,
+        "r2_pred_add_cobertura+pdd+pp": -0.006909598365934411,
+        "mae_media_las_cuatro": 0.4284360022482476,
+        "r2_pred_mult_las_cuatro": -0.9003018022351013,
+        "r2_pred_add_las_cuatro": -0.04626726660076952
+      }
+    ],
+    "2025": [
+      {
+        "experimento": "resunetpp_v3_loyo2025",
+        "n_train_fechas": 13,
+        "n_test_fechas": 5,
+        "mae_media_red": 0.3573371755085727,
+        "r2_sin_recal": 0.10523804994139829,
+        "r2_oraculo_mult": 0.12921272867896916,
+        "r2_oraculo_add": 0.41455645298493793,
+        "mae_media_cobertura": 0.19855443640344536,
+        "r2_pred_mult_cobertura": 0.21310989542914605,
+        "r2_pred_add_cobertura": 0.3363487422577587,
+        "mae_media_cobertura+pdd30": 0.12500422058040592,
+        "r2_pred_mult_cobertura+pdd30": 0.14079583361375092,
+        "r2_pred_add_cobertura+pdd30": 0.38881462060923955,
+        "mae_media_cobertura+pdd+pp": 0.3753287397429624,
+        "r2_pred_mult_cobertura+pdd+pp": -0.7765627414436449,
+        "r2_pred_add_cobertura+pdd+pp": 0.12103021340902087,
+        "mae_media_las_cuatro": 0.3396342804221636,
+        "r2_pred_mult_las_cuatro": -0.6674758983838678,
+        "r2_pred_add_las_cuatro": 0.16542822071689411
+      }
+    ]
+  }
+}
