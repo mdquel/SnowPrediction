@@ -1,0 +1,78 @@
+{
+  "red": [
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.45440312374248193,
+      "r2_orac": 0.5286350126537688,
+      "spaef_raw": 0.507574473027685,
+      "spaef_orac": 0.46248931415874234,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "resunetpp_v3_spatial_sp00_s7_predictions.npz",
+      "frac_r2": 0.7451588290982899,
+      "frac_spaef": 0.820889396045506
+    },
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.4707666176723866,
+      "r2_orac": 0.5387500191128913,
+      "spaef_raw": 0.5204624265176954,
+      "spaef_orac": 0.4929854408167787,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "resunetpp_v3_spatial_sp00_s42_predictions.npz",
+      "frac_r2": 0.7594168449106818,
+      "frac_spaef": 0.8750180996234014
+    },
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.497005704287551,
+      "r2_orac": 0.564061764835984,
+      "spaef_raw": 0.5382324873721698,
+      "spaef_orac": 0.5033738630039991,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "resunetpp_v3_spatial_sp00_s123_predictions.npz",
+      "frac_r2": 0.79509603821793,
+      "frac_spaef": 0.8934568945405227
+    }
+  ],
+  "rf": [
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.20348981647511377,
+      "r2_orac": 0.4728265302670246,
+      "spaef_raw": 0.3734666123521481,
+      "spaef_orac": 0.26429830498628326,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "rf_spatial_s7_predictions.npz",
+      "frac_r2": 0.6664917291264312,
+      "frac_spaef": 0.4691128406948943
+    },
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.19177570866644067,
+      "r2_orac": 0.47178233156684357,
+      "spaef_raw": 0.37377931033840156,
+      "spaef_orac": 0.2623357486229566,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "rf_spatial_s42_predictions.npz",
+      "frac_r2": 0.6650198366824048,
+      "frac_spaef": 0.4656294267900197
+    },
+    {
+      "n_tiles": 702,
+      "r2_raw": 0.19508142456298017,
+      "r2_orac": 0.4685503510865864,
+      "spaef_raw": 0.36815434843883416,
+      "spaef_orac": 0.2594538891696792,
+      "techo_r2": 0.7094259532473973,
+      "techo_spaef": 0.5634002782673346,
+      "archivo": "rf_spatial_s123_predictions.npz",
+      "frac_r2": 0.6604640680846213,
+      "frac_spaef": 0.4605143078160991
+    }
+  ]
+}
