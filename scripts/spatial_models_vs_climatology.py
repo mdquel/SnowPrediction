@@ -155,16 +155,27 @@ def main():
     ap.add_argument('--georef', default=GEOREF_CSV)
     ap.add_argument('--masks', default=MASKS_DIR)
     ap.add_argument('--out', default='analysis/eC_net_vs_rf.json')
+    ap.add_argument('--exclude-dates', nargs='*', default=[],
+                    help='fechas YYYYMMDD a quitar de la evaluacion y de la climatologia '
+                         '(p. ej. un mapa duplicado). Los modelos no se reentrenan.')
     args = ap.parse_args()
 
     geo = pd.read_csv(args.georef, dtype={'date': str})
     geo['year'] = geo['date'].str[:4].astype(int)
-    H = int(geo['row_real'].max()) + TILE
-    W = int(geo['col_real'].max()) + TILE
+    # El terreno visto en entrenamiento se calcula con TODOS los tiles con los
+    # que se entrenaron los modelos, aunque luego se excluya alguna fecha.
+    geo_train = geo.copy()
+    if args.exclude_dates:
+        n0 = len(geo)
+        geo = geo[~geo['date'].isin(args.exclude_dates)].copy()
+        print(f'Fechas excluidas: {args.exclude_dates} ({n0 - len(geo)} tiles fuera '
+              f'de la evaluacion y de la climatologia)')
+    H = int(geo_train['row_real'].max()) + TILE
+    W = int(geo_train['col_real'].max()) + TILE
     pos = {t: (int(r), int(c)) for t, r, c in geo[['tile_id', 'row_real', 'col_real']].itertuples(index=False)}
 
     train_cov = np.zeros((H, W), dtype=bool)
-    for r, c in geo.loc[geo['exp_spatial_split'] == 'train', ['row_real', 'col_real']].itertuples(index=False):
+    for r, c in geo_train.loc[geo_train['exp_spatial_split'] == 'train', ['row_real', 'col_real']].itertuples(index=False):
         train_cov[r:r + TILE, c:c + TILE] = True
 
     print('Reconstruyendo el mapa de cada fecha en coordenadas reales...', flush=True)
