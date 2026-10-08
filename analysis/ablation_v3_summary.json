@@ -1,0 +1,180 @@
+{
+  "completo": {
+    "ruta": "results/norm_v3/lambda/resunetpp_v3_sp00_s<seed>/resunetpp_v3_sp00_s<seed>_metrics.json",
+    "R2": {
+      "media": 0.1676,
+      "min": 0.1072,
+      "max": 0.2134,
+      "por_semilla": {
+        "7": 0.2134,
+        "42": 0.1072,
+        "123": 0.1822
+      }
+    },
+    "SPAEF": {
+      "media": 0.3552666666666667,
+      "min": 0.3464,
+      "max": 0.3612,
+      "por_semilla": {
+        "7": 0.3464,
+        "42": 0.3612,
+        "123": 0.3582
+      }
+    }
+  },
+  "sin_pers": {
+    "ruta": "results/norm_v3/ablation/resunetpp_v3_abl_sin_pers_s<seed>/resunetpp_v3_abl_sin_pers_s<seed>_metrics.json",
+    "canales_quitados": [
+      14,
+      15,
+      16
+    ],
+    "R2": {
+      "media": -0.02206666666666667,
+      "min": -0.109,
+      "max": 0.0381,
+      "por_semilla": {
+        "7": -0.109,
+        "42": 0.0047,
+        "123": 0.0381
+      }
+    },
+    "SPAEF": {
+      "media": 0.30213333333333336,
+      "min": 0.2706,
+      "max": 0.325,
+      "por_semilla": {
+        "7": 0.2706,
+        "42": 0.325,
+        "123": 0.3108
+      }
+    }
+  },
+  "sin_sce": {
+    "ruta": "results/norm_v3/ablation/resunetpp_v3_abl_sin_sce_s<seed>/resunetpp_v3_abl_sin_sce_s<seed>_metrics.json",
+    "canales_quitados": [
+      5
+    ],
+    "R2": {
+      "media": 0.20333333333333337,
+      "min": 0.1741,
+      "max": 0.2368,
+      "por_semilla": {
+        "7": 0.2368,
+        "42": 0.1741,
+        "123": 0.1991
+      }
+    },
+    "SPAEF": {
+      "media": 0.35313333333333335,
+      "min": 0.336,
+      "max": 0.3845,
+      "por_semilla": {
+        "7": 0.3845,
+        "42": 0.3389,
+        "123": 0.336
+      }
+    }
+  },
+  "sin_sx": {
+    "ruta": "results/norm_v3/ablation/resunetpp_v3_abl_sin_sx_s<seed>/resunetpp_v3_abl_sin_sx_s<seed>_metrics.json",
+    "canales_quitados": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "R2": {
+      "media": 0.05773333333333333,
+      "min": 0.0051,
+      "max": 0.1257,
+      "por_semilla": {
+        "7": 0.1257,
+        "42": 0.0424,
+        "123": 0.0051
+      }
+    },
+    "SPAEF": {
+      "media": 0.2740666666666667,
+      "min": 0.2402,
+      "max": 0.3048,
+      "por_semilla": {
+        "7": 0.2402,
+        "42": 0.3048,
+        "123": 0.2772
+      }
+    }
+  },
+  "sin_topo1": {
+    "ruta": "results/norm_v3/ablation/resunetpp_v3_abl_sin_topo1_s<seed>/resunetpp_v3_abl_sin_topo1_s<seed>_metrics.json",
+    "canales_quitados": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "R2": {
+      "media": 0.037899999999999996,
+      "min": 0.0189,
+      "max": 0.0574,
+      "por_semilla": {
+        "7": 0.0574,
+        "42": 0.0374,
+        "123": 0.0189
+      }
+    },
+    "SPAEF": {
+      "media": 0.2564666666666667,
+      "min": 0.2153,
+      "max": 0.2982,
+      "por_semilla": {
+        "7": 0.2559,
+        "42": 0.2153,
+        "123": 0.2982
+      }
+    }
+  },
+  "sin_topo5": {
+    "ruta": "results/norm_v3/ablation/resunetpp_v3_abl_sin_topo5_s<seed>/resunetpp_v3_abl_sin_topo5_s<seed>_metrics.json",
+    "canales_quitados": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "R2": {
+      "media": 0.025900000000000006,
+      "min": -0.0395,
+      "max": 0.1078,
+      "por_semilla": {
+        "7": 0.1078,
+        "42": 0.0094,
+        "123": -0.0395
+      }
+    },
+    "SPAEF": {
+      "media": 0.2554666666666667,
+      "min": 0.22,
+      "max": 0.2814,
+      "por_semilla": {
+        "7": 0.2814,
+        "42": 0.22,
+        "123": 0.265
+      }
+    }
+  },
+  "_verificacion_configs": "OK",
+  "_canal5": {
+    "rangos_solapan": {
+      "R2": true,
+      "SPAEF": true
+    },
+    "lectura": "quitar el canal no cambia el resultado de forma distinguible"
+  }
+}
