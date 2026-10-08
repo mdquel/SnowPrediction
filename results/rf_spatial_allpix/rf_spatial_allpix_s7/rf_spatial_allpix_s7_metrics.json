@@ -1,0 +1,19 @@
+{
+  "experiment": "rf_spatial_allpix_s7",
+  "split": "spatial",
+  "train_only": true,
+  "train_pixels": "todos los validos",
+  "params": {
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 1,
+    "max_features": "log2",
+    "min_samples_split": 2
+  },
+  "max_pixels": 2000000,
+  "seed": 7,
+  "train_frac_bare": 0.1556,
+  "R2_snow_730": 0.2065,
+  "SPAEF_snow_730": 0.4471,
+  "SPAEF_n_tiles": 730
+}

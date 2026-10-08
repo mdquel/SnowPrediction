@@ -1,0 +1,616 @@
+{
+  "descripcion": "Configuraciones de referencia por experimento (consulta del 8-oct-2026, sin entrenar ni modificar nada). Metricas del checkpoint seleccionado (*_metrics.json, no *_last). Origen: pendrive E:, repo-moises.",
+  "tabla": [
+    {
+      "experimento": "E1 (temporal)",
+      "modelo": "ResUNet++ 22 canales",
+      "protocolo": "temporal",
+      "folds": "1 (test 2025)",
+      "n_fechas": "27 (train 15 / val 7 / test 5)",
+      "teselas_train": "4241 (todas, sin submuestreo)",
+      "validacion": "2024 (431 teselas, 7 fechas)",
+      "semillas": "7",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025": 0.2259,
+      "SPAEF_2025": 0.3316,
+      "resultados": "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/ (re-ejecucion para guardar predicciones); analysis/e1_results.json",
+      "config": "configs/norm_v3/resunetpp_v3_sp00_s7_preds.yaml",
+      "lambda": "lambda_pearson=0"
+    },
+    {
+      "experimento": "E1 (espacial)",
+      "modelo": "ResUNet++ 22 canales",
+      "protocolo": "espacial (bandas de columnas)",
+      "folds": "1",
+      "n_fechas": "27 (todas en cada particion)",
+      "teselas_train": "2842",
+      "validacion": "banda espacial (903 teselas)",
+      "semillas": "7",
+      "norm_version": "v3_spatial",
+      "masked_loss": true,
+      "R2_test_espacial": 0.4446,
+      "SPAEF_test_espacial": 0.5046,
+      "nota_dominio": "730 teselas de test (incluye las 28 con fuga)",
+      "resultados": "results/norm_v3/spatial/resunetpp_v3_spatial_sp00_s7/; analysis/e1_results.json",
+      "config": "configs/norm_v3/resunetpp_v3_spatial_sp00_s7.yaml",
+      "lambda": "lambda_pearson=0"
+    },
+    {
+      "experimento": "E2 / E2b",
+      "modelo": "ResUNet++ 22 canales",
+      "protocolo": "LOYO",
+      "folds": "4 (test 2021, 2022, 2023, 2025)",
+      "n_fechas": "27; fold 2025: train 15 / val 7 / test 5",
+      "teselas_train": "2659 (submuestreo al minimo comun de los folds)",
+      "validacion": "2024 (431 teselas, 7 fechas)",
+      "semillas": "7, 42, 123 (7 en E2; 42 y 123 en E2b)",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025": {
+        "media": 0.2184,
+        "min": 0.1052,
+        "max": 0.3054,
+        "por_semilla": {
+          "7": 0.1052,
+          "42": 0.3054,
+          "123": 0.2446
+        }
+      },
+      "SPAEF_2025": {
+        "media": 0.3279,
+        "min": 0.2588,
+        "max": 0.3826,
+        "por_semilla": {
+          "7": 0.2588,
+          "42": 0.3826,
+          "123": 0.3422
+        }
+      },
+      "resultados": "results/norm_v3/loyo/ (s7) y results/norm_v3/loyo_seeds/ (s42, s123); analysis/e2_decomposition*.json",
+      "config": "configs/norm_v3/resunetpp_v3_loyo{fold}[_s42|_s123].yaml",
+      "lambda": "lambda_pearson=0"
+    },
+    {
+      "experimento": "E3",
+      "modelo": "ResUNetPPDual (cabeza de escala desde el bottleneck)",
+      "protocolo": "LOYO",
+      "folds": "4",
+      "n_fechas": "27; fold 2025: train 15 / val 7 / test 5",
+      "teselas_train": "2659 (mismos CSV que E2)",
+      "validacion": "2024 (431, 7 fechas)",
+      "semillas": "7",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025": 0.1438,
+      "SPAEF_2025": 0.3916,
+      "resultados": "results/norm_v3/loyo_dual/; analysis/e3_dual_decomposition.json",
+      "config": "configs/norm_v3/resunetpp_dual_loyo{fold}.yaml",
+      "lambda": "loss dual_head: lambda_mu=1, lambda_sigma=1 (sin lambda_pearson)"
+    },
+    {
+      "experimento": "E4",
+      "modelo": "brazo base (ResUNet++) y brazo dualscale (ResUNetPPDualScale + 4 senales)",
+      "protocolo": "LOYO",
+      "folds": "4",
+      "n_fechas": "23 admisibles; fold 2025: train 13 / val 5 / test 5",
+      "teselas_train": "2284 (submuestreo sobre las 23 fechas)",
+      "validacion": "2024 (284 teselas, 5 fechas)",
+      "semillas": "7",
+      "norm_version": "v3 (SCALE_NORM antiguo, rango observado: con fuga leve)",
+      "masked_loss": true,
+      "R2_2025": {
+        "base": 0.0169,
+        "dualscale": 0.2737
+      },
+      "SPAEF_2025": {
+        "base": 0.1902,
+        "dualscale": 0.4187
+      },
+      "resultados": "results/norm_v3/loyo_e4_base/, loyo_e4_dual/; analysis/e4_decomposition_*.json (NO validos tras E4b)",
+      "config": "configs/norm_v3/resunetpp_e4_loyo{fold}.yaml, resunetpp_dualscale_e4_loyo{fold}.yaml",
+      "lambda": "base: lambda_pearson=0; dualscale: dual_head lambda_mu=lambda_sigma=1"
+    },
+    {
+      "experimento": "E4b",
+      "modelo": "tres brazos: base, dual (sin senales), dualscale (4 senales); variante full sin submuestrear",
+      "protocolo": "LOYO (solo fold 2025)",
+      "folds": "1 (2025)",
+      "n_fechas": "23 admisibles; train 13 / val 5 / test 5",
+      "teselas_train": "2284 (submuestreada) / 3866 (full)",
+      "validacion": "2024 (284, 5 fechas)",
+      "semillas": "7, 42, 123",
+      "norm_version": "v3 (SCALE_NORM con limites fisicos)",
+      "masked_loss": true,
+      "R2_2025": {
+        "base": {
+          "media": 0.0745,
+          "min": 0.0575,
+          "max": 0.1044,
+          "por_semilla": {
+            "7": 0.0575,
+            "42": 0.1044,
+            "123": 0.0617
+          }
+        },
+        "base_full": {
+          "media": 0.1779,
+          "min": 0.0941,
+          "max": 0.2881,
+          "por_semilla": {
+            "7": 0.2881,
+            "42": 0.1514,
+            "123": 0.0941
+          }
+        },
+        "dual": {
+          "media": 0.1425,
+          "min": 0.1212,
+          "max": 0.1614,
+          "por_semilla": {
+            "7": 0.1614,
+            "42": 0.1449,
+            "123": 0.1212
+          }
+        },
+        "dual_full": {
+          "media": 0.2118,
+          "min": 0.1871,
+          "max": 0.2266,
+          "por_semilla": {
+            "7": 0.1871,
+            "42": 0.2266,
+            "123": 0.2217
+          }
+        },
+        "dualscale": {
+          "media": 0.1558,
+          "min": 0.1349,
+          "max": 0.1709,
+          "por_semilla": {
+            "7": 0.1709,
+            "42": 0.1349,
+            "123": 0.1615
+          }
+        },
+        "dualscale_full": {
+          "media": 0.1294,
+          "min": 0.1022,
+          "max": 0.1758,
+          "por_semilla": {
+            "7": 0.1103,
+            "42": 0.1758,
+            "123": 0.1022
+          }
+        }
+      },
+      "SPAEF_2025": {
+        "base": {
+          "media": 0.237,
+          "min": 0.1972,
+          "max": 0.311,
+          "por_semilla": {
+            "7": 0.2028,
+            "42": 0.311,
+            "123": 0.1972
+          }
+        },
+        "base_full": {
+          "media": 0.3494,
+          "min": 0.3047,
+          "max": 0.4148,
+          "por_semilla": {
+            "7": 0.4148,
+            "42": 0.3288,
+            "123": 0.3047
+          }
+        },
+        "dual": {
+          "media": 0.3295,
+          "min": 0.29,
+          "max": 0.3531,
+          "por_semilla": {
+            "7": 0.3531,
+            "42": 0.3453,
+            "123": 0.29
+          }
+        },
+        "dual_full": {
+          "media": 0.3727,
+          "min": 0.3467,
+          "max": 0.4222,
+          "por_semilla": {
+            "7": 0.3492,
+            "42": 0.4222,
+            "123": 0.3467
+          }
+        },
+        "dualscale": {
+          "media": 0.339,
+          "min": 0.3167,
+          "max": 0.3758,
+          "por_semilla": {
+            "7": 0.3758,
+            "42": 0.3246,
+            "123": 0.3167
+          }
+        },
+        "dualscale_full": {
+          "media": 0.3448,
+          "min": 0.3045,
+          "max": 0.3832,
+          "por_semilla": {
+            "7": 0.3045,
+            "42": 0.3832,
+            "123": 0.3467
+          }
+        }
+      },
+      "resultados": "results/norm_v3/loyo_e4b_{base,dual,dualscale}/; analysis/e4b_decomposition_s*.json",
+      "config": "configs/norm_v3/e4b_{brazo}[_full]_loyo2025_s{seed}.yaml",
+      "lambda": "base: lambda_pearson=0; dual y dualscale: dual_head lambda_mu=lambda_sigma=1"
+    },
+    {
+      "experimento": "E5",
+      "modelo": "sin entrenar: recalibracion en dos etapas sobre predicciones de E4b (base, dual, dualscale) y de E2 (3 semillas)",
+      "protocolo": "LOYO",
+      "folds": "E4b: 2025; E2: 4 folds",
+      "n_fechas": "solo fechas admisibles (23); fold 2025: regresor con 13 fechas de train, 5 de test",
+      "teselas_train": "heredado (2284 en E4b; 2659 en E2)",
+      "validacion": "no se usa: el regresor se ajusta solo con fechas de train",
+      "semillas": "7, 42, 123",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025_sin_recal": {
+        "e2": {
+          "resunetpp_v3_loyo2025_s123": 0.2446,
+          "resunetpp_v3_loyo2025_s42": 0.3054
+        },
+        "e4b_base": {
+          "e4b_base_loyo2025_s123": 0.0617,
+          "e4b_base_loyo2025_s42": 0.1044,
+          "e4b_base_loyo2025_s7": 0.0575
+        }
+      },
+      "SPAEF_2025": "no se calcula",
+      "resultados": "analysis/e5_recalibration.json (e4b base), e5_recalibration_dual.json, e5_recalibration_e2.json (s7), e5_recalibration_e2seeds.json (s42, s123)",
+      "config": "scripts/recalibration_test.py (presets e4b, e2, e2seeds)",
+      "lambda": "heredado"
+    },
+    {
+      "experimento": "Ablacion v3",
+      "modelo": "ResUNet++ completo frente a 5 grupos sin canales",
+      "protocolo": "temporal",
+      "folds": "1 (test 2025)",
+      "n_fechas": "27 (train 15 / val 7 / test 5)",
+      "teselas_train": "4241 (todas)",
+      "validacion": "2024 (431, 7 fechas)",
+      "semillas": "7, 42, 123",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025_completo": {
+        "media": 0.1676,
+        "min": 0.1072,
+        "max": 0.2134,
+        "por_semilla": {
+          "7": 0.2134,
+          "42": 0.1072,
+          "123": 0.1822
+        }
+      },
+      "SPAEF_2025_completo": {
+        "media": 0.3553,
+        "min": 0.3464,
+        "max": 0.3612,
+        "por_semilla": {
+          "7": 0.3464,
+          "42": 0.3612,
+          "123": 0.3582
+        }
+      },
+      "resultados": "results/norm_v3/lambda/resunetpp_v3_sp00_s*/ (completo), results/norm_v3/ablation/; analysis/ablation_v3_summary.json",
+      "config": "configs/norm_v3/resunetpp_v3_sp00_s*.yaml, resunetpp_v3_abl_*_s*.yaml",
+      "lambda": "lambda_pearson=0"
+    },
+    {
+      "experimento": "B",
+      "modelo": "sin entrenar: climatologia frente a la red de E2",
+      "protocolo": "LOYO",
+      "folds": "4",
+      "n_fechas": "27",
+      "teselas_train": "red: 2659; climatologia: todas las teselas de los anyos de train",
+      "validacion": "no aplica",
+      "semillas": "red: 7, 42, 123",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025": {
+        "red_raw_por_semilla": {
+          "7": 0.1058,
+          "42": 0.3071,
+          "123": 0.2461
+        },
+        "red_oraculo_media": 0.397,
+        "climatologia_raw": -0.002,
+        "climatologia_oraculo": 0.4689
+      },
+      "SPAEF_2025": "no se calcula",
+      "nota_dominio": "R2 recalculado sobre coordenadas reales; difiere en milesimas de los metrics.json",
+      "resultados": "analysis/eB_climatology_v2.json",
+      "config": "scripts/climatology_baseline.py",
+      "lambda": "lambda_pearson=0 (red)"
+    },
+    {
+      "experimento": "C",
+      "modelo": "red espacial (3 semillas) y RF v6 frente a climatologia en terreno no sobrevolado",
+      "protocolo": "espacial",
+      "folds": "1",
+      "n_fechas": "27",
+      "teselas_train": "red: 2842; RF: banda de train (protocolo v6, submuestreo por tesela)",
+      "validacion": "banda espacial",
+      "semillas": "7, 42, 123",
+      "norm_version": "v3_spatial",
+      "masked_loss": true,
+      "R2_test_espacial": {
+        "red_raw": {
+          "s7": 0.4544,
+          "s42": 0.4708,
+          "s123": 0.497
+        },
+        "rf_raw": {
+          "s7": 0.2035,
+          "s42": 0.1918,
+          "s123": 0.1951
+        }
+      },
+      "SPAEF_test_espacial": {
+        "red_raw": {
+          "s7": 0.5076,
+          "s42": 0.5205,
+          "s123": 0.5382
+        },
+        "rf_raw": {
+          "s7": 0.3735,
+          "s42": 0.3738,
+          "s123": 0.3682
+        }
+      },
+      "nota_dominio": "702 teselas (excluye las 28 con fuga espacial)",
+      "resultados": "analysis/eC_net_vs_rf.json, eC_net_vs_rf_sin_20240314.json",
+      "config": "scripts/spatial_models_vs_climatology.py, scripts/rf_spatial.py",
+      "lambda": "lambda_pearson=0 (red)"
+    },
+    {
+      "experimento": "A",
+      "modelo": "sin entrenar: medidas puntuales simuladas sobre el patron de la climatologia y de la red de E2",
+      "protocolo": "LOYO",
+      "folds": "4",
+      "n_fechas": "27",
+      "teselas_train": "heredado (red: 2659)",
+      "validacion": "no aplica",
+      "semillas": "red: 7, 42, 123",
+      "norm_version": "v3",
+      "masked_loss": true,
+      "R2_2025": "no se guarda por fold: el JSON agrega los 4 folds x 3 semillas",
+      "R2_agregado": {
+        "red_sin_correccion": 0.2701,
+        "red_oraculo": 0.4912,
+        "clim_sin_correccion": 0.3285,
+        "clim_oraculo": 0.6253
+      },
+      "SPAEF_2025": "no se calcula",
+      "resultados": "analysis/eA_point_measurements_v2.json",
+      "config": "scripts/point_measurements.py",
+      "lambda": "lambda_pearson=0 (red)"
+    }
+  ],
+  "referencias_distintas_para_lo_mismo": [
+    {
+      "tema": "\"ResUNet++ v3, lambda 0, test 2025, semilla 7\" tiene cuatro referencias distintas",
+      "detalle": {
+        "ablacion (lambda/sp00_s7, 4241 teselas)": {
+          "R2": 0.2134,
+          "SPAEF": 0.3464
+        },
+        "E1 (lambda/sp00_s7_preds: misma config re-ejecutada)": {
+          "R2": 0.2259,
+          "SPAEF": 0.3316
+        },
+        "E2 fold 2025 (2659 teselas submuestreadas)": {
+          "R2": 0.1052,
+          "SPAEF": 0.2588
+        },
+        "E4b base fold 2025 (2284 teselas, 23 fechas)": {
+          "R2": 0.0575,
+          "SPAEF": 0.2028
+        }
+      },
+      "lectura": "El 48,2 % de escala de E1 sale de un modelo con todas las teselas, no del fold 2025 de E2. La ablacion y E1 usan la misma config pero dos ejecuciones distintas (0,213 frente a 0,226 de R2). Hay que decir en el texto cual es la referencia de cada tabla."
+    },
+    {
+      "tema": "Misma config y mismos datos, distinto resultado: E4 base frente a E4b base (fold 2025, semilla 7)",
+      "detalle": {
+        "E4 base": {
+          "R2": 0.0169,
+          "SPAEF": 0.1902
+        },
+        "E4b base": {
+          "R2": 0.0575,
+          "SPAEF": 0.2028
+        }
+      },
+      "lectura": "CSV identicos byte a byte y configs que solo difieren en nombre y rutas. La diferencia es no determinismo de GPU: con una sola semilla, diferencias de ~0,04 en R2 no son distinguibles. Refuerza que E3 y E4 (una semilla) no deben compararse con E2 por debajo de esa cota."
+    },
+    {
+      "tema": "Test espacial: 730 teselas (metrics.json, E1) frente a 702 (C)",
+      "detalle": {
+        "E1 / metrics s7 (730)": {
+          "R2": 0.4446,
+          "SPAEF": 0.5046
+        },
+        "C red s7 (702)": {
+          "R2": 0.4544,
+          "SPAEF": 0.5076
+        }
+      },
+      "lectura": "C excluye las 28 teselas con fuga espacial; E1 no. Las cifras espaciales de E1 y de C no son intercambiables."
+    },
+    {
+      "tema": "Validacion 2024 distinta segun el experimento",
+      "detalle": "E2, E3, ablacion: 431 teselas, 7 fechas. E4, E4b: 284 teselas, 5 fechas (excluidas 2024-01-25 y 2024-03-07).",
+      "lectura": "La seleccion de checkpoint no se hace sobre el mismo conjunto. Afecta a la comparacion E2 frente a E4/E4b."
+    },
+    {
+      "tema": "Submuestreo de train distinto: 2659 (E2, E3) frente a 2284 (E4, E4b)",
+      "detalle": "Solo 2078 de las 2284 teselas de E4 estan en las 2659 de E2 (fold 2025).",
+      "lectura": "E4b base no es E2 con menos datos: es otro conjunto de train. La comparacion limpia con las senales es dentro de E4b (base frente a dual frente a dualscale), que es como esta disenado."
+    },
+    {
+      "tema": "E3 y E4 con una sola semilla",
+      "detalle": "E2, E4b, ablacion, B, C y A usan 3 semillas.",
+      "lectura": "Las conclusiones de E3 y E4 se sostienen por E4b (3 semillas), no por sus propios numeros."
+    },
+    {
+      "tema": "R2 recalculado por cada analisis",
+      "detalle": "B, E5 y A recalculan R2 sobre su propio dominio (coordenadas reales, fechas admisibles, etc.). Ej.: E2 fold 2025 s7 = 0,1052 en metrics.json y 0,1058 en B.",
+      "lectura": "Diferencias de milesimas. En el texto, citar cada cifra con la fuente de su tabla."
+    },
+    {
+      "tema": "E4 queda invalidado",
+      "detalle": "SCALE_NORM usaba el rango observado (incluido el anyo de test); E4b lo sustituye con limites fisicos.",
+      "lectura": "No citar numeros de E4; usar E4b."
+    }
+  ],
+  "comparaciones_una_semilla": {
+    "criterio": "diferencia de R2 menor de 0,04 con una sola semilla = no distinguible (cota medida: misma config y mismos datos dan 0,012-0,041 de diferencia)",
+    "lista": [
+      {
+        "comparacion": "E3 frente a E2, fold 2021 (semilla 7)",
+        "R2_a": 0.2938,
+        "R2_b": 0.3573,
+        "diferencia": 0.0635,
+        "bajo_0.04": false,
+        "fuente": "loyo/ y loyo_dual/"
+      },
+      {
+        "comparacion": "E3 frente a E2, fold 2022 (semilla 7)",
+        "R2_a": 0.5158,
+        "R2_b": 0.4451,
+        "diferencia": -0.0707,
+        "bajo_0.04": false,
+        "fuente": "loyo/ y loyo_dual/"
+      },
+      {
+        "comparacion": "E3 frente a E2, fold 2023 (semilla 7)",
+        "R2_a": 0.2985,
+        "R2_b": 0.1146,
+        "diferencia": -0.1839,
+        "bajo_0.04": false,
+        "fuente": "loyo/ y loyo_dual/"
+      },
+      {
+        "comparacion": "E3 frente a E2, fold 2025 (semilla 7)",
+        "R2_a": 0.1052,
+        "R2_b": 0.1438,
+        "diferencia": 0.0386,
+        "bajo_0.04": true,
+        "fuente": "loyo/ y loyo_dual/"
+      },
+      {
+        "comparacion": "E3 frente a E2, media de 4 folds (semilla 7)",
+        "R2_a": 0.3033,
+        "R2_b": 0.2652,
+        "diferencia": -0.0381,
+        "bajo_0.04": true,
+        "fuente": "LEEME E3: \"R2 medio baja de 0.303 a 0.265\""
+      },
+      {
+        "comparacion": "E4 dualscale frente a E4 base, fold 2021 (semilla 7)",
+        "R2_a": 0.4328,
+        "R2_b": 0.3565,
+        "diferencia": -0.0763,
+        "bajo_0.04": false,
+        "fuente": "loyo_e4_base/ y loyo_e4_dual/ (E4 invalidado)"
+      },
+      {
+        "comparacion": "E4 dualscale frente a E4 base, fold 2022 (semilla 7)",
+        "R2_a": 0.3291,
+        "R2_b": 0.3064,
+        "diferencia": -0.0227,
+        "bajo_0.04": true,
+        "fuente": "loyo_e4_base/ y loyo_e4_dual/ (E4 invalidado)"
+      },
+      {
+        "comparacion": "E4 dualscale frente a E4 base, fold 2023 (semilla 7)",
+        "R2_a": 0.047,
+        "R2_b": 0.0809,
+        "diferencia": 0.0339,
+        "bajo_0.04": true,
+        "fuente": "loyo_e4_base/ y loyo_e4_dual/ (E4 invalidado)"
+      },
+      {
+        "comparacion": "E4 dualscale frente a E4 base, fold 2025 (semilla 7)",
+        "R2_a": 0.0169,
+        "R2_b": 0.2737,
+        "diferencia": 0.2568,
+        "bajo_0.04": false,
+        "fuente": "loyo_e4_base/ y loyo_e4_dual/ (E4 invalidado)"
+      },
+      {
+        "comparacion": "E4 dualscale frente a base, media 4 folds (semilla 7)",
+        "R2_a": 0.2064,
+        "R2_b": 0.2544,
+        "diferencia": 0.0479,
+        "bajo_0.04": false,
+        "fuente": "LEEME E4: \"R2 medio 0.2065 -> ...\" (E4 invalidado)"
+      },
+      {
+        "comparacion": "E4 base frente a E2, fold 2021 (semilla 7)",
+        "R2_a": 0.2938,
+        "R2_b": 0.4328,
+        "diferencia": 0.139,
+        "bajo_0.04": false,
+        "fuente": "distinto train (2284 frente a 2659) y validacion"
+      },
+      {
+        "comparacion": "E4 base frente a E2, fold 2022 (semilla 7)",
+        "R2_a": 0.5158,
+        "R2_b": 0.3291,
+        "diferencia": -0.1867,
+        "bajo_0.04": false,
+        "fuente": "distinto train (2284 frente a 2659) y validacion"
+      },
+      {
+        "comparacion": "E4 base frente a E2, fold 2023 (semilla 7)",
+        "R2_a": 0.2985,
+        "R2_b": 0.047,
+        "diferencia": -0.2515,
+        "bajo_0.04": false,
+        "fuente": "distinto train (2284 frente a 2659) y validacion"
+      },
+      {
+        "comparacion": "E4 base frente a E2, fold 2025 (semilla 7)",
+        "R2_a": 0.1052,
+        "R2_b": 0.0169,
+        "diferencia": -0.0883,
+        "bajo_0.04": false,
+        "fuente": "distinto train (2284 frente a 2659) y validacion"
+      },
+      {
+        "comparacion": "E1: misma config, dos ejecuciones (sp00_s7 frente a sp00_s7_preds)",
+        "R2_a": 0.2134,
+        "R2_b": 0.2259,
+        "diferencia": 0.0125,
+        "bajo_0.04": true,
+        "fuente": "cota de ruido, no comparacion del articulo"
+      },
+      {
+        "comparacion": "E4 base frente a E4b base, fold 2025 s7 (datos identicos)",
+        "R2_a": 0.0169,
+        "R2_b": 0.0575,
+        "diferencia": 0.0406,
+        "bajo_0.04": false,
+        "fuente": "cota de ruido, no comparacion del articulo"
+      }
+    ]
+  }
+}
