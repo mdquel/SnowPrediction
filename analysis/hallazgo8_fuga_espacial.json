@@ -1,0 +1,95 @@
+{
+  "descripcion": "Hallazgo 8: R2 del ResUNet++ espacial (lambda=0) en test con y sin los tiles cuyo terreno se ve en train en otras fechas. Solo pixeles con nieve (HS > 0.01 m). Logica de scripts/check_spatial_leakage_effect.py.",
+  "por_semilla": {
+    "resunetpp_v3_spatial_sp00_s7": {
+      "todos": {
+        "R2": 0.4446,
+        "MAE": 0.4726,
+        "corr_media_tile": 0.6394,
+        "n_pixeles": 41235354,
+        "n_tiles": 730
+      },
+      "limpios": {
+        "R2": 0.4513,
+        "MAE": 0.4671,
+        "corr_media_tile": 0.6384,
+        "n_pixeles": 39620253,
+        "n_tiles": 702
+      },
+      "contaminados": {
+        "R2": 0.1243,
+        "MAE": 0.6078,
+        "corr_media_tile": 0.6646,
+        "n_pixeles": 1615101,
+        "n_tiles": 28
+      },
+      "_tiles_con_terreno_visto": 28,
+      "_fraccion_media_vista_pct": 2.65
+    },
+    "resunetpp_v3_spatial_sp00_s42": {
+      "todos": {
+        "R2": 0.4589,
+        "MAE": 0.4631,
+        "corr_media_tile": 0.6443,
+        "n_pixeles": 41235354,
+        "n_tiles": 730
+      },
+      "limpios": {
+        "R2": 0.4682,
+        "MAE": 0.4565,
+        "corr_media_tile": 0.6433,
+        "n_pixeles": 39620253,
+        "n_tiles": 702
+      },
+      "contaminados": {
+        "R2": 0.0807,
+        "MAE": 0.6233,
+        "corr_media_tile": 0.6694,
+        "n_pixeles": 1615101,
+        "n_tiles": 28
+      },
+      "_tiles_con_terreno_visto": 28,
+      "_fraccion_media_vista_pct": 2.65
+    },
+    "resunetpp_v3_spatial_sp00_s123": {
+      "todos": {
+        "R2": 0.4849,
+        "MAE": 0.4546,
+        "corr_media_tile": 0.6594,
+        "n_pixeles": 41235354,
+        "n_tiles": 730
+      },
+      "limpios": {
+        "R2": 0.4952,
+        "MAE": 0.4469,
+        "corr_media_tile": 0.6596,
+        "n_pixeles": 39620253,
+        "n_tiles": 702
+      },
+      "contaminados": {
+        "R2": 0.0902,
+        "MAE": 0.6445,
+        "corr_media_tile": 0.6535,
+        "n_pixeles": 1615101,
+        "n_tiles": 28
+      },
+      "_tiles_con_terreno_visto": 28,
+      "_fraccion_media_vista_pct": 2.65
+    }
+  },
+  "todos_R2": {
+    "media": 0.4628,
+    "min": 0.4446,
+    "max": 0.4849
+  },
+  "limpios_R2": {
+    "media": 0.4716,
+    "min": 0.4513,
+    "max": 0.4952
+  },
+  "contaminados_R2": {
+    "media": 0.0984,
+    "min": 0.0807,
+    "max": 0.1243
+  }
+}
