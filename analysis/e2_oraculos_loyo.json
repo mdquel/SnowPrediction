@@ -1,0 +1,210 @@
+{
+  "descripcion": "LOYO-E2 (4 folds x 3 semillas): oraculos por fecha y descomposicion T1a/T1b/T2/T3 en % del MSE (media [min-max] de los % por semilla). Calculado a partir de analysis/e2_scale_checks.json, sin reprocesar.",
+  "por_fold": {
+    "2021": {
+      "R2_raw": {
+        "media": 0.2614,
+        "min": 0.169,
+        "max": 0.3215
+      },
+      "R2_oraculo_add": {
+        "media": 0.4545,
+        "min": 0.4331,
+        "max": 0.4655
+      },
+      "R2_oraculo_mult": {
+        "media": 0.3432,
+        "min": 0.2322,
+        "max": 0.405
+      },
+      "T1a_pct": {
+        "media": 25.7421,
+        "min": 21.1344,
+        "max": 31.7857
+      },
+      "T1b_pct": {
+        "media": 12.9523,
+        "min": 11.5042,
+        "max": 14.475
+      },
+      "T2_pct": {
+        "media": 29.2014,
+        "min": 27.9075,
+        "max": 30.9109
+      },
+      "T3_pct": {
+        "media": 32.1042,
+        "min": 24.4258,
+        "max": 36.4831
+      },
+      "escala_T1_T2_pct": {
+        "media": 67.8958,
+        "min": 63.5169,
+        "max": 75.5742
+      },
+      "escala_T1a_T2_pct": {
+        "media": 54.9436,
+        "min": 49.0419,
+        "max": 62.6966
+      }
+    },
+    "2022": {
+      "R2_raw": {
+        "media": 0.4779,
+        "min": 0.4456,
+        "max": 0.5158
+      },
+      "R2_oraculo_add": {
+        "media": 0.6208,
+        "min": 0.604,
+        "max": 0.6299
+      },
+      "R2_oraculo_mult": {
+        "media": 0.6798,
+        "min": 0.6514,
+        "max": 0.6999
+      },
+      "T1a_pct": {
+        "media": 27.0131,
+        "min": 18.2294,
+        "max": 32.9693
+      },
+      "T1b_pct": {
+        "media": 14.7035,
+        "min": 12.5486,
+        "max": 16.3453
+      },
+      "T2_pct": {
+        "media": 19.827,
+        "min": 18.5366,
+        "max": 22.1808
+      },
+      "T3_pct": {
+        "media": 38.4563,
+        "min": 35.7185,
+        "max": 43.2444
+      },
+      "escala_T1_T2_pct": {
+        "media": 61.5437,
+        "min": 56.7556,
+        "max": 64.2815
+      },
+      "escala_T1a_T2_pct": {
+        "media": 46.8401,
+        "min": 40.4103,
+        "max": 51.733
+      }
+    },
+    "2023": {
+      "R2_raw": {
+        "media": 0.24,
+        "min": 0.1247,
+        "max": 0.2984
+      },
+      "R2_oraculo_add": {
+        "media": 0.5192,
+        "min": 0.4052,
+        "max": 0.5771
+      },
+      "R2_oraculo_mult": {
+        "media": 0.5562,
+        "min": 0.5088,
+        "max": 0.5851
+      },
+      "T1a_pct": {
+        "media": 37.126,
+        "min": 32.0508,
+        "max": 39.8579
+      },
+      "T1b_pct": {
+        "media": 16.0091,
+        "min": 15.6178,
+        "max": 16.4213
+      },
+      "T2_pct": {
+        "media": 9.8336,
+        "min": 6.2538,
+        "max": 15.6866
+      },
+      "T3_pct": {
+        "media": 37.0313,
+        "min": 36.1605,
+        "max": 38.2886
+      },
+      "escala_T1_T2_pct": {
+        "media": 62.9687,
+        "min": 61.7114,
+        "max": 63.8395
+      },
+      "escala_T1a_T2_pct": {
+        "media": 46.9596,
+        "min": 45.7232,
+        "max": 47.7374
+      }
+    },
+    "2025": {
+      "R2_raw": {
+        "media": 0.2184,
+        "min": 0.1052,
+        "max": 0.3054
+      },
+      "R2_oraculo_add": {
+        "media": 0.3959,
+        "min": 0.356,
+        "max": 0.4172
+      },
+      "R2_oraculo_mult": {
+        "media": 0.2738,
+        "min": 0.1292,
+        "max": 0.3939
+      },
+      "T1a_pct": {
+        "media": 21.8063,
+        "min": 14.7462,
+        "max": 34.5699
+      },
+      "T1b_pct": {
+        "media": 26.7195,
+        "min": 20.5584,
+        "max": 30.4365
+      },
+      "T2_pct": {
+        "media": 4.4102,
+        "min": 3.8254,
+        "max": 5.0525
+      },
+      "T3_pct": {
+        "media": 47.064,
+        "min": 40.519,
+        "max": 50.9918
+      },
+      "escala_T1_T2_pct": {
+        "media": 52.936,
+        "min": 49.0082,
+        "max": 59.481
+      },
+      "escala_T1a_T2_pct": {
+        "media": 26.2165,
+        "min": 18.5716,
+        "max": 38.9226
+      }
+    }
+  },
+  "media_4_folds": {
+    "R2_raw": {
+      "media": 0.2994,
+      "min": 0.2612,
+      "max": 0.3338
+    },
+    "R2_oraculo_add": {
+      "media": 0.4976,
+      "min": 0.471,
+      "max": 0.5148
+    },
+    "R2_oraculo_mult": {
+      "media": 0.4632,
+      "min": 0.4369,
+      "max": 0.4941
+    }
+  }
+}

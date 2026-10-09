@@ -1,0 +1,80 @@
+{
+  "label": "temporal completo (4241 teselas, test 2025)",
+  "excluye_fuga": false,
+  "n_excluidos_fuga": 0,
+  "resumen": {
+    "T1a_pct": {
+      "media": 16.1185,
+      "min": 16.1185,
+      "max": 16.1185
+    },
+    "T1b_pct": {
+      "media": 27.9669,
+      "min": 27.9669,
+      "max": 27.9669
+    },
+    "T2_pct": {
+      "media": 4.111,
+      "min": 4.111,
+      "max": 4.111
+    },
+    "T3_pct": {
+      "media": 51.8037,
+      "min": 51.8037,
+      "max": 51.8037
+    },
+    "escala_T1_T2_pct": {
+      "media": 48.1963,
+      "min": 48.1963,
+      "max": 48.1963
+    },
+    "escala_T1a_T2_pct": {
+      "media": 20.2294,
+      "min": 20.2294,
+      "max": 20.2294
+    },
+    "R2_raw": {
+      "media": 0.2258,
+      "min": 0.2258,
+      "max": 0.2258
+    },
+    "R2_oraculo_add": {
+      "media": 0.3506,
+      "min": 0.3506,
+      "max": 0.3506
+    },
+    "R2_oraculo_mult": {
+      "media": 0.2702,
+      "min": 0.2702,
+      "max": 0.2702
+    }
+  },
+  "max_diferencia_rel_identidad": 0.0,
+  "por_semilla": {
+    "resunetpp_v3_sp00_s7": {
+      "n_tiles": 220,
+      "n_fechas": 5,
+      "MSE": 0.4104607428179617,
+      "T1a": 0.06616000663521572,
+      "T1b": 0.11479314186750122,
+      "T2": 0.01687387698589864,
+      "T3": 0.21263371732934616,
+      "T1a_pct": 16.118473640378692,
+      "T1b_pct": 27.966899119122754,
+      "T2_pct": 4.1109600080274085,
+      "T3_pct": 51.80366723247116,
+      "escala_T1_T2_pct": 48.196332767528844,
+      "escala_T1a_T2_pct": 20.229433648406097,
+      "R2_raw": 0.22581328061193895,
+      "R2_oraculo_add": 0.35060036290381613,
+      "R2_oraculo_mult": 0.27019376548578633,
+      "identidad": {
+        "MSE_pixeles": 0.41046074281796174,
+        "MSE_aditivo": 0.34430073618274604,
+        "MSE_menos_T1a": 0.34430073618274604,
+        "diferencia_abs": 0.0,
+        "diferencia_rel": 0.0
+      }
+    }
+  }
+}
