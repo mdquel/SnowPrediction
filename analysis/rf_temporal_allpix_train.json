@@ -1,0 +1,101 @@
+{
+  "descripcion": "RF temporal entrenado con todos los pixeles validos frente al RF actual (solo nieve, train+val) y a la red temporal completa. Test 2025, evaluacion solo sobre nieve.",
+  "train_set": "train",
+  "rf_nuevo": {
+    "R2": {
+      "media": -0.0047,
+      "min": -0.0075,
+      "max": -0.0012
+    },
+    "SPAEF": {
+      "media": 0.3134,
+      "min": 0.3108,
+      "max": 0.3176
+    },
+    "por_semilla": {
+      "7": {
+        "experiment": "rf_temporal_allpix_train_s7",
+        "split": "temporal",
+        "train_set": "train",
+        "train_pixels": "todos los validos",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 15,
+          "min_samples_leaf": 1,
+          "max_features": "log2",
+          "min_samples_split": 2
+        },
+        "max_pixels": 2000000,
+        "seed": 7,
+        "train_frac_bare": 0.1161,
+        "R2": -0.0012,
+        "SPAEF": 0.3176,
+        "SPAEF_n_tiles": 220
+      },
+      "42": {
+        "experiment": "rf_temporal_allpix_train_s42",
+        "split": "temporal",
+        "train_set": "train",
+        "train_pixels": "todos los validos",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 15,
+          "min_samples_leaf": 1,
+          "max_features": "log2",
+          "min_samples_split": 2
+        },
+        "max_pixels": 2000000,
+        "seed": 42,
+        "train_frac_bare": 0.1165,
+        "R2": -0.0054,
+        "SPAEF": 0.3119,
+        "SPAEF_n_tiles": 220
+      },
+      "123": {
+        "experiment": "rf_temporal_allpix_train_s123",
+        "split": "temporal",
+        "train_set": "train",
+        "train_pixels": "todos los validos",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 15,
+          "min_samples_leaf": 1,
+          "max_features": "log2",
+          "min_samples_split": 2
+        },
+        "max_pixels": 2000000,
+        "seed": 123,
+        "train_frac_bare": 0.1162,
+        "R2": -0.0075,
+        "SPAEF": 0.3108,
+        "SPAEF_n_tiles": 220
+      }
+    }
+  },
+  "rf_actual_solo_nieve": {
+    "R2": {
+      "media": 0.1397,
+      "min": 0.1356,
+      "max": 0.1438
+    },
+    "SPAEF": {
+      "media": 0.3111,
+      "min": 0.3087,
+      "max": 0.3139
+    },
+    "ruta": "results/rf_v6_s{s}/rf_v6_s{s}_metrics.json"
+  },
+  "red_temporal_completa": {
+    "R2": {
+      "media": 0.1676,
+      "min": 0.1072,
+      "max": 0.2134
+    },
+    "SPAEF": {
+      "media": 0.3553,
+      "min": 0.3464,
+      "max": 0.3612
+    },
+    "ruta": "results/norm_v3/lambda/resunetpp_v3_sp00_s{s}/resunetpp_v3_sp00_s{s}_metrics.json"
+  }
+}

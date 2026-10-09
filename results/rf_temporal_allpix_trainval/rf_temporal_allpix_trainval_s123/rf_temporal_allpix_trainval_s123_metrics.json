@@ -1,0 +1,19 @@
+{
+  "experiment": "rf_temporal_allpix_trainval_s123",
+  "split": "temporal",
+  "train_set": "trainval",
+  "train_pixels": "todos los validos",
+  "params": {
+    "n_estimators": 300,
+    "max_depth": 15,
+    "min_samples_leaf": 1,
+    "max_features": "log2",
+    "min_samples_split": 2
+  },
+  "max_pixels": 2000000,
+  "seed": 123,
+  "train_frac_bare": 0.1181,
+  "R2": 0.0531,
+  "SPAEF": 0.3535,
+  "SPAEF_n_tiles": 220
+}
