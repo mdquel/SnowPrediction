@@ -740,5 +740,257 @@
       }
     },
     "campos": "analysis/fig05_tesela.npz"
+  },
+  "5_figura_spaef_sin_corregir": {
+    "tile_id": "20220417_lidar_tile_256_0.npy",
+    "fecha": "20220417",
+    "metricas_por_panel": {
+      "red_s42": {
+        "R2_nivel_perfecto": 0.3801,
+        "SPAEF_sin_corregir": 0.6054
+      },
+      "climatologia": {
+        "R2_nivel_perfecto": 0.3416,
+        "SPAEF_sin_corregir": 0.5245
+      },
+      "rf_s42": {
+        "R2_nivel_perfecto": 0.3625,
+        "SPAEF_sin_corregir": 0.5928
+      }
+    },
+    "control_R2_frente_a_bloque_4": 0.0,
+    "campos_nuevos_en": "analysis/fig05_tesela.npz (claves *_sin_corregir)"
+  },
+  "6_hallazgo11_rf_antiguo": {
+    "fuente": "scripts/results_5_2_extra.py; RF antiguo = results de scripts/rf_spatial.py (solo pixeles con nieve); RF justo = bloque 2_C",
+    "rf_antiguo_solo_nieve": {
+      "r2_raw": {
+        "media": 0.1968,
+        "min": 0.1918,
+        "max": 0.2035,
+        "por_semilla": [
+          0.2035,
+          0.1918,
+          0.1951
+        ]
+      },
+      "r2_orac": {
+        "media": 0.4711,
+        "min": 0.4686,
+        "max": 0.4728,
+        "por_semilla": [
+          0.4728,
+          0.4718,
+          0.4686
+        ]
+      },
+      "spaef_raw": {
+        "media": 0.3718,
+        "min": 0.3682,
+        "max": 0.3738,
+        "por_semilla": [
+          0.3735,
+          0.3738,
+          0.3682
+        ]
+      },
+      "frac_r2": {
+        "media": 0.664,
+        "min": 0.6605,
+        "max": 0.6665,
+        "por_semilla": [
+          0.6665,
+          0.665,
+          0.6605
+        ]
+      },
+      "frac_spaef_raw": {
+        "media": 0.6332,
+        "min": 0.627,
+        "max": 0.6366,
+        "por_semilla": [
+          0.636,
+          0.6366,
+          0.627
+        ]
+      },
+      "techo_r2_orac": 0.7094,
+      "techo_spaef_sin_corregir": 0.5872,
+      "n_teselas": 702
+    },
+    "rf_justo": {
+      "frac_r2": {
+        "media": 0.7093,
+        "min": 0.7088,
+        "max": 0.7099,
+        "por_semilla": [
+          0.7099,
+          0.7088,
+          0.7094
+        ]
+      },
+      "frac_spaef_raw": {
+        "media": 0.7622,
+        "min": 0.76,
+        "max": 0.7646,
+        "por_semilla": [
+          0.7646,
+          0.7619,
+          0.76
+        ]
+      },
+      "spaef_raw": {
+        "media": 0.4475,
+        "min": 0.4463,
+        "max": 0.4489,
+        "por_semilla": [
+          0.4489,
+          0.4474,
+          0.4463
+        ]
+      },
+      "r2_orac": {
+        "media": 0.5032,
+        "min": 0.5028,
+        "max": 0.5036,
+        "por_semilla": [
+          0.5036,
+          0.5028,
+          0.5032
+        ]
+      }
+    },
+    "control": {
+      "max_diferencia": 1.1102230246251565e-16,
+      "contra": "analysis/eC_net_vs_rf.json"
+    }
+  },
+  "7_sin_mapa_duplicado": {
+    "fuente": "scripts/results_5_2_extra.py; fecha 20240314 fuera de la evaluacion y de la climatologia; los modelos no se reentrenan",
+    "contra": "analysis/eC_net_vs_rf_allpix_sin_20240314.json",
+    "red": {
+      "sin_duplicado": {
+        "r2_raw": {
+          "media": 0.4728,
+          "min": 0.453,
+          "max": 0.4959,
+          "por_semilla": [
+            0.453,
+            0.4694,
+            0.4959
+          ]
+        },
+        "r2_orac": {
+          "media": 0.5429,
+          "min": 0.5278,
+          "max": 0.5631,
+          "por_semilla": [
+            0.5278,
+            0.5379,
+            0.5631
+          ]
+        },
+        "spaef_raw": {
+          "media": 0.521,
+          "min": 0.5067,
+          "max": 0.5371,
+          "por_semilla": [
+            0.5067,
+            0.5191,
+            0.5371
+          ]
+        },
+        "frac_r2": {
+          "media": 0.7669,
+          "min": 0.7454,
+          "max": 0.7954,
+          "por_semilla": [
+            0.7454,
+            0.7597,
+            0.7954
+          ]
+        },
+        "frac_spaef_raw": {
+          "media": 0.8866,
+          "min": 0.8622,
+          "max": 0.9141,
+          "por_semilla": [
+            0.8622,
+            0.8834,
+            0.9141
+          ]
+        },
+        "techo_r2_orac": 0.708,
+        "techo_spaef_sin_corregir": 0.5876,
+        "n_teselas": 697
+      },
+      "diferencia_frente_a_todas_las_fechas_puntos_pct": {
+        "frac_r2": 0.03,
+        "frac_spaef_sin_corregir": -0.25
+      },
+      "control_max_diferencia": 0.0
+    },
+    "rf_justo": {
+      "sin_duplicado": {
+        "r2_raw": {
+          "media": 0.2255,
+          "min": 0.2244,
+          "max": 0.2269,
+          "por_semilla": [
+            0.2244,
+            0.2269,
+            0.2254
+          ]
+        },
+        "r2_orac": {
+          "media": 0.5029,
+          "min": 0.5025,
+          "max": 0.5033,
+          "por_semilla": [
+            0.5033,
+            0.5025,
+            0.5029
+          ]
+        },
+        "spaef_raw": {
+          "media": 0.4468,
+          "min": 0.4455,
+          "max": 0.4482,
+          "por_semilla": [
+            0.4482,
+            0.4466,
+            0.4455
+          ]
+        },
+        "frac_r2": {
+          "media": 0.7103,
+          "min": 0.7097,
+          "max": 0.7108,
+          "por_semilla": [
+            0.7108,
+            0.7097,
+            0.7103
+          ]
+        },
+        "frac_spaef_raw": {
+          "media": 0.7603,
+          "min": 0.7582,
+          "max": 0.7628,
+          "por_semilla": [
+            0.7628,
+            0.7601,
+            0.7582
+          ]
+        },
+        "techo_r2_orac": 0.708,
+        "techo_spaef_sin_corregir": 0.5876,
+        "n_teselas": 697
+      },
+      "diferencia_frente_a_todas_las_fechas_puntos_pct": {
+        "frac_r2": 0.1,
+        "frac_spaef_sin_corregir": -0.19
+      },
+      "control_max_diferencia": 0.0
+    }
   }
 }
