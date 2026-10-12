@@ -1,0 +1,1763 @@
+{
+  "descripcion": "Cifras canonicas de Resultados 5.3; cada bloque lleva su fuente. Media, minimo y maximo de las semillas 7, 42 y 123 (por_semilla en ese orden) donde las hay. SPAEF siempre sin corregir el nivel (hallazgo 13).",
+  "1_E3_doble_cabeza": {
+    "fuentes": {
+      "SPAEF (y control del R2)": [
+        "results/norm_v3/loyo/resunetpp_v3_loyo<fold>/resunetpp_v3_loyo<fold>_metrics.json",
+        "results/norm_v3/loyo_dual/resunetpp_dual_loyo<fold>/resunetpp_dual_loyo<fold>_metrics.json"
+      ],
+      "R2 (R2_raw, float64) y fraccion de escala": [
+        "analysis/e2_decomposition.json (base, s7)",
+        "analysis/e3_dual_decomposition.json (doble cabeza, s7)"
+      ]
+    },
+    "definiciones": {
+      "R2": "acumulado sobre pixeles con nieve del test, sin corregir el nivel",
+      "escala": "(T1+T2)/MSE en %, ponderada por pixeles (analyse() de analysis/e1_error_decomposition.py)"
+    },
+    "semilla": 7,
+    "por_fold": {
+      "2021": {
+        "n_teselas_test": 1332,
+        "R2_base": 0.293817,
+        "R2_doble_cabeza": 0.357173,
+        "dif_R2": 0.063357,
+        "mejora": true,
+        "SPAEF_base_sin_corregir": 0.3957,
+        "SPAEF_doble_cabeza_sin_corregir": 0.3958,
+        "escala_pct_base": 64.5964,
+        "escala_pct_doble_cabeza": 61.6463,
+        "dif_escala_pct": -2.9501
+      },
+      "2022": {
+        "n_teselas_test": 1802,
+        "R2_base": 0.51576,
+        "R2_doble_cabeza": 0.445113,
+        "dif_R2": -0.070647,
+        "mejora": false,
+        "SPAEF_base_sin_corregir": 0.447,
+        "SPAEF_doble_cabeza_sin_corregir": 0.4188,
+        "escala_pct_base": 56.7556,
+        "escala_pct_doble_cabeza": 63.6205,
+        "dif_escala_pct": 6.8649
+      },
+      "2023": {
+        "n_teselas_test": 1107,
+        "R2_base": 0.298433,
+        "R2_doble_cabeza": 0.114575,
+        "dif_R2": -0.183858,
+        "mejora": false,
+        "SPAEF_base_sin_corregir": 0.4422,
+        "SPAEF_doble_cabeza_sin_corregir": 0.4113,
+        "escala_pct_base": 61.7114,
+        "escala_pct_doble_cabeza": 70.7756,
+        "dif_escala_pct": 9.0642
+      },
+      "2025": {
+        "n_teselas_test": 220,
+        "R2_base": 0.105238,
+        "R2_doble_cabeza": 0.14375,
+        "dif_R2": 0.038512,
+        "mejora": true,
+        "SPAEF_base_sin_corregir": 0.2588,
+        "SPAEF_doble_cabeza_sin_corregir": 0.3916,
+        "escala_pct_base": 59.481,
+        "escala_pct_doble_cabeza": 61.7944,
+        "dif_escala_pct": 2.3135
+      }
+    },
+    "media_4_folds": {
+      "R2_base": 0.303312,
+      "R2_doble_cabeza": 0.265153,
+      "escala_pct_base": 60.6361,
+      "escala_pct_doble_cabeza": 64.4592
+    },
+    "folds_que_mejoran_R2": [
+      "2021",
+      "2025"
+    ],
+    "folds_donde_sube_la_escala": [
+      "2022",
+      "2023",
+      "2025"
+    ],
+    "control_R2_metrics_vs_descomposicion_max_dif": 0.0001265392852022873
+  },
+  "2_E4b": {
+    "fuentes": {
+      "SPAEF (y R2 si no hay descomposicion)": "results/norm_v3/loyo_e4b_<brazo>/e4b_<brazo><'' | '_full'>_loyo2025_s<semilla>/e4b_<brazo><'' | '_full'>_loyo2025_s<semilla>_metrics.json",
+      "fraccion de escala": "ver escala_fuente en cada brazo"
+    },
+    "definiciones": {
+      "datos": "fold 2025; 23 fechas en el CSV = 13 de train (2021-2023) + 5 de val (2024) + 5 de test (2025); test: 220 teselas y 5 fechas; sub = train submuestreado (2284 teselas, dataset_e4b_loyo2025.csv), full = completo (3866, dataset_e4b_full_loyo2025.csv)",
+      "SPAEF": "media por tesela, SIEMPRE sin corregir el nivel (hallazgo 13)",
+      "R2": "acumulado sobre pixeles con nieve, sin corregir; R2_raw en float64 de la descomposicion (como la tabla LOYO de 5.1); el de metrics.json difiere en <2e-4 y queda como control",
+      "solapan": "los intervalos [min, max] de las 3 semillas se tocan"
+    },
+    "por_brazo": {
+      "base|sub": {
+        "n_teselas_train": 2284,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.074531,
+          "min": 0.057505,
+          "max": 0.104369,
+          "por_semilla": [
+            0.057505,
+            0.104369,
+            0.061718
+          ]
+        },
+        "R2_fuente": "analysis/e4b_decomposition_s<semilla>.json (R2_raw, float64)",
+        "SPAEF_sin_corregir": {
+          "media": 0.237,
+          "min": 0.1972,
+          "max": 0.311,
+          "por_semilla": [
+            0.2028,
+            0.311,
+            0.1972
+          ]
+        },
+        "escala_pct": {
+          "media": 60.3784,
+          "min": 58.9455,
+          "max": 62.4785,
+          "por_semilla": [
+            59.7114,
+            62.4785,
+            58.9455
+          ]
+        },
+        "escala_fuente": "analysis/e4b_decomposition_s<semilla>.json"
+      },
+      "dual|sub": {
+        "n_teselas_train": 2284,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.142489,
+          "min": 0.121222,
+          "max": 0.161399,
+          "por_semilla": [
+            0.161399,
+            0.144846,
+            0.121222
+          ]
+        },
+        "R2_fuente": "analysis/e4b_decomposition_s<semilla>.json (R2_raw, float64)",
+        "SPAEF_sin_corregir": {
+          "media": 0.329467,
+          "min": 0.29,
+          "max": 0.3531,
+          "por_semilla": [
+            0.3531,
+            0.3453,
+            0.29
+          ]
+        },
+        "escala_pct": {
+          "media": 58.4831,
+          "min": 56.1862,
+          "max": 62.6676,
+          "por_semilla": [
+            62.6676,
+            56.1862,
+            56.5956
+          ]
+        },
+        "escala_fuente": "analysis/e4b_decomposition_s<semilla>.json"
+      },
+      "dualscale|sub": {
+        "n_teselas_train": 2284,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.155734,
+          "min": 0.134868,
+          "max": 0.17089,
+          "por_semilla": [
+            0.17089,
+            0.134868,
+            0.161444
+          ]
+        },
+        "R2_fuente": "analysis/e4b_decomposition_s<semilla>.json (R2_raw, float64)",
+        "SPAEF_sin_corregir": {
+          "media": 0.339033,
+          "min": 0.3167,
+          "max": 0.3758,
+          "por_semilla": [
+            0.3758,
+            0.3246,
+            0.3167
+          ]
+        },
+        "escala_pct": {
+          "media": 56.264,
+          "min": 53.6422,
+          "max": 59.3317,
+          "por_semilla": [
+            53.6422,
+            59.3317,
+            55.8183
+          ]
+        },
+        "escala_fuente": "analysis/e4b_decomposition_s<semilla>.json"
+      },
+      "base|full": {
+        "n_teselas_train": 3866,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.177864,
+          "min": 0.094119,
+          "max": 0.288136,
+          "por_semilla": [
+            0.288136,
+            0.151338,
+            0.094119
+          ]
+        },
+        "R2_fuente": "R2_raw (float64) de la descomposicion calculada aqui",
+        "SPAEF_sin_corregir": {
+          "media": 0.349433,
+          "min": 0.3047,
+          "max": 0.4148,
+          "por_semilla": [
+            0.4148,
+            0.3288,
+            0.3047
+          ]
+        },
+        "escala_pct": {
+          "media": 55.2308,
+          "min": 48.1124,
+          "max": 63.4685,
+          "por_semilla": [
+            48.1124,
+            54.1115,
+            63.4685
+          ]
+        },
+        "escala_fuente": "analyse() de analysis/e1_error_decomposition.py sobre loyo_e4b_base\\e4b_base_full_loyo2025_s<semilla>\\e4b_base_full_loyo2025_s<semilla>_predictions.npz (calculada aqui)"
+      },
+      "dual|full": {
+        "n_teselas_train": 3866,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.211769,
+          "min": 0.187111,
+          "max": 0.226539,
+          "por_semilla": [
+            0.187111,
+            0.226539,
+            0.221656
+          ]
+        },
+        "R2_fuente": "R2_raw (float64) de la descomposicion calculada aqui",
+        "SPAEF_sin_corregir": {
+          "media": 0.3727,
+          "min": 0.3467,
+          "max": 0.4222,
+          "por_semilla": [
+            0.3492,
+            0.4222,
+            0.3467
+          ]
+        },
+        "escala_pct": {
+          "media": 58.5133,
+          "min": 54.1326,
+          "max": 62.2591,
+          "por_semilla": [
+            54.1326,
+            62.2591,
+            59.1482
+          ]
+        },
+        "escala_fuente": "analyse() de analysis/e1_error_decomposition.py sobre loyo_e4b_dual\\e4b_dual_full_loyo2025_s<semilla>\\e4b_dual_full_loyo2025_s<semilla>_predictions.npz (calculada aqui)"
+      },
+      "dualscale|full": {
+        "n_teselas_train": 3866,
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.129412,
+          "min": 0.102162,
+          "max": 0.175825,
+          "por_semilla": [
+            0.110249,
+            0.175825,
+            0.102162
+          ]
+        },
+        "R2_fuente": "R2_raw (float64) de la descomposicion calculada aqui",
+        "SPAEF_sin_corregir": {
+          "media": 0.3448,
+          "min": 0.3045,
+          "max": 0.3832,
+          "por_semilla": [
+            0.3045,
+            0.3832,
+            0.3467
+          ]
+        },
+        "escala_pct": {
+          "media": 57.1712,
+          "min": 56.2313,
+          "max": 58.8207,
+          "por_semilla": [
+            56.2313,
+            58.8207,
+            56.4616
+          ]
+        },
+        "escala_fuente": "analyse() de analysis/e1_error_decomposition.py sobre loyo_e4b_dualscale\\e4b_dualscale_full_loyo2025_s<semilla>\\e4b_dualscale_full_loyo2025_s<semilla>_predictions.npz (calculada aqui)"
+      }
+    },
+    "solapes": {
+      "R2_sin_corregir": [
+        {
+          "par": "base - dual (sub)",
+          "solapan": false
+        },
+        {
+          "par": "base - dualscale (sub)",
+          "solapan": false
+        },
+        {
+          "par": "dual - dualscale (sub)",
+          "solapan": true
+        },
+        {
+          "par": "base - dual (full)",
+          "solapan": true
+        },
+        {
+          "par": "base - dualscale (full)",
+          "solapan": true
+        },
+        {
+          "par": "dual - dualscale (full)",
+          "solapan": false
+        },
+        {
+          "par": "base: sub - full",
+          "solapan": true
+        },
+        {
+          "par": "dual: sub - full",
+          "solapan": false
+        },
+        {
+          "par": "dualscale: sub - full",
+          "solapan": true
+        }
+      ],
+      "SPAEF_sin_corregir": [
+        {
+          "par": "base - dual (sub)",
+          "solapan": true
+        },
+        {
+          "par": "base - dualscale (sub)",
+          "solapan": false
+        },
+        {
+          "par": "dual - dualscale (sub)",
+          "solapan": true
+        },
+        {
+          "par": "base - dual (full)",
+          "solapan": true
+        },
+        {
+          "par": "base - dualscale (full)",
+          "solapan": true
+        },
+        {
+          "par": "dual - dualscale (full)",
+          "solapan": true
+        },
+        {
+          "par": "base: sub - full",
+          "solapan": true
+        },
+        {
+          "par": "dual: sub - full",
+          "solapan": true
+        },
+        {
+          "par": "dualscale: sub - full",
+          "solapan": true
+        }
+      ],
+      "escala_pct": [
+        {
+          "par": "base - dual (sub)",
+          "solapan": true
+        },
+        {
+          "par": "base - dualscale (sub)",
+          "solapan": true
+        },
+        {
+          "par": "dual - dualscale (sub)",
+          "solapan": true
+        },
+        {
+          "par": "base - dual (full)",
+          "solapan": true
+        },
+        {
+          "par": "base - dualscale (full)",
+          "solapan": true
+        },
+        {
+          "par": "dual - dualscale (full)",
+          "solapan": true
+        },
+        {
+          "par": "base: sub - full",
+          "solapan": true
+        },
+        {
+          "par": "dual: sub - full",
+          "solapan": true
+        },
+        {
+          "par": "dualscale: sub - full",
+          "solapan": true
+        }
+      ]
+    },
+    "control_R2_max_dif": 6.163622988078488e-05,
+    "control_escala_sub_recalculada_vs_json_max_dif": 0.0
+  },
+  "3_E5_regresor_corregido": {
+    "fuente": "analysis/e5_regresor_todas_teselas.json (punto2_e5, variante 'todas')",
+    "definiciones": {
+      "corregido": "nivel de cada fecha = prediccion del ridge sobre la cobertura satelital (snow_pct), ajustado con la media de TODAS las teselas de cada fecha de train",
+      "ganancia": "R2 corregido - R2 sin corregir",
+      "MAE": "error absoluto medio al estimar la HS media de las fechas de test",
+      "regla": "predice 'ayuda' si MAE del regresor < MAE de la red",
+      "aviso": "solo fechas de test admisibles (n_test_fechas): en 2021 son 4 de 6, asi que el R2 sin corregir de 2021 no es el de la tabla LOYO"
+    },
+    "por_fold": {
+      "2021": {
+        "7": {
+          "experimento": "resunetpp_v3_loyo2021",
+          "n_test_fechas": 4,
+          "R2_sin_corregir": 0.23325,
+          "R2_corregido": 0.424877,
+          "ganancia": 0.191627,
+          "R2_nivel_perfecto": 0.462617,
+          "MAE_regresor_m": 0.137424,
+          "MAE_red_m": 0.329743,
+          "regla_predice": "ayuda",
+          "regla_acierta": true,
+          "mejora": true
+        },
+        "42": {
+          "experimento": "resunetpp_v3_loyo2021_s42",
+          "n_test_fechas": 4,
+          "R2_sin_corregir": 0.057771,
+          "R2_corregido": 0.371867,
+          "ganancia": 0.314095,
+          "R2_nivel_perfecto": 0.409606,
+          "MAE_regresor_m": 0.137424,
+          "MAE_red_m": 0.381764,
+          "regla_predice": "ayuda",
+          "regla_acierta": true,
+          "mejora": true
+        },
+        "123": {
+          "experimento": "resunetpp_v3_loyo2021_s123",
+          "n_test_fechas": 4,
+          "R2_sin_corregir": 0.259241,
+          "R2_corregido": 0.414567,
+          "ganancia": 0.155326,
+          "R2_nivel_perfecto": 0.452306,
+          "MAE_regresor_m": 0.137424,
+          "MAE_red_m": 0.302082,
+          "regla_predice": "ayuda",
+          "regla_acierta": true,
+          "mejora": true
+        }
+      },
+      "2022": {
+        "7": {
+          "experimento": "resunetpp_v3_loyo2022",
+          "n_test_fechas": 6,
+          "R2_sin_corregir": 0.51576,
+          "R2_corregido": 0.241754,
+          "ganancia": -0.274006,
+          "R2_nivel_perfecto": 0.604034,
+          "MAE_regresor_m": 0.267829,
+          "MAE_red_m": 0.148562,
+          "regla_predice": "empeora",
+          "regla_acierta": true,
+          "mejora": false
+        },
+        "42": {
+          "experimento": "resunetpp_v3_loyo2022_s42",
+          "n_test_fechas": 6,
+          "R2_sin_corregir": 0.445645,
+          "R2_corregido": 0.266132,
+          "ganancia": -0.179512,
+          "R2_nivel_perfecto": 0.628412,
+          "MAE_regresor_m": 0.267829,
+          "MAE_red_m": 0.201014,
+          "regla_predice": "empeora",
+          "regla_acierta": true,
+          "mejora": false
+        },
+        "123": {
+          "experimento": "resunetpp_v3_loyo2022_s123",
+          "n_test_fechas": 6,
+          "R2_sin_corregir": 0.472418,
+          "R2_corregido": 0.267572,
+          "ganancia": -0.204846,
+          "R2_nivel_perfecto": 0.629851,
+          "MAE_regresor_m": 0.267829,
+          "MAE_red_m": 0.188083,
+          "regla_predice": "empeora",
+          "regla_acierta": true,
+          "mejora": false
+        }
+      },
+      "2023": {
+        "7": {
+          "experimento": "resunetpp_v3_loyo2023",
+          "n_test_fechas": 3,
+          "R2_sin_corregir": 0.298433,
+          "R2_corregido": 0.409559,
+          "ganancia": 0.111126,
+          "R2_nivel_perfecto": 0.575338,
+          "MAE_regresor_m": 0.217248,
+          "MAE_red_m": 0.179552,
+          "regla_predice": "empeora",
+          "regla_acierta": false,
+          "mejora": true
+        },
+        "42": {
+          "experimento": "resunetpp_v3_loyo2023_s42",
+          "n_test_fechas": 3,
+          "R2_sin_corregir": 0.124686,
+          "R2_corregido": 0.239452,
+          "ganancia": 0.114766,
+          "R2_nivel_perfecto": 0.405231,
+          "MAE_regresor_m": 0.217248,
+          "MAE_red_m": 0.200244,
+          "regla_predice": "empeora",
+          "regla_acierta": false,
+          "mejora": true
+        },
+        "123": {
+          "experimento": "resunetpp_v3_loyo2023_s123",
+          "n_test_fechas": 3,
+          "R2_sin_corregir": 0.296845,
+          "R2_corregido": 0.411329,
+          "ganancia": 0.114484,
+          "R2_nivel_perfecto": 0.577108,
+          "MAE_regresor_m": 0.217248,
+          "MAE_red_m": 0.204082,
+          "regla_predice": "empeora",
+          "regla_acierta": false,
+          "mejora": true
+        }
+      },
+      "2025": {
+        "7": {
+          "experimento": "resunetpp_v3_loyo2025",
+          "n_test_fechas": 5,
+          "R2_sin_corregir": 0.105238,
+          "R2_corregido": 0.180838,
+          "ganancia": 0.0756,
+          "R2_nivel_perfecto": 0.414556,
+          "MAE_regresor_m": 0.313267,
+          "MAE_red_m": 0.357337,
+          "regla_predice": "ayuda",
+          "regla_acierta": true,
+          "mejora": true
+        },
+        "42": {
+          "experimento": "resunetpp_v3_loyo2025_s42",
+          "n_test_fechas": 5,
+          "R2_sin_corregir": 0.305363,
+          "R2_corregido": 0.1835,
+          "ganancia": -0.121863,
+          "R2_nivel_perfecto": 0.417219,
+          "MAE_regresor_m": 0.313267,
+          "MAE_red_m": 0.242472,
+          "regla_predice": "empeora",
+          "regla_acierta": true,
+          "mejora": false
+        },
+        "123": {
+          "experimento": "resunetpp_v3_loyo2025_s123",
+          "n_test_fechas": 5,
+          "R2_sin_corregir": 0.24459,
+          "R2_corregido": 0.122265,
+          "ganancia": -0.122325,
+          "R2_nivel_perfecto": 0.355984,
+          "MAE_regresor_m": 0.313267,
+          "MAE_red_m": 0.231345,
+          "regla_predice": "empeora",
+          "regla_acierta": true,
+          "mejora": false
+        }
+      }
+    },
+    "resumen": {
+      "n_modelos": 12,
+      "ganancia_media": 0.014539,
+      "ganancia_min_max": [
+        -0.274006,
+        0.314095
+      ],
+      "modelos_que_mejoran": 7,
+      "aciertos_regla": 9,
+      "aciertos_regla_semilla_7": 3,
+      "aciertos_regla_semillas_42_123": 6
+    }
+  },
+  "4_A_medidas_puntuales": {
+    "fuentes": {
+      "curvas, campanas, N90, referencias acumuladas": "analysis/e5_regresor_dependientes.json (parte2_A.resumen['todas']['<patron>|todos|0.1'])",
+      "referencias por campana": "recalculadas aqui (mismo bucle que la parte 2 de scripts/e5_regressor_dependents.py, sin Monte Carlo)"
+    },
+    "definiciones": {
+      "configuracion": "regresor corregido (media de todas las teselas), ruido 0,10 m, muestreo libre (pool todos), 200 repeticiones por fecha, folds LOYO-E2; red: 3 semillas x 4 folds; climatologia: 4 folds",
+      "metodos": {
+        "ingenuo": "media de los N puntos - media predicha",
+        "patron": "media de (medida - patron) en los N puntos",
+        "patron+sat": "patron combinado con el regresor satelital por varianza inversa"
+      },
+      "R2_acumulado": "media sobre folds (y semillas) del R2 acumulado de cada fold",
+      "campanas": "R2 de cada fecha corregida; P10/P50/P90 sobre todas las fechas, folds, semillas y repeticiones",
+      "referencias_por_campana": "una entrada por fecha repetida 200 veces (mismo peso que las campanas corregidas, como en point_measurements.py); *_sin_replicar: una entrada por fecha",
+      "N90": "primer N con R2 acumulado - sin >= 0,9 (nivel perfecto - sin); None = >100"
+    },
+    "N": [
+      1,
+      3,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "metodos": [
+      "ingenuo",
+      "patron",
+      "patron+sat"
+    ],
+    "por_patron": {
+      "climatologia": {
+        "R2_acumulado": {
+          "ingenuo": {
+            "1": -0.248587,
+            "3": 0.327507,
+            "5": 0.445878,
+            "10": 0.537553,
+            "20": 0.579334,
+            "50": 0.607229,
+            "100": 0.616393
+          },
+          "patron": {
+            "1": 0.24727,
+            "3": 0.491739,
+            "5": 0.548474,
+            "10": 0.585845,
+            "20": 0.605004,
+            "50": 0.617357,
+            "100": 0.621457
+          },
+          "patron+sat": {
+            "1": 0.467017,
+            "3": 0.526899,
+            "5": 0.553116,
+            "10": 0.585592,
+            "20": 0.604478,
+            "50": 0.61703,
+            "100": 0.621369
+          }
+        },
+        "campanas_P10_P50_P90": {
+          "ingenuo": {
+            "1": [
+              -3.19133,
+              0.042094,
+              0.624152
+            ],
+            "3": [
+              -0.953603,
+              0.367155,
+              0.667471
+            ],
+            "5": [
+              -0.713601,
+              0.436278,
+              0.683026
+            ],
+            "10": [
+              -0.636994,
+              0.503606,
+              0.690341
+            ],
+            "20": [
+              -0.629272,
+              0.573567,
+              0.701528
+            ],
+            "50": [
+              -0.627082,
+              0.612752,
+              0.710232
+            ],
+            "100": [
+              -0.626581,
+              0.623741,
+              0.71843
+            ]
+          },
+          "patron": {
+            "1": [
+              -1.624791,
+              0.373034,
+              0.674811
+            ],
+            "3": [
+              -0.746778,
+              0.488752,
+              0.690822
+            ],
+            "5": [
+              -0.65656,
+              0.558591,
+              0.701766
+            ],
+            "10": [
+              -0.634533,
+              0.592747,
+              0.706467
+            ],
+            "20": [
+              -0.630372,
+              0.618339,
+              0.710887
+            ],
+            "50": [
+              -0.627459,
+              0.624377,
+              0.729812
+            ],
+            "100": [
+              -0.627072,
+              0.624448,
+              0.73585
+            ]
+          },
+          "patron+sat": {
+            "1": [
+              -0.630176,
+              0.565643,
+              0.701894
+            ],
+            "3": [
+              -0.630746,
+              0.584183,
+              0.70226
+            ],
+            "5": [
+              -0.632101,
+              0.594239,
+              0.708267
+            ],
+            "10": [
+              -0.629533,
+              0.606334,
+              0.709361
+            ],
+            "20": [
+              -0.628598,
+              0.62145,
+              0.715301
+            ],
+            "50": [
+              -0.62729,
+              0.62441,
+              0.731492
+            ],
+            "100": [
+              -0.62698,
+              0.624453,
+              0.736209
+            ]
+          }
+        },
+        "N90": {
+          "ingenuo": 50,
+          "patron": 20,
+          "patron+sat": 20
+        },
+        "referencias": {
+          "acumulado": {
+            "sin_corregir": 0.328526,
+            "solo_satelite": 0.417975,
+            "nivel_perfecto": 0.625305
+          },
+          "campanas_P10_P50_P90": {
+            "sin_corregir": [
+              -2.114,
+              0.28883,
+              0.705463
+            ],
+            "sin_corregir_sin_replicar": [
+              -0.987377,
+              0.28883,
+              0.69333
+            ],
+            "solo_satelite": [
+              -0.626173,
+              0.541673,
+              0.684498
+            ],
+            "solo_satelite_sin_replicar": [
+              -0.251853,
+              0.541673,
+              0.683495
+            ],
+            "nivel_perfecto": [
+              -0.625933,
+              0.636187,
+              0.740237
+            ],
+            "nivel_perfecto_sin_replicar": [
+              0.07784,
+              0.636187,
+              0.719692
+            ]
+          },
+          "n_campanas": 18,
+          "por_campana": [
+            {
+              "fold": "2021",
+              "semilla": "-",
+              "fecha": "20210304",
+              "sin": 0.306528,
+              "satelite": 0.539024,
+              "oraculo": 0.669577
+            },
+            {
+              "fold": "2021",
+              "semilla": "-",
+              "fecha": "20210323",
+              "sin": 0.613034,
+              "satelite": 0.682794,
+              "oraculo": 0.710887
+            },
+            {
+              "fold": "2021",
+              "semilla": "-",
+              "fecha": "20210414",
+              "sin": 0.707073,
+              "satelite": 0.74707,
+              "oraculo": 0.753013
+            },
+            {
+              "fold": "2021",
+              "semilla": "-",
+              "fecha": "20211216",
+              "sin": 0.271133,
+              "satelite": 0.586368,
+              "oraculo": 0.597307
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20220112",
+              "sin": 0.591651,
+              "satelite": 0.544323,
+              "oraculo": 0.647919
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20220128",
+              "sin": 0.575768,
+              "satelite": 0.639943,
+              "oraculo": 0.673012
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20220218",
+              "sin": 0.705463,
+              "satelite": 0.684498,
+              "oraculo": 0.740237
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20220417",
+              "sin": 0.68813,
+              "satelite": 0.683065,
+              "oraculo": 0.689728
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20220516",
+              "sin": -0.306961,
+              "satelite": 0.624287,
+              "oraculo": 0.624454
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "fecha": "20221201",
+              "sin": -10.303845,
+              "satelite": -26.342887,
+              "oraculo": -4.099718
+            },
+            {
+              "fold": "2023",
+              "semilla": "-",
+              "fecha": "20230213",
+              "sin": 0.646917,
+              "satelite": 0.587918,
+              "oraculo": 0.691353
+            },
+            {
+              "fold": "2023",
+              "semilla": "-",
+              "fecha": "20230316",
+              "sin": 0.386975,
+              "satelite": 0.522014,
+              "oraculo": 0.70229
+            },
+            {
+              "fold": "2023",
+              "semilla": "-",
+              "fecha": "20230328",
+              "sin": -0.504538,
+              "satelite": 0.035966,
+              "oraculo": 0.464629
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "fecha": "20250317",
+              "sin": -0.065359,
+              "satelite": 0.24053,
+              "oraculo": 0.462769
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "fecha": "20250327",
+              "sin": -0.02171,
+              "satelite": 0.209651,
+              "oraculo": 0.48426
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "fecha": "20250401",
+              "sin": -0.24763,
+              "satelite": -0.09143,
+              "oraculo": 0.385729
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "fecha": "20250424",
+              "sin": 0.26387,
+              "satelite": 0.20886,
+              "oraculo": 0.379456
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "fecha": "20250521",
+              "sin": -2.114,
+              "satelite": -0.626173,
+              "oraculo": -0.625933
+            }
+          ],
+          "por_fold_y_semilla": [
+            {
+              "fold": "2021",
+              "semilla": "-",
+              "sin": 0.474979,
+              "satelite": 0.650763,
+              "oraculo": 0.688762
+            },
+            {
+              "fold": "2022",
+              "semilla": "-",
+              "sin": 0.477667,
+              "satelite": 0.281189,
+              "oraculo": 0.659421
+            },
+            {
+              "fold": "2023",
+              "semilla": "-",
+              "sin": 0.381318,
+              "satelite": 0.51456,
+              "oraculo": 0.693304
+            },
+            {
+              "fold": "2025",
+              "semilla": "-",
+              "sin": -0.01986,
+              "satelite": 0.22539,
+              "oraculo": 0.45973
+            }
+          ]
+        }
+      },
+      "red": {
+        "R2_acumulado": {
+          "ingenuo": {
+            "1": -0.405198,
+            "3": 0.195576,
+            "5": 0.305117,
+            "10": 0.40064,
+            "20": 0.447666,
+            "50": 0.473201,
+            "100": 0.482274
+          },
+          "patron": {
+            "1": -0.046053,
+            "3": 0.318425,
+            "5": 0.380353,
+            "10": 0.436899,
+            "20": 0.464891,
+            "50": 0.480506,
+            "100": 0.48607
+          },
+          "patron+sat": {
+            "1": 0.324601,
+            "3": 0.378508,
+            "5": 0.406691,
+            "10": 0.440959,
+            "20": 0.465094,
+            "50": 0.48044,
+            "100": 0.485994
+          }
+        },
+        "campanas_P10_P50_P90": {
+          "ingenuo": {
+            "1": [
+              -3.521351,
+              -0.048514,
+              0.507184
+            ],
+            "3": [
+              -0.900103,
+              0.223124,
+              0.580153
+            ],
+            "5": [
+              -0.488051,
+              0.278498,
+              0.600839
+            ],
+            "10": [
+              -0.18923,
+              0.335047,
+              0.625193
+            ],
+            "20": [
+              -0.039245,
+              0.370605,
+              0.65077
+            ],
+            "50": [
+              0.038054,
+              0.406394,
+              0.669488
+            ],
+            "100": [
+              0.057533,
+              0.418233,
+              0.675344
+            ]
+          },
+          "patron": {
+            "1": [
+              -2.173435,
+              0.187373,
+              0.600267
+            ],
+            "3": [
+              -0.561131,
+              0.308926,
+              0.628707
+            ],
+            "5": [
+              -0.373084,
+              0.337948,
+              0.643795
+            ],
+            "10": [
+              -0.115874,
+              0.371675,
+              0.662178
+            ],
+            "20": [
+              -0.02547,
+              0.402431,
+              0.671595
+            ],
+            "50": [
+              0.045489,
+              0.416279,
+              0.677437
+            ],
+            "100": [
+              0.059547,
+              0.422076,
+              0.680042
+            ]
+          },
+          "patron+sat": {
+            "1": [
+              -0.238085,
+              0.323687,
+              0.667752
+            ],
+            "3": [
+              -0.170467,
+              0.352335,
+              0.665694
+            ],
+            "5": [
+              -0.126135,
+              0.364024,
+              0.667273
+            ],
+            "10": [
+              -0.079115,
+              0.387101,
+              0.671709
+            ],
+            "20": [
+              -0.002636,
+              0.406105,
+              0.673386
+            ],
+            "50": [
+              0.046753,
+              0.417501,
+              0.677756
+            ],
+            "100": [
+              0.060164,
+              0.422189,
+              0.680401
+            ]
+          }
+        },
+        "N90": {
+          "ingenuo": 50,
+          "patron": 50,
+          "patron+sat": 50
+        },
+        "referencias": {
+          "acumulado": {
+            "sin_corregir": 0.270099,
+            "solo_satelite": 0.283869,
+            "nivel_perfecto": 0.491198
+          },
+          "campanas_P10_P50_P90": {
+            "sin_corregir": [
+              -0.611875,
+              0.279149,
+              0.628071
+            ],
+            "sin_corregir_sin_replicar": [
+              -0.597438,
+              0.279149,
+              0.627907
+            ],
+            "solo_satelite": [
+              -0.227694,
+              0.304869,
+              0.666764
+            ],
+            "solo_satelite_sin_replicar": [
+              -0.214415,
+              0.304869,
+              0.662295
+            ],
+            "nivel_perfecto": [
+              0.067158,
+              0.429178,
+              0.682528
+            ],
+            "nivel_perfecto_sin_replicar": [
+              0.073705,
+              0.429178,
+              0.681116
+            ]
+          },
+          "n_campanas": 54,
+          "por_campana": [
+            {
+              "fold": "2021",
+              "semilla": "7",
+              "fecha": "20210304",
+              "sin": 0.214079,
+              "satelite": 0.307294,
+              "oraculo": 0.437847
+            },
+            {
+              "fold": "2021",
+              "semilla": "7",
+              "fecha": "20210323",
+              "sin": 0.406369,
+              "satelite": 0.481505,
+              "oraculo": 0.509598
+            },
+            {
+              "fold": "2021",
+              "semilla": "7",
+              "fecha": "20210414",
+              "sin": 0.562946,
+              "satelite": 0.651866,
+              "oraculo": 0.657809
+            },
+            {
+              "fold": "2021",
+              "semilla": "7",
+              "fecha": "20211216",
+              "sin": -0.171013,
+              "satelite": 0.251683,
+              "oraculo": 0.262621
+            },
+            {
+              "fold": "2021",
+              "semilla": "42",
+              "fecha": "20210304",
+              "sin": 0.033332,
+              "satelite": 0.233566,
+              "oraculo": 0.364119
+            },
+            {
+              "fold": "2021",
+              "semilla": "42",
+              "fecha": "20210323",
+              "sin": 0.240042,
+              "satelite": 0.426241,
+              "oraculo": 0.454334
+            },
+            {
+              "fold": "2021",
+              "semilla": "42",
+              "fecha": "20210414",
+              "sin": 0.583114,
+              "satelite": 0.607184,
+              "oraculo": 0.613127
+            },
+            {
+              "fold": "2021",
+              "semilla": "42",
+              "fecha": "20211216",
+              "sin": -0.490355,
+              "satelite": 0.200456,
+              "oraculo": 0.211394
+            },
+            {
+              "fold": "2021",
+              "semilla": "123",
+              "fecha": "20210304",
+              "sin": 0.313573,
+              "satelite": 0.329938,
+              "oraculo": 0.460491
+            },
+            {
+              "fold": "2021",
+              "semilla": "123",
+              "fecha": "20210323",
+              "sin": 0.349713,
+              "satelite": 0.394492,
+              "oraculo": 0.422585
+            },
+            {
+              "fold": "2021",
+              "semilla": "123",
+              "fecha": "20210414",
+              "sin": 0.46757,
+              "satelite": 0.58152,
+              "oraculo": 0.587463
+            },
+            {
+              "fold": "2021",
+              "semilla": "123",
+              "fecha": "20211216",
+              "sin": -0.064345,
+              "satelite": 0.302444,
+              "oraculo": 0.313383
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20220112",
+              "sin": 0.532302,
+              "satelite": 0.432455,
+              "oraculo": 0.536051
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20220128",
+              "sin": 0.565287,
+              "satelite": 0.532557,
+              "oraculo": 0.565626
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20220218",
+              "sin": 0.549507,
+              "satelite": 0.565882,
+              "oraculo": 0.621622
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20220417",
+              "sin": 0.67192,
+              "satelite": 0.666764,
+              "oraculo": 0.673427
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20220516",
+              "sin": 0.628071,
+              "satelite": 0.68236,
+              "oraculo": 0.682528
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "fecha": "20221201",
+              "sin": -8.263954,
+              "satelite": -25.817383,
+              "oraculo": -3.574214
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20220112",
+              "sin": 0.621141,
+              "satelite": 0.535485,
+              "oraculo": 0.639082
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20220128",
+              "sin": 0.589057,
+              "satelite": 0.566481,
+              "oraculo": 0.59955
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20220218",
+              "sin": 0.627522,
+              "satelite": 0.644246,
+              "oraculo": 0.699985
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20220417",
+              "sin": 0.677816,
+              "satelite": 0.67116,
+              "oraculo": 0.677822
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20220516",
+              "sin": 0.652175,
+              "satelite": 0.698532,
+              "oraculo": 0.6987
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "fecha": "20221201",
+              "sin": -16.077603,
+              "satelite": -27.433203,
+              "oraculo": -5.190034
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20220112",
+              "sin": 0.616715,
+              "satelite": 0.526298,
+              "oraculo": 0.629894
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20220128",
+              "sin": 0.545043,
+              "satelite": 0.516777,
+              "oraculo": 0.549847
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20220218",
+              "sin": 0.620401,
+              "satelite": 0.631024,
+              "oraculo": 0.686764
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20220417",
+              "sin": 0.702906,
+              "satelite": 0.698617,
+              "oraculo": 0.70528
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20220516",
+              "sin": 0.695434,
+              "satelite": 0.729434,
+              "oraculo": 0.729602
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "fecha": "20221201",
+              "sin": -14.051198,
+              "satelite": -26.904266,
+              "oraculo": -4.661097
+            },
+            {
+              "fold": "2023",
+              "semilla": "7",
+              "fecha": "20230213",
+              "sin": 0.546201,
+              "satelite": 0.442896,
+              "oraculo": 0.54633
+            },
+            {
+              "fold": "2023",
+              "semilla": "7",
+              "fecha": "20230316",
+              "sin": -0.611875,
+              "satelite": 0.343649,
+              "oraculo": 0.523925
+            },
+            {
+              "fold": "2023",
+              "semilla": "7",
+              "fecha": "20230328",
+              "sin": 0.323595,
+              "satelite": -0.105066,
+              "oraculo": 0.323597
+            },
+            {
+              "fold": "2023",
+              "semilla": "42",
+              "fecha": "20230213",
+              "sin": 0.319453,
+              "satelite": 0.220478,
+              "oraculo": 0.323912
+            },
+            {
+              "fold": "2023",
+              "semilla": "42",
+              "fecha": "20230316",
+              "sin": -0.784559,
+              "satelite": 0.173633,
+              "oraculo": 0.353909
+            },
+            {
+              "fold": "2023",
+              "semilla": "42",
+              "fecha": "20230328",
+              "sin": 0.058887,
+              "satelite": -0.361505,
+              "oraculo": 0.067158
+            },
+            {
+              "fold": "2023",
+              "semilla": "123",
+              "fecha": "20230213",
+              "sin": 0.557821,
+              "satelite": 0.457285,
+              "oraculo": 0.56072
+            },
+            {
+              "fold": "2023",
+              "semilla": "123",
+              "fecha": "20230316",
+              "sin": -0.533954,
+              "satelite": 0.417436,
+              "oraculo": 0.597712
+            },
+            {
+              "fold": "2023",
+              "semilla": "123",
+              "fecha": "20230328",
+              "sin": 0.225754,
+              "satelite": -0.183429,
+              "oraculo": 0.245234
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "fecha": "20250317",
+              "sin": -0.385898,
+              "satelite": 0.213532,
+              "oraculo": 0.435771
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "fecha": "20250327",
+              "sin": 0.216942,
+              "satelite": 0.095256,
+              "oraculo": 0.369864
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "fecha": "20250401",
+              "sin": 0.080124,
+              "satelite": -0.134149,
+              "oraculo": 0.34301
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "fecha": "20250424",
+              "sin": 0.25292,
+              "satelite": 0.113506,
+              "oraculo": 0.284102
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "fecha": "20250521",
+              "sin": -0.867174,
+              "satelite": -0.371402,
+              "oraculo": -0.371161
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "fecha": "20250317",
+              "sin": 0.241707,
+              "satelite": 0.156547,
+              "oraculo": 0.378786
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "fecha": "20250327",
+              "sin": 0.305377,
+              "satelite": 0.1328,
+              "oraculo": 0.407408
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "fecha": "20250401",
+              "sin": 0.176839,
+              "satelite": -0.166091,
+              "oraculo": 0.311068
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "fecha": "20250424",
+              "sin": 0.318288,
+              "satelite": 0.16352,
+              "oraculo": 0.334116
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "fecha": "20250521",
+              "sin": -0.56375,
+              "satelite": -0.098787,
+              "oraculo": -0.098547
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "fecha": "20250317",
+              "sin": 0.089183,
+              "satelite": 0.05002,
+              "oraculo": 0.272259
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "fecha": "20250327",
+              "sin": 0.251868,
+              "satelite": 0.065375,
+              "oraculo": 0.339984
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "fecha": "20250401",
+              "sin": 0.095102,
+              "satelite": -0.227694,
+              "oraculo": 0.249465
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "fecha": "20250424",
+              "sin": 0.199394,
+              "satelite": 0.035926,
+              "oraculo": 0.206522
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "fecha": "20250521",
+              "sin": -0.205264,
+              "satelite": 0.088743,
+              "oraculo": 0.088983
+            }
+          ],
+          "por_fold_y_semilla": [
+            {
+              "fold": "2021",
+              "semilla": "7",
+              "sin": 0.237095,
+              "satelite": 0.429885,
+              "oraculo": 0.467884
+            },
+            {
+              "fold": "2021",
+              "semilla": "42",
+              "sin": 0.060908,
+              "satelite": 0.377227,
+              "oraculo": 0.415226
+            },
+            {
+              "fold": "2021",
+              "semilla": "123",
+              "sin": 0.263294,
+              "satelite": 0.419552,
+              "oraculo": 0.457551
+            },
+            {
+              "fold": "2022",
+              "semilla": "7",
+              "sin": 0.507382,
+              "satelite": 0.221146,
+              "oraculo": 0.599379
+            },
+            {
+              "fold": "2022",
+              "semilla": "42",
+              "sin": 0.430771,
+              "satelite": 0.242644,
+              "oraculo": 0.620876
+            },
+            {
+              "fold": "2022",
+              "semilla": "123",
+              "sin": 0.458224,
+              "satelite": 0.243749,
+              "oraculo": 0.621982
+            },
+            {
+              "fold": "2023",
+              "semilla": "7",
+              "sin": 0.27021,
+              "satelite": 0.384972,
+              "oraculo": 0.563717
+            },
+            {
+              "fold": "2023",
+              "semilla": "42",
+              "sin": 0.085251,
+              "satelite": 0.204093,
+              "oraculo": 0.382838
+            },
+            {
+              "fold": "2023",
+              "semilla": "123",
+              "sin": 0.272879,
+              "satelite": 0.391881,
+              "oraculo": 0.570626
+            },
+            {
+              "fold": "2025",
+              "semilla": "7",
+              "sin": 0.094394,
+              "satelite": 0.175072,
+              "oraculo": 0.409413
+            },
+            {
+              "fold": "2025",
+              "semilla": "42",
+              "sin": 0.310983,
+              "satelite": 0.188949,
+              "oraculo": 0.42329
+            },
+            {
+              "fold": "2025",
+              "semilla": "123",
+              "sin": 0.249798,
+              "satelite": 0.127257,
+              "oraculo": 0.361598
+            }
+          ]
+        }
+      }
+    },
+    "satelite_frente_a_patron": {
+      "climatologia": {
+        "dif_por_N": {
+          "1": 0.21974641087419178,
+          "3": 0.035159905339153474,
+          "5": 0.004641439962055127,
+          "10": -0.0002525024688329047,
+          "20": -0.0005257319158187279,
+          "50": -0.0003269434197367138,
+          "100": -8.774111885734293e-05
+        },
+        "primer_N_sin_ayuda": 10
+      },
+      "red": {
+        "dif_por_N": {
+          "1": 0.370653286388528,
+          "3": 0.060082142291113305,
+          "5": 0.026338476373534148,
+          "10": 0.00405923921557183,
+          "20": 0.00020345180052239176,
+          "50": -6.582258050796819e-05,
+          "100": -7.599228781546286e-05
+        },
+        "primer_N_sin_ayuda": 50
+      }
+    },
+    "var_prior_por_fold": {
+      "2021": 0.11389420480870723,
+      "2022": 0.044408385741965116,
+      "2023": 0.09602709689811653,
+      "2025": 0.083797707715181
+    },
+    "control_referencias_acumuladas_vs_json_max_dif": 0.0
+  }
+}
