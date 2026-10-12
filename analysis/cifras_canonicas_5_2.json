@@ -1,0 +1,744 @@
+{
+  "descripcion": "Cifras canonicas de Resultados 5.2 (scripts/results_5_2.py). Red: semillas 7, 42, 123 (por_semilla en ese orden).",
+  "1_B": {
+    "fuente": "scripts/results_5_2.py (mascara y R2 de scripts/climatology_baseline.py; regresor de E5 con la media de train de todas las teselas)",
+    "definiciones": "raw: sin corregir; orac: nivel perfecto aditivo; regr: nivel del regresor corregido; SPAEF medio por tesela; corr: media por tesela",
+    "por_fold": {
+      "2021": {
+        "n_fechas": 4,
+        "n_teselas": 957,
+        "n_pixeles": 54078195,
+        "cobertura_climatologia": 0.9996,
+        "red": {
+          "r2_raw": {
+            "media": 0.1841,
+            "min": 0.0583,
+            "max": 0.26,
+            "por_semilla": [
+              0.2341,
+              0.0583,
+              0.26
+            ]
+          },
+          "r2_orac": {
+            "media": 0.4422,
+            "min": 0.4102,
+            "max": 0.4634,
+            "por_semilla": [
+              0.4634,
+              0.4102,
+              0.453
+            ]
+          },
+          "r2_regr": {
+            "media": 0.4045,
+            "min": 0.3725,
+            "max": 0.4257,
+            "por_semilla": [
+              0.4257,
+              0.3725,
+              0.4152
+            ]
+          },
+          "spaef_raw": {
+            "media": 0.4606,
+            "min": 0.4497,
+            "max": 0.4701,
+            "por_semilla": [
+              0.4497,
+              0.4701,
+              0.462
+            ]
+          },
+          "spaef_orac": {
+            "media": 0.3262,
+            "min": 0.2764,
+            "max": 0.3699,
+            "por_semilla": [
+              0.3323,
+              0.2764,
+              0.3699
+            ]
+          },
+          "spaef_regr": {
+            "media": 0.3702,
+            "min": 0.3267,
+            "max": 0.4083,
+            "por_semilla": [
+              0.3754,
+              0.3267,
+              0.4083
+            ]
+          },
+          "corr": {
+            "media": 0.65,
+            "min": 0.6401,
+            "max": 0.6561,
+            "por_semilla": [
+              0.6401,
+              0.6561,
+              0.6539
+            ]
+          }
+        },
+        "climatologia": {
+          "r2_raw": 0.4803,
+          "r2_orac": 0.6919,
+          "r2_regr": 0.6541,
+          "spaef_raw": 0.6169,
+          "spaef_orac": 0.5451,
+          "spaef_regr": 0.5917,
+          "corr": 0.8154
+        }
+      },
+      "2022": {
+        "n_fechas": 6,
+        "n_teselas": 1802,
+        "n_pixeles": 94641796,
+        "cobertura_climatologia": 0.9992,
+        "red": {
+          "r2_raw": {
+            "media": 0.4771,
+            "min": 0.4442,
+            "max": 0.5158,
+            "por_semilla": [
+              0.5158,
+              0.4442,
+              0.4713
+            ]
+          },
+          "r2_orac": {
+            "media": 0.6208,
+            "min": 0.6046,
+            "max": 0.6297,
+            "por_semilla": [
+              0.6046,
+              0.628,
+              0.6297
+            ]
+          },
+          "r2_regr": {
+            "media": 0.2561,
+            "min": 0.24,
+            "max": 0.265,
+            "por_semilla": [
+              0.24,
+              0.2634,
+              0.265
+            ]
+          },
+          "spaef_raw": {
+            "media": 0.4517,
+            "min": 0.4432,
+            "max": 0.464,
+            "por_semilla": [
+              0.4478,
+              0.4432,
+              0.464
+            ]
+          },
+          "spaef_orac": {
+            "media": -0.5265,
+            "min": -0.7661,
+            "max": -0.3074,
+            "por_semilla": [
+              -0.506,
+              -0.3074,
+              -0.7661
+            ]
+          },
+          "spaef_regr": {
+            "media": -0.4337,
+            "min": -0.5961,
+            "max": -0.2893,
+            "por_semilla": [
+              -0.4156,
+              -0.2893,
+              -0.5961
+            ]
+          },
+          "corr": {
+            "media": 0.6694,
+            "min": 0.651,
+            "max": 0.6795,
+            "por_semilla": [
+              0.651,
+              0.6795,
+              0.6776
+            ]
+          }
+        },
+        "climatologia": {
+          "r2_raw": 0.492,
+          "r2_orac": 0.6683,
+          "r2_regr": 0.3037,
+          "spaef_raw": 0.5032,
+          "spaef_orac": 0.1909,
+          "spaef_regr": 0.3473,
+          "corr": 0.7209
+        }
+      },
+      "2023": {
+        "n_fechas": 3,
+        "n_teselas": 1107,
+        "n_pixeles": 61049313,
+        "cobertura_climatologia": 0.9967,
+        "red": {
+          "r2_raw": {
+            "media": 0.2393,
+            "min": 0.1223,
+            "max": 0.2987,
+            "por_semilla": [
+              0.2987,
+              0.1223,
+              0.297
+            ]
+          },
+          "r2_orac": {
+            "media": 0.5209,
+            "min": 0.4052,
+            "max": 0.5798,
+            "por_semilla": [
+              0.5777,
+              0.4052,
+              0.5798
+            ]
+          },
+          "r2_regr": {
+            "media": 0.3529,
+            "min": 0.2372,
+            "max": 0.4117,
+            "por_semilla": [
+              0.4097,
+              0.2372,
+              0.4117
+            ]
+          },
+          "spaef_raw": {
+            "media": 0.4121,
+            "min": 0.3513,
+            "max": 0.4427,
+            "por_semilla": [
+              0.4421,
+              0.3513,
+              0.4427
+            ]
+          },
+          "spaef_orac": {
+            "media": 0.2918,
+            "min": -0.0464,
+            "max": 0.4915,
+            "por_semilla": [
+              0.4915,
+              -0.0464,
+              0.4302
+            ]
+          },
+          "spaef_regr": {
+            "media": 0.4406,
+            "min": 0.4225,
+            "max": 0.458,
+            "por_semilla": [
+              0.4414,
+              0.458,
+              0.4225
+            ]
+          },
+          "corr": {
+            "media": 0.6818,
+            "min": 0.668,
+            "max": 0.6965,
+            "por_semilla": [
+              0.6809,
+              0.6965,
+              0.668
+            ]
+          }
+        },
+        "climatologia": {
+          "r2_raw": 0.4094,
+          "r2_orac": 0.7063,
+          "r2_regr": 0.5383,
+          "spaef_raw": 0.5343,
+          "spaef_orac": 0.5479,
+          "spaef_regr": 0.57,
+          "corr": 0.7725
+        }
+      },
+      "2025": {
+        "n_fechas": 5,
+        "n_teselas": 220,
+        "n_pixeles": 11897301,
+        "cobertura_climatologia": 0.9969,
+        "red": {
+          "r2_raw": {
+            "media": 0.2197,
+            "min": 0.1058,
+            "max": 0.3071,
+            "por_semilla": [
+              0.1058,
+              0.3071,
+              0.2461
+            ]
+          },
+          "r2_orac": {
+            "media": 0.397,
+            "min": 0.3571,
+            "max": 0.4184,
+            "por_semilla": [
+              0.4156,
+              0.4184,
+              0.3571
+            ]
+          },
+          "r2_regr": {
+            "media": 0.1647,
+            "min": 0.1247,
+            "max": 0.1861,
+            "por_semilla": [
+              0.1832,
+              0.1861,
+              0.1247
+            ]
+          },
+          "spaef_raw": {
+            "media": 0.3287,
+            "min": 0.2605,
+            "max": 0.3829,
+            "por_semilla": [
+              0.2605,
+              0.3829,
+              0.3426
+            ]
+          },
+          "spaef_orac": {
+            "media": 0.3886,
+            "min": 0.3737,
+            "max": 0.4059,
+            "por_semilla": [
+              0.4059,
+              0.3861,
+              0.3737
+            ]
+          },
+          "spaef_regr": {
+            "media": 0.2848,
+            "min": 0.2466,
+            "max": 0.3247,
+            "por_semilla": [
+              0.2466,
+              0.3247,
+              0.2832
+            ]
+          },
+          "corr": {
+            "media": 0.582,
+            "min": 0.5496,
+            "max": 0.6266,
+            "por_semilla": [
+              0.6266,
+              0.5699,
+              0.5496
+            ]
+          }
+        },
+        "climatologia": {
+          "r2_raw": -0.002,
+          "r2_orac": 0.4689,
+          "r2_regr": 0.2365,
+          "spaef_raw": 0.215,
+          "spaef_orac": 0.4334,
+          "spaef_regr": 0.308,
+          "corr": 0.6628
+        }
+      },
+      "MEDIA_4_FOLDS": {
+        "red": {
+          "r2_raw": 0.2801,
+          "r2_orac": 0.4952,
+          "r2_regr": 0.2946,
+          "spaef_raw": 0.4133,
+          "spaef_orac": 0.12,
+          "spaef_regr": 0.1655,
+          "corr": 0.6458
+        },
+        "climatologia": {
+          "r2_raw": 0.3449,
+          "r2_orac": 0.6339,
+          "r2_regr": 0.4331,
+          "spaef_raw": 0.4673,
+          "spaef_orac": 0.4293,
+          "spaef_regr": 0.4542,
+          "corr": 0.7429
+        }
+      }
+    },
+    "control": {
+      "valores": 60,
+      "max_diferencia": 1.1102230246251565e-16,
+      "contra": "analysis/eB_climatology_v2.json (raw, orac, corr) y analysis/e5_regresor_dependientes.json (regr)"
+    }
+  },
+  "2_C": {
+    "fuente": "scripts/results_5_2.py (mismo calculo que scripts/spatial_models_vs_climatology.py)",
+    "mascara": "702 teselas sin fuga; pixeles con nieve, dato valido, prediccion finita y climatologia de los demas anyos",
+    "n_teselas": 702,
+    "n_pixeles": 39578564,
+    "techo_climatologia": {
+      "r2_orac": 0.7094,
+      "spaef_orac": 0.5634,
+      "r2_raw": 0.4755,
+      "spaef_raw": 0.5872,
+      "corr": 0.8215
+    },
+    "red": {
+      "r2_raw": {
+        "media": 0.4741,
+        "min": 0.4544,
+        "max": 0.497,
+        "por_semilla": [
+          0.4544,
+          0.4708,
+          0.497
+        ]
+      },
+      "r2_orac": {
+        "media": 0.5438,
+        "min": 0.5286,
+        "max": 0.5641,
+        "por_semilla": [
+          0.5286,
+          0.5388,
+          0.5641
+        ]
+      },
+      "spaef_raw": {
+        "media": 0.5221,
+        "min": 0.5076,
+        "max": 0.5382,
+        "por_semilla": [
+          0.5076,
+          0.5205,
+          0.5382
+        ]
+      },
+      "spaef_orac": {
+        "media": 0.4863,
+        "min": 0.4625,
+        "max": 0.5034,
+        "por_semilla": [
+          0.4625,
+          0.493,
+          0.5034
+        ]
+      },
+      "corr_mod": {
+        "media": 0.6487,
+        "min": 0.6401,
+        "max": 0.6611,
+        "por_semilla": [
+          0.6401,
+          0.6448,
+          0.6611
+        ]
+      },
+      "frac_r2": {
+        "media": 0.7666,
+        "min": 0.7452,
+        "max": 0.7951,
+        "por_semilla": [
+          0.7452,
+          0.7594,
+          0.7951
+        ]
+      },
+      "frac_spaef": {
+        "media": 0.8631,
+        "min": 0.8209,
+        "max": 0.8935,
+        "por_semilla": [
+          0.8209,
+          0.875,
+          0.8935
+        ]
+      },
+      "frac_r2_raw": {
+        "media": 0.9971,
+        "min": 0.9557,
+        "max": 1.0453,
+        "por_semilla": [
+          0.9557,
+          0.9901,
+          1.0453
+        ]
+      },
+      "frac_spaef_raw": {
+        "media": 0.8891,
+        "min": 0.8644,
+        "max": 0.9166,
+        "por_semilla": [
+          0.8644,
+          0.8864,
+          0.9166
+        ]
+      }
+    },
+    "rf_justo": {
+      "r2_raw": {
+        "media": 0.2236,
+        "min": 0.2225,
+        "max": 0.2249,
+        "por_semilla": [
+          0.2225,
+          0.2249,
+          0.2235
+        ]
+      },
+      "r2_orac": {
+        "media": 0.5032,
+        "min": 0.5028,
+        "max": 0.5036,
+        "por_semilla": [
+          0.5036,
+          0.5028,
+          0.5032
+        ]
+      },
+      "spaef_raw": {
+        "media": 0.4475,
+        "min": 0.4463,
+        "max": 0.4489,
+        "por_semilla": [
+          0.4489,
+          0.4474,
+          0.4463
+        ]
+      },
+      "spaef_orac": {
+        "media": 0.325,
+        "min": 0.3229,
+        "max": 0.3266,
+        "por_semilla": [
+          0.3266,
+          0.3256,
+          0.3229
+        ]
+      },
+      "corr_mod": {
+        "media": 0.6288,
+        "min": 0.627,
+        "max": 0.6303,
+        "por_semilla": [
+          0.6303,
+          0.627,
+          0.6291
+        ]
+      },
+      "frac_r2": {
+        "media": 0.7093,
+        "min": 0.7088,
+        "max": 0.7099,
+        "por_semilla": [
+          0.7099,
+          0.7088,
+          0.7094
+        ]
+      },
+      "frac_spaef": {
+        "media": 0.5769,
+        "min": 0.5731,
+        "max": 0.5797,
+        "por_semilla": [
+          0.5797,
+          0.5779,
+          0.5731
+        ]
+      },
+      "frac_r2_raw": {
+        "media": 0.4704,
+        "min": 0.4679,
+        "max": 0.4731,
+        "por_semilla": [
+          0.4679,
+          0.4731,
+          0.47
+        ]
+      },
+      "frac_spaef_raw": {
+        "media": 0.7622,
+        "min": 0.76,
+        "max": 0.7646,
+        "por_semilla": [
+          0.7646,
+          0.7619,
+          0.76
+        ]
+      }
+    },
+    "control": {
+      "valores": 36,
+      "max_diferencia": 2.0760948127307444e-08,
+      "contra": "analysis/eC_net_vs_rf_allpix.json"
+    }
+  },
+  "3_descomposicion_espacial_mascara_C": {
+    "fuente": "scripts/results_5_2.py (como scripts/decomp_oracle_checks.py, en la mascara de C)",
+    "red": {
+      "T1a_pct": {
+        "media": 13.26,
+        "min": 12.85,
+        "max": 13.61,
+        "por_semilla": [
+          13.61,
+          12.85,
+          13.33
+        ]
+      },
+      "T1b_pct": {
+        "media": 6.5,
+        "min": 6.04,
+        "max": 7.37,
+        "por_semilla": [
+          6.04,
+          7.37,
+          6.09
+        ]
+      },
+      "T2_pct": {
+        "media": 16.15,
+        "min": 14.36,
+        "max": 17.53,
+        "por_semilla": [
+          16.55,
+          14.36,
+          17.53
+        ]
+      },
+      "T3_pct": {
+        "media": 64.09,
+        "min": 63.05,
+        "max": 65.42,
+        "por_semilla": [
+          63.8,
+          65.42,
+          63.05
+        ]
+      },
+      "escala_T1_T2_pct": {
+        "media": 35.91,
+        "min": 34.58,
+        "max": 36.95,
+        "por_semilla": [
+          36.2,
+          34.58,
+          36.95
+        ]
+      },
+      "suma_pct": {
+        "media": 100.0,
+        "min": 100.0,
+        "max": 100.0,
+        "por_semilla": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "rf_justo": {
+      "T1a_pct": {
+        "media": 36.01,
+        "min": 35.85,
+        "max": 36.16,
+        "por_semilla": [
+          36.16,
+          35.85,
+          36.03
+        ]
+      },
+      "T1b_pct": {
+        "media": 3.23,
+        "min": 3.22,
+        "max": 3.24,
+        "por_semilla": [
+          3.24,
+          3.22,
+          3.22
+        ]
+      },
+      "T2_pct": {
+        "media": 30.86,
+        "min": 30.69,
+        "max": 31.1,
+        "por_semilla": [
+          30.78,
+          30.69,
+          31.1
+        ]
+      },
+      "T3_pct": {
+        "media": 29.9,
+        "min": 29.65,
+        "max": 30.24,
+        "por_semilla": [
+          29.83,
+          30.24,
+          29.65
+        ]
+      },
+      "escala_T1_T2_pct": {
+        "media": 70.1,
+        "min": 69.76,
+        "max": 70.35,
+        "por_semilla": [
+          70.17,
+          69.76,
+          70.35
+        ]
+      },
+      "suma_pct": {
+        "media": 100.0,
+        "min": 100.0,
+        "max": 100.0,
+        "por_semilla": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "climatologia_sin_corregir": {
+      "T1a_pct": 44.6,
+      "T1b_pct": 4.09,
+      "T2_pct": 21.41,
+      "T3_pct": 29.89,
+      "escala_T1_T2_pct": 70.11
+    },
+    "nota": "analysis/decomp_espacial.json usa la mascara del hallazgo 8 (sin exigir climatologia)"
+  },
+  "4_tesela_figura": {
+    "regla": "R2 por tesela de la red s42 con nivel perfecto mas cercano a la mediana de todas las tesela-fecha del test espacial (mascara de C), con >= 50 % de los 256 x 256 pixeles con nieve dentro de la mascara",
+    "mediana_r2_todas": 0.3803,
+    "n_tesela_fecha": 702,
+    "n_candidatas_50pct": 669,
+    "tile_id": "20220417_lidar_tile_256_0.npy",
+    "fecha": "20220417",
+    "frac_nieve": 0.7344,
+    "r2_red_s42_orac": 0.3801,
+    "metricas_tesela_nivel_perfecto": {
+      "climatologia": {
+        "R2": 0.3416,
+        "SPAEF": 0.3565
+      },
+      "red_s42": {
+        "R2": 0.3801,
+        "SPAEF": 0.484
+      },
+      "rf_s42": {
+        "R2": 0.3625,
+        "SPAEF": 0.2798
+      }
+    },
+    "campos": "analysis/fig05_tesela.npz"
+  }
+}
