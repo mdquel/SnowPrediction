@@ -14,11 +14,16 @@ lee JSON ya guardados y hace medias, minimos y maximos entre semillas.
     3. Diagnostico LOYO-E2 por fold (3 semillas)
     4. Ablacion v3
 
+Precision: los metrics.json (barrido, ablacion, RF temporal) y
+hallazgo8_fuga_espacial.json guardan 4 decimales por semilla; las medias se
+calculan desde ellos. Con --nd 6 el resto sale de los JSON a precision completa.
+
 No modifica nada. Escribe solo el JSON de --out.
 
 Uso (desde la raiz del repo)
 ----------------------------
     python scripts/build_canonical_5_1.py
+    python scripts/build_canonical_5_1.py --nd 6 --out analysis/cifras_canonicas_5_1_6d.json
 """
 
 import argparse
@@ -38,7 +43,12 @@ def load(p):
         return json.load(f)
 
 
-def mmm(vals, nd=4):
+ND = 4        # decimales de salida (--nd); porcentajes con ND - 2
+ND_PCT = 2
+
+
+def mmm(vals, nd=None):
+    nd = ND if nd is None else nd
     v = np.asarray(vals, float)
     return {'media': round(float(v.mean()), nd), 'min': round(float(v.min()), nd),
             'max': round(float(v.max()), nd), 'por_semilla': [round(float(x), nd) for x in v]}
@@ -47,7 +57,11 @@ def mmm(vals, nd=4):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default='analysis/cifras_canonicas_5_1.json')
+    ap.add_argument('--nd', type=int, default=4,
+                    help='decimales de salida (6 -> analysis/cifras_canonicas_5_1_6d.json)')
     args = ap.parse_args()
+    global ND, ND_PCT
+    ND, ND_PCT = args.nd, args.nd - 2
     out = {'descripcion': 'Cifras canonicas de Resultados 5.1; cada bloque lleva su fuente. '
                           'Medias, minimos y maximos entre las semillas 7, 42 y 123 '
                           '(por_semilla en ese orden).'}
@@ -105,6 +119,8 @@ def main():
             'fuente': 'analysis/eC_net_vs_rf_allpix.json (scripts/spatial_models_vs_climatology.py)'},
         'otras_cifras_y_por_que_difieren': {
             'hallazgo8_limpios': {'R2': mmm([h8['por_semilla'][k]['limpios']['R2'] for k in h8['por_semilla']]),
+                                  'precision_origen': '4 decimales por semilla (el valor completo '
+                                                      'es decomp_espacial, misma mascara)',
                                   'mascara': 'todos los pixeles con nieve de las 702 teselas, '
                                              'sin exigir climatologia',
                                   'fuente': 'analysis/hallazgo8_fuga_espacial.json'},
@@ -113,6 +129,7 @@ def main():
                                            '0,471 frente a 0,472 es solo redondeo',
                                 'fuente': 'analysis/decomp_espacial.json'},
             'hallazgo8_todos_730': {'R2': mmm([h8['por_semilla'][k]['todos']['R2'] for k in h8['por_semilla']]),
+                                    'precision_origen': '4 decimales por semilla',
                                     'fuente': 'analysis/hallazgo8_fuga_espacial.json'}}}
 
     # ------------------------------------------------------------ 3. LOYO
@@ -134,11 +151,11 @@ def main():
             'n_teselas_test': ps['7']['n_tiles'],
             'R2_sin_corregir': mmm([ps[s]['R2_raw'] for s in SEEDS]),
             'R2_nivel_perfecto_aditivo': mmm([ps[s]['R2_oraculo_add'] for s in SEEDS]),
-            'T1a_pct': mmm([ps[s]['T1a_pct'] for s in SEEDS], 2),
-            'T1b_pct': mmm([ps[s]['T1b_pct'] for s in SEEDS], 2),
-            'T2_pct': mmm([100 * ps[s]['T2'] / ps[s]['MSE'] for s in SEEDS], 2),
-            'T3_pct': mmm([100 * ps[s]['T3'] / ps[s]['MSE'] for s in SEEDS], 2),
-            'escala_T1_T2_pct': mmm([ps[s]['escala_pct_T1_T2'] for s in SEEDS], 2),
+            'T1a_pct': mmm([ps[s]['T1a_pct'] for s in SEEDS],ND_PCT),
+            'T1b_pct': mmm([ps[s]['T1b_pct'] for s in SEEDS],ND_PCT),
+            'T2_pct': mmm([100 * ps[s]['T2'] / ps[s]['MSE'] for s in SEEDS],ND_PCT),
+            'T3_pct': mmm([100 * ps[s]['T3'] / ps[s]['MSE'] for s in SEEDS],ND_PCT),
+            'escala_T1_T2_pct': mmm([ps[s]['escala_pct_T1_T2'] for s in SEEDS],ND_PCT),
             'correlacion_patron_tesela': mmm([dec_row(s, f)['mean_rho'] for s in SEEDS]),
             'sesgo_medio_pixeles_m': mmm([ps[s]['sesgo_pixeles'] for s in SEEDS]),
             'sesgo_medio_teselas_m': mmm([ps[s]['sesgo_medio_tiles'] for s in SEEDS]),
@@ -158,8 +175,18 @@ def main():
                                             'de train sin 2024) / esa media; todos los pixeles con nieve',
                          'escala': '(T1+T2)/MSE, criterio pre-registrado'},
         'por_fold': loyo,
-        'media_4_folds': {'R2_sin_corregir': orc['media_4_folds']['R2_raw'],
-                          'R2_nivel_perfecto_aditivo': orc['media_4_folds']['R2_oraculo_add']},
+        'media_4_folds': ({'R2_sin_corregir': orc['media_4_folds']['R2_raw'],
+                           'R2_nivel_perfecto_aditivo': orc['media_4_folds']['R2_oraculo_add']}
+                          if ND <= 4 else
+                          # e2_oraculos_loyo.json guarda 4 decimales: con mas precision se
+                          # recalcula desde e2_scale_checks.json (12 ejecuciones)
+                          # misma definicion que e2_oraculos_loyo.json: media de los 4 folds
+                          # para cada semilla; media [min-max] entre las 3 semillas
+                          {'R2_sin_corregir': mmm([np.mean([sc['por_fold'][f]['por_semilla'][s]['R2_raw']
+                                                            for f in FOLDS]) for s in SEEDS]),
+                           'R2_nivel_perfecto_aditivo': mmm([np.mean([sc['por_fold'][f]['por_semilla'][s]['R2_oraculo_add']
+                                                                      for f in FOLDS]) for s in SEEDS]),
+                           'fuente': 'analysis/e2_scale_checks.json (media de 4 folds por semilla)'}),
         'escala_mayor_50': sc['escala_mayor_50'],
         'signo_sesgo_opuesto_anomalia': sc['signo_opuesto_total']}
 

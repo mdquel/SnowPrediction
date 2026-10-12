@@ -1,0 +1,947 @@
+{
+  "descripcion": "Cifras canonicas de Resultados 5.1; cada bloque lleva su fuente. Medias, minimos y maximos entre las semillas 7, 42 y 123 (por_semilla en ese orden).",
+  "1_barrido_lambda": {
+    "fuente": "results/norm_v3/lambda/resunetpp_v3_sp<lambda>_s<semilla>/resunetpp_v3_sp<lambda>_s<semilla>_metrics.json",
+    "resumen_ya_guardado": "results/norm_v3/lambda/norm_v3_lambda_summary.json (media y desviacion)",
+    "configuracion": "ResUNet++, norm_version v3, masked_loss true, loss spatial_mse, split temporal (train 2021-23, val 2024, test 2025), 50 epocas, configs/norm_v3/resunetpp_v3_sp<lambda>_s<semilla>.yaml",
+    "por_lambda": {
+      "0.0": {
+        "R2": {
+          "media": 0.1676,
+          "min": 0.1072,
+          "max": 0.2134,
+          "por_semilla": [
+            0.2134,
+            0.1072,
+            0.1822
+          ]
+        },
+        "SPAEF": {
+          "media": 0.355267,
+          "min": 0.3464,
+          "max": 0.3612,
+          "por_semilla": [
+            0.3464,
+            0.3612,
+            0.3582
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.1": {
+        "R2": {
+          "media": 0.1199,
+          "min": 0.0268,
+          "max": 0.2041,
+          "por_semilla": [
+            0.2041,
+            0.1288,
+            0.0268
+          ]
+        },
+        "SPAEF": {
+          "media": 0.256933,
+          "min": 0.1493,
+          "max": 0.3884,
+          "por_semilla": [
+            0.3884,
+            0.2331,
+            0.1493
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.25": {
+        "R2": {
+          "media": 0.0599,
+          "min": -0.0584,
+          "max": 0.1227,
+          "por_semilla": [
+            0.1227,
+            -0.0584,
+            0.1154
+          ]
+        },
+        "SPAEF": {
+          "media": 0.309567,
+          "min": 0.2936,
+          "max": 0.3261,
+          "por_semilla": [
+            0.3261,
+            0.309,
+            0.2936
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.4": {
+        "R2": {
+          "media": 0.043233,
+          "min": -0.0301,
+          "max": 0.1139,
+          "por_semilla": [
+            0.0459,
+            -0.0301,
+            0.1139
+          ]
+        },
+        "SPAEF": {
+          "media": 0.181533,
+          "min": 0.0908,
+          "max": 0.288,
+          "por_semilla": [
+            0.1658,
+            0.0908,
+            0.288
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.5": {
+        "R2": {
+          "media": 0.047067,
+          "min": 0.0196,
+          "max": 0.101,
+          "por_semilla": [
+            0.0206,
+            0.0196,
+            0.101
+          ]
+        },
+        "SPAEF": {
+          "media": 0.208533,
+          "min": 0.1373,
+          "max": 0.2908,
+          "por_semilla": [
+            0.1975,
+            0.1373,
+            0.2908
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.6": {
+        "R2": {
+          "media": 0.068367,
+          "min": 0.0345,
+          "max": 0.1096,
+          "por_semilla": [
+            0.061,
+            0.0345,
+            0.1096
+          ]
+        },
+        "SPAEF": {
+          "media": 0.2128,
+          "min": 0.152,
+          "max": 0.3006,
+          "por_semilla": [
+            0.1858,
+            0.152,
+            0.3006
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "0.75": {
+        "R2": {
+          "media": 0.061567,
+          "min": 0.0229,
+          "max": 0.1202,
+          "por_semilla": [
+            0.0416,
+            0.0229,
+            0.1202
+          ]
+        },
+        "SPAEF": {
+          "media": 0.1648,
+          "min": 0.0834,
+          "max": 0.2739,
+          "por_semilla": [
+            0.1371,
+            0.0834,
+            0.2739
+          ]
+        },
+        "n_teselas_test": 220
+      },
+      "1.0": {
+        "R2": {
+          "media": 0.081567,
+          "min": 0.0482,
+          "max": 0.1192,
+          "por_semilla": [
+            0.0482,
+            0.0773,
+            0.1192
+          ]
+        },
+        "SPAEF": {
+          "media": 0.2702,
+          "min": 0.2565,
+          "max": 0.2865,
+          "por_semilla": [
+            0.2676,
+            0.2565,
+            0.2865
+          ]
+        },
+        "n_teselas_test": 220
+      }
+    },
+    "mejor_lambda_R2": "0.0",
+    "mejor_lambda_SPAEF": "0.0",
+    "aviso": "Respecto al barrido antiguo cambian DOS cosas a la vez (normalizacion v3 y perdida enmascarada; commits ded1a0d y f372687). No hay ejecuciones v3 sin mascara: el barrido no aisla el efecto de la mascara."
+  },
+  "2a_base_temporal": {
+    "definicion": "split temporal completo: train 2021-2023 (todas las teselas), val 2024, test 2025 (220 teselas, 5 fechas); R2 acumulado sobre pixeles con nieve, SPAEF medio por tesela; sin corregir el nivel. NO es el fold LOYO 2025 (ese submuestrea el train a 2659 teselas).",
+    "red": {
+      "R2": {
+        "media": 0.1676,
+        "min": 0.1072,
+        "max": 0.2134,
+        "por_semilla": [
+          0.2134,
+          0.1072,
+          0.1822
+        ]
+      },
+      "SPAEF": {
+        "media": 0.355267,
+        "min": 0.3464,
+        "max": 0.3612,
+        "por_semilla": [
+          0.3464,
+          0.3612,
+          0.3582
+        ]
+      },
+      "fuente": "results/norm_v3/lambda/resunetpp_v3_sp00_s<semilla>/resunetpp_v3_sp00_s<semilla>_metrics.json"
+    },
+    "rf_justo": {
+      "R2": {
+        "media": -0.0047,
+        "min": -0.0075,
+        "max": -0.0012,
+        "por_semilla": [
+          -0.0012,
+          -0.0054,
+          -0.0075
+        ]
+      },
+      "SPAEF": {
+        "media": 0.313433,
+        "min": 0.3108,
+        "max": 0.3176,
+        "por_semilla": [
+          0.3176,
+          0.3119,
+          0.3108
+        ]
+      },
+      "fuente": "analysis/rf_temporal_allpix_train.json (rf_nuevo; todos los pixeles validos, train 2021-2023)"
+    },
+    "rf_anterior_suplementario": {
+      "R2": {
+        "media": 0.1397,
+        "min": 0.1356,
+        "max": 0.1438
+      },
+      "SPAEF": {
+        "media": 0.3111,
+        "min": 0.3087,
+        "max": 0.3139
+      },
+      "nota": "solo nieve y con 2024 en train"
+    }
+  },
+  "2b_base_espacial": {
+    "canonico_red_frente_a_rf": {
+      "definicion": "702 teselas sin fuga; pixeles con nieve, dato valido y climatologia disponible (mascara comun de C); sin corregir el nivel",
+      "red": {
+        "R2": {
+          "media": 0.474058,
+          "min": 0.454403,
+          "max": 0.497006,
+          "por_semilla": [
+            0.454403,
+            0.470767,
+            0.497006
+          ]
+        },
+        "SPAEF": {
+          "media": 0.52209,
+          "min": 0.507574,
+          "max": 0.538232,
+          "por_semilla": [
+            0.507574,
+            0.520462,
+            0.538232
+          ]
+        }
+      },
+      "rf_justo": {
+        "R2": {
+          "media": 0.22363,
+          "min": 0.222484,
+          "max": 0.224929,
+          "por_semilla": [
+            0.222484,
+            0.224929,
+            0.223476
+          ]
+        },
+        "SPAEF": {
+          "media": 0.447532,
+          "min": 0.446293,
+          "max": 0.448939,
+          "por_semilla": [
+            0.448939,
+            0.447363,
+            0.446293
+          ]
+        }
+      },
+      "fuente": "analysis/eC_net_vs_rf_allpix.json (scripts/spatial_models_vs_climatology.py)"
+    },
+    "otras_cifras_y_por_que_difieren": {
+      "hallazgo8_limpios": {
+        "R2": {
+          "media": 0.471567,
+          "min": 0.4513,
+          "max": 0.4952,
+          "por_semilla": [
+            0.4513,
+            0.4682,
+            0.4952
+          ]
+        },
+        "precision_origen": "4 decimales por semilla (el valor completo es decomp_espacial, misma mascara)",
+        "mascara": "todos los pixeles con nieve de las 702 teselas, sin exigir climatologia",
+        "fuente": "analysis/hallazgo8_fuga_espacial.json"
+      },
+      "decomp_espacial": {
+        "R2": {
+          "media": 0.471533,
+          "min": 0.451269,
+          "max": 0.495163,
+          "por_semilla": [
+            0.451269,
+            0.468169,
+            0.495163
+          ]
+        },
+        "mascara": "la misma que hallazgo 8 (mismas cifras por semilla); 0,471 frente a 0,472 es solo redondeo",
+        "fuente": "analysis/decomp_espacial.json"
+      },
+      "hallazgo8_todos_730": {
+        "R2": {
+          "media": 0.4628,
+          "min": 0.4446,
+          "max": 0.4849,
+          "por_semilla": [
+            0.4446,
+            0.4589,
+            0.4849
+          ]
+        },
+        "precision_origen": "4 decimales por semilla",
+        "fuente": "analysis/hallazgo8_fuga_espacial.json"
+      }
+    }
+  },
+  "3_loyo_e2": {
+    "fuentes": {
+      "R2, T1a, T1b, T2, T3, escala, sesgos, anomalia": "analysis/e2_scale_checks.json",
+      "correlacion de patron": "analysis/e2_decomposition.json (s7), e2_decomposition_s42.json, e2_decomposition_s123.json",
+      "control": "analysis/e2_oraculos_loyo.json"
+    },
+    "definiciones": {
+      "sesgo": "prediccion - observacion (m); pixeles: ponderado por pixeles (sesgo de la fecha agregado); teselas: media sin ponderar de las teselas (el mean_bias de E1/E2)",
+      "anomalia_exacta": "(HS media del anyo de test - media de las HS anuales de train sin 2024) / esa media; todos los pixeles con nieve",
+      "escala": "(T1+T2)/MSE, criterio pre-registrado"
+    },
+    "por_fold": {
+      "2021": {
+        "n_teselas_test": 1332,
+        "R2_sin_corregir": {
+          "media": 0.261426,
+          "min": 0.168956,
+          "max": 0.321506,
+          "por_semilla": [
+            0.293817,
+            0.168956,
+            0.321506
+          ]
+        },
+        "R2_nivel_perfecto_aditivo": {
+          "media": 0.454492,
+          "min": 0.433109,
+          "max": 0.465464,
+          "por_semilla": [
+            0.465464,
+            0.433109,
+            0.464902
+          ]
+        },
+        "T1a_pct": {
+          "media": 25.7421,
+          "min": 21.1344,
+          "max": 31.7857,
+          "por_semilla": [
+            24.3064,
+            31.7857,
+            21.1344
+          ]
+        },
+        "T1b_pct": {
+          "media": 12.9523,
+          "min": 11.5042,
+          "max": 14.475,
+          "por_semilla": [
+            11.5042,
+            12.8776,
+            14.475
+          ]
+        },
+        "T2_pct": {
+          "media": 29.2014,
+          "min": 27.9075,
+          "max": 30.9109,
+          "por_semilla": [
+            28.7858,
+            30.9109,
+            27.9075
+          ]
+        },
+        "T3_pct": {
+          "media": 32.1042,
+          "min": 24.4258,
+          "max": 36.4831,
+          "por_semilla": [
+            35.4036,
+            24.4258,
+            36.4831
+          ]
+        },
+        "escala_T1_T2_pct": {
+          "media": 67.8958,
+          "min": 63.5169,
+          "max": 75.5742,
+          "por_semilla": [
+            64.5964,
+            75.5742,
+            63.5169
+          ]
+        },
+        "correlacion_patron_tesela": {
+          "media": 0.634827,
+          "min": 0.625872,
+          "max": 0.640425,
+          "por_semilla": [
+            0.625872,
+            0.640425,
+            0.638184
+          ]
+        },
+        "sesgo_medio_pixeles_m": {
+          "media": -0.254135,
+          "min": -0.336327,
+          "max": -0.20402,
+          "por_semilla": [
+            -0.222059,
+            -0.336327,
+            -0.20402
+          ]
+        },
+        "sesgo_medio_teselas_m": {
+          "media": -0.216353,
+          "min": -0.300263,
+          "max": -0.163211,
+          "por_semilla": [
+            -0.185585,
+            -0.300263,
+            -0.163211
+          ]
+        },
+        "anomalia_exacta_pct": 18.3,
+        "anomalia_muestreo_pct": 16,
+        "control_T2_T3_e2_oraculos": {
+          "T2_pct_media": 29.2014,
+          "T3_pct_media": 32.1042
+        }
+      },
+      "2022": {
+        "n_teselas_test": 1802,
+        "R2_sin_corregir": {
+          "media": 0.477941,
+          "min": 0.445645,
+          "max": 0.51576,
+          "por_semilla": [
+            0.51576,
+            0.445645,
+            0.472418
+          ]
+        },
+        "R2_nivel_perfecto_aditivo": {
+          "media": 0.620766,
+          "min": 0.604034,
+          "max": 0.629851,
+          "por_semilla": [
+            0.604034,
+            0.628412,
+            0.629851
+          ]
+        },
+        "T1a_pct": {
+          "media": 27.0131,
+          "min": 18.2294,
+          "max": 32.9693,
+          "por_semilla": [
+            18.2294,
+            32.9693,
+            29.8406
+          ]
+        },
+        "T1b_pct": {
+          "media": 14.7035,
+          "min": 12.5486,
+          "max": 16.3453,
+          "por_semilla": [
+            16.3453,
+            12.5486,
+            15.2166
+          ]
+        },
+        "T2_pct": {
+          "media": 19.827,
+          "min": 18.5366,
+          "max": 22.1808,
+          "por_semilla": [
+            22.1808,
+            18.7636,
+            18.5366
+          ]
+        },
+        "T3_pct": {
+          "media": 38.4563,
+          "min": 35.7185,
+          "max": 43.2444,
+          "por_semilla": [
+            43.2444,
+            35.7185,
+            36.4062
+          ]
+        },
+        "escala_T1_T2_pct": {
+          "media": 61.5437,
+          "min": 56.7556,
+          "max": 64.2815,
+          "por_semilla": [
+            56.7556,
+            64.2815,
+            63.5938
+          ]
+        },
+        "correlacion_patron_tesela": {
+          "media": 0.668871,
+          "min": 0.65047,
+          "max": 0.679067,
+          "por_semilla": [
+            0.65047,
+            0.679067,
+            0.677075
+          ]
+        },
+        "sesgo_medio_pixeles_m": {
+          "media": 0.052229,
+          "min": 0.041991,
+          "max": 0.060936,
+          "por_semilla": [
+            0.041991,
+            0.060936,
+            0.053761
+          ]
+        },
+        "sesgo_medio_teselas_m": {
+          "media": 0.064999,
+          "min": 0.055861,
+          "max": 0.076502,
+          "por_semilla": [
+            0.055861,
+            0.076502,
+            0.062633
+          ]
+        },
+        "anomalia_exacta_pct": -18.4,
+        "anomalia_muestreo_pct": -16,
+        "control_T2_T3_e2_oraculos": {
+          "T2_pct_media": 19.827,
+          "T3_pct_media": 38.4563
+        }
+      },
+      "2023": {
+        "n_teselas_test": 1107,
+        "R2_sin_corregir": {
+          "media": 0.239988,
+          "min": 0.124686,
+          "max": 0.298433,
+          "por_semilla": [
+            0.298433,
+            0.124686,
+            0.296845
+          ]
+        },
+        "R2_nivel_perfecto_aditivo": {
+          "media": 0.519226,
+          "min": 0.405231,
+          "max": 0.577108,
+          "por_semilla": [
+            0.575338,
+            0.405231,
+            0.577108
+          ]
+        },
+        "T1a_pct": {
+          "media": 37.126,
+          "min": 32.0508,
+          "max": 39.8579,
+          "por_semilla": [
+            39.4694,
+            32.0508,
+            39.8579
+          ]
+        },
+        "T1b_pct": {
+          "media": 16.0091,
+          "min": 15.6178,
+          "max": 16.4213,
+          "por_semilla": [
+            15.9882,
+            15.6178,
+            16.4213
+          ]
+        },
+        "T2_pct": {
+          "media": 9.8336,
+          "min": 6.2538,
+          "max": 15.6866,
+          "por_semilla": [
+            6.2538,
+            15.6866,
+            7.5603
+          ]
+        },
+        "T3_pct": {
+          "media": 37.0313,
+          "min": 36.1605,
+          "max": 38.2886,
+          "por_semilla": [
+            38.2886,
+            36.6448,
+            36.1605
+          ]
+        },
+        "escala_T1_T2_pct": {
+          "media": 62.9687,
+          "min": 61.7114,
+          "max": 63.8395,
+          "por_semilla": [
+            61.7114,
+            63.3552,
+            63.8395
+          ]
+        },
+        "correlacion_patron_tesela": {
+          "media": 0.681279,
+          "min": 0.667458,
+          "max": 0.695845,
+          "por_semilla": [
+            0.680533,
+            0.695845,
+            0.667458
+          ]
+        },
+        "sesgo_medio_pixeles_m": {
+          "media": 0.164361,
+          "min": 0.150913,
+          "max": 0.179571,
+          "por_semilla": [
+            0.150913,
+            0.179571,
+            0.162599
+          ]
+        },
+        "sesgo_medio_teselas_m": {
+          "media": 0.190333,
+          "min": 0.175163,
+          "max": 0.204746,
+          "por_semilla": [
+            0.175163,
+            0.204746,
+            0.19109
+          ]
+        },
+        "anomalia_exacta_pct": -34.9,
+        "anomalia_muestreo_pct": -38,
+        "control_T2_T3_e2_oraculos": {
+          "T2_pct_media": 9.8336,
+          "T3_pct_media": 37.0313
+        }
+      },
+      "2025": {
+        "n_teselas_test": 220,
+        "R2_sin_corregir": {
+          "media": 0.218397,
+          "min": 0.105238,
+          "max": 0.305363,
+          "por_semilla": [
+            0.105238,
+            0.305363,
+            0.24459
+          ]
+        },
+        "R2_nivel_perfecto_aditivo": {
+          "media": 0.39592,
+          "min": 0.355984,
+          "max": 0.417219,
+          "por_semilla": [
+            0.414556,
+            0.417219,
+            0.355984
+          ]
+        },
+        "T1a_pct": {
+          "media": 21.8063,
+          "min": 14.7462,
+          "max": 34.5699,
+          "por_semilla": [
+            34.5699,
+            16.1028,
+            14.7462
+          ]
+        },
+        "T1b_pct": {
+          "media": 26.7195,
+          "min": 20.5584,
+          "max": 30.4365,
+          "por_semilla": [
+            20.5584,
+            29.1635,
+            30.4365
+          ]
+        },
+        "T2_pct": {
+          "media": 4.4102,
+          "min": 3.8254,
+          "max": 5.0525,
+          "por_semilla": [
+            4.3527,
+            5.0525,
+            3.8254
+          ]
+        },
+        "T3_pct": {
+          "media": 47.064,
+          "min": 40.519,
+          "max": 50.9918,
+          "por_semilla": [
+            40.519,
+            49.6812,
+            50.9918
+          ]
+        },
+        "escala_T1_T2_pct": {
+          "media": 52.936,
+          "min": 49.0082,
+          "max": 59.481,
+          "por_semilla": [
+            59.481,
+            50.3188,
+            49.0082
+          ]
+        },
+        "correlacion_patron_tesela": {
+          "media": 0.580963,
+          "min": 0.548494,
+          "max": 0.625387,
+          "por_semilla": [
+            0.625387,
+            0.569008,
+            0.548494
+          ]
+        },
+        "sesgo_medio_pixeles_m": {
+          "media": -0.204775,
+          "min": -0.298864,
+          "max": -0.14965,
+          "por_semilla": [
+            -0.298864,
+            -0.14965,
+            -0.165811
+          ]
+        },
+        "sesgo_medio_teselas_m": {
+          "media": -0.170555,
+          "min": -0.260757,
+          "max": -0.11485,
+          "por_semilla": [
+            -0.260757,
+            -0.11485,
+            -0.136059
+          ]
+        },
+        "anomalia_exacta_pct": 44.4,
+        "anomalia_muestreo_pct": 49,
+        "control_T2_T3_e2_oraculos": {
+          "T2_pct_media": 4.4102,
+          "T3_pct_media": 47.064
+        }
+      }
+    },
+    "media_4_folds": {
+      "R2_sin_corregir": {
+        "media": 0.299438,
+        "min": 0.261162,
+        "max": 0.33384,
+        "por_semilla": [
+          0.303312,
+          0.261162,
+          0.33384
+        ]
+      },
+      "R2_nivel_perfecto_aditivo": {
+        "media": 0.497601,
+        "min": 0.470993,
+        "max": 0.514848,
+        "por_semilla": [
+          0.514848,
+          0.470993,
+          0.506961
+        ]
+      },
+      "fuente": "analysis/e2_scale_checks.json (media de 4 folds por semilla)"
+    },
+    "escala_mayor_50": {
+      "T1_T2": 11,
+      "T1a_T2": 3,
+      "de": 12
+    },
+    "signo_sesgo_opuesto_anomalia": {
+      "coinciden": 12,
+      "de": 12
+    }
+  },
+  "4_ablacion_v3": {
+    "fuente": "analysis/ablation_v3_summary.json (scripts/ablation_v3_summary.py)",
+    "alcance": "split temporal, test 2025, lambda 0, norm v3, masked_loss, 3 semillas",
+    "grupos": {
+      "completo": {
+        "canales_quitados": [],
+        "R2": {
+          "media": 0.1676,
+          "min": 0.1072,
+          "max": 0.2134
+        },
+        "SPAEF": {
+          "media": 0.3552666666666667,
+          "min": 0.3464,
+          "max": 0.3612
+        }
+      },
+      "sin_pers": {
+        "canales_quitados": [
+          14,
+          15,
+          16
+        ],
+        "R2": {
+          "media": -0.02206666666666667,
+          "min": -0.109,
+          "max": 0.0381
+        },
+        "SPAEF": {
+          "media": 0.30213333333333336,
+          "min": 0.2706,
+          "max": 0.325
+        }
+      },
+      "sin_sce": {
+        "canales_quitados": [
+          5
+        ],
+        "R2": {
+          "media": 0.20333333333333337,
+          "min": 0.1741,
+          "max": 0.2368
+        },
+        "SPAEF": {
+          "media": 0.35313333333333335,
+          "min": 0.336,
+          "max": 0.3845
+        }
+      },
+      "sin_sx": {
+        "canales_quitados": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "R2": {
+          "media": 0.05773333333333333,
+          "min": 0.0051,
+          "max": 0.1257
+        },
+        "SPAEF": {
+          "media": 0.2740666666666667,
+          "min": 0.2402,
+          "max": 0.3048
+        }
+      },
+      "sin_topo1": {
+        "canales_quitados": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "R2": {
+          "media": 0.037899999999999996,
+          "min": 0.0189,
+          "max": 0.0574
+        },
+        "SPAEF": {
+          "media": 0.2564666666666667,
+          "min": 0.2153,
+          "max": 0.2982
+        }
+      },
+      "sin_topo5": {
+        "canales_quitados": [
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "R2": {
+          "media": 0.025900000000000006,
+          "min": -0.0395,
+          "max": 0.1078
+        },
+        "SPAEF": {
+          "media": 0.2554666666666667,
+          "min": 0.22,
+          "max": 0.2814
+        }
+      }
+    }
+  }
+}

@@ -48,6 +48,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
 from results_5_2 import (evaluate_C, build_year_climatology, compute_spaef,   # noqa: E402
                          r2_arr, mmm, TILE)
+import results_5_2 as R52                                                    # noqa: E402
 
 DUP_DATE = '20240314'
 
@@ -66,8 +67,8 @@ def make_clim(geo, masks, H, W):
 def summary(rs):
     keys = ('r2_raw', 'r2_orac', 'spaef_raw', 'frac_r2', 'frac_spaef_raw')
     out = {k: mmm([r[k] for r in rs]) for k in keys}
-    out['techo_r2_orac'] = round(rs[0]['techo_r2'], 4)
-    out['techo_spaef_sin_corregir'] = round(rs[0]['clim_spaef_raw'], 4)
+    out['techo_r2_orac'] = round(rs[0]['techo_r2'], R52.ND)
+    out['techo_spaef_sin_corregir'] = round(rs[0]['clim_spaef_raw'], R52.ND)
     out['n_teselas'] = rs[0]['n_tiles']
     return out
 
@@ -91,7 +92,10 @@ def main():
     ap.add_argument('--fig-npz', default='analysis/fig05_tesela.npz')
     ap.add_argument('--dup-date', default=DUP_DATE, help='fecha del mapa duplicado')
     ap.add_argument('--dup-ref', default='analysis/eC_net_vs_rf_allpix_sin_20240314.json')
+    ap.add_argument('--nd', type=int, default=4,
+                    help='decimales de salida; usar el mismo que results_5_2.py')
     args = ap.parse_args()
+    R52.set_nd(args.nd)
     t0 = time.time()
 
     canon = json.load(open(args.json, encoding='utf-8'))
@@ -119,15 +123,15 @@ def main():
         raw = preds[i].astype(np.float64)
         orac = raw + (real[d] - med['mod'][d])
         fig[label + '_sin_corregir'] = np.where(m, raw, np.nan)
-        fig_met[label] = {'R2_nivel_perfecto': round(r2_arr(o, orac[m]), 4),
-                          'SPAEF_sin_corregir': round(float(compute_spaef(o, raw[m])), 4)}
+        fig_met[label] = {'R2_nivel_perfecto': round(r2_arr(o, orac[m]), R52.ND),
+                          'SPAEF_sin_corregir': round(float(compute_spaef(o, raw[m])), R52.ND)}
         if label == 'red_s42':
             craw = cp.astype(np.float64)
             corac = craw + (real[d] - med['clim'][d])
             fig['climatologia_sin_corregir'] = np.where(m, craw, np.nan)
             fig['mask_check'] = m
-            fig_met['climatologia'] = {'R2_nivel_perfecto': round(r2_arr(o, corac[m]), 4),
-                                       'SPAEF_sin_corregir': round(float(compute_spaef(o, craw[m])), 4)}
+            fig_met['climatologia'] = {'R2_nivel_perfecto': round(r2_arr(o, corac[m]), R52.ND),
+                                       'SPAEF_sin_corregir': round(float(compute_spaef(o, craw[m])), R52.ND)}
         elif not np.array_equal(m, fig['mask_check']):
             sys.exit('STOP: la mascara de la tesela difiere entre red y RF.')
     old = dict(np.load(args.fig_npz))
@@ -177,8 +181,8 @@ def main():
         con = canon['2_C'][key]
         blk[key] = {'sin_duplicado': s_sin,
                     'diferencia_frente_a_todas_las_fechas_puntos_pct': {
-                        'frac_r2': round(100 * (s_sin['frac_r2']['media'] - con['frac_r2']['media']), 2),
-                        'frac_spaef_sin_corregir': round(100 * (s_sin['frac_spaef_raw']['media'] - con['frac_spaef_raw']['media']), 2)},
+                        'frac_r2': round(100 * (s_sin['frac_r2']['media'] - con['frac_r2']['media']), R52.ND_PCT),
+                        'frac_spaef_sin_corregir': round(100 * (s_sin['frac_spaef_raw']['media'] - con['frac_spaef_raw']['media']), R52.ND_PCT)},
                     'control_max_diferencia': control(res[label], ref.get(label, []))}
     canon['7_sin_mapa_duplicado'] = {
         'fuente': f'scripts/results_5_2_extra.py; fecha {args.dup_date} fuera de la evaluacion y de la '

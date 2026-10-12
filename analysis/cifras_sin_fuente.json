@@ -1,0 +1,457 @@
+{
+  "descripcion": "Cifras del articulo que no tenian JSON de respaldo (revision del 12-oct-2026). 6 decimales.",
+  "1_r_tamano_train_anomalia": {
+    "definicion": "Pearson entre |anomalia| y tamano del train de cada fold LOYO SIN el submuestreo a 2659 teselas (como scripts/generate_loyo_configs.py, que lo imprime pero no lo guardaba)",
+    "por_fold": [
+      {
+        "fold": "2021",
+        "n_train_sin_submuestrear": 3129,
+        "anomalia_muestreo_pct": 16.20262,
+        "anomalia_exacta_pct": 18.3
+      },
+      {
+        "fold": "2022",
+        "n_train_sin_submuestrear": 2659,
+        "anomalia_muestreo_pct": -16.156918,
+        "anomalia_exacta_pct": -18.4
+      },
+      {
+        "fold": "2023",
+        "n_train_sin_submuestrear": 3354,
+        "anomalia_muestreo_pct": -38.215624,
+        "anomalia_exacta_pct": -34.9
+      },
+      {
+        "fold": "2025",
+        "n_train_sin_submuestrear": 4241,
+        "anomalia_muestreo_pct": 48.829915,
+        "anomalia_exacta_pct": 44.4
+      }
+    ],
+    "r_abs_anomalia_muestreo": 0.903128,
+    "r_abs_anomalia_exacta": 0.913206,
+    "n_folds": 4,
+    "fuente": "dataset_v4_ms_sx200/dataset_v4_ms_sx200.csv, masks/ y analysis/e2_scale_checks.json"
+  },
+  "2_escala_murphy_frente_a_gupta": {
+    "E1_temporal_test2025_s7": {
+      "escala_gupta_pct": 48.196333,
+      "escala_murphy_pct": 57.904764,
+      "reconstruccion_murphy_rel": 0.0,
+      "n_pixeles": 11933976,
+      "npz": "resunetpp_v3_sp00_s7_predictions.npz"
+    },
+    "E1_espacial_730_teselas_s7": {
+      "escala_gupta_pct": 37.27596,
+      "escala_murphy_pct": 28.261941,
+      "reconstruccion_murphy_rel": 0.0,
+      "n_pixeles": 41235354,
+      "npz": "resunetpp_v3_spatial_sp00_s7_predictions.npz"
+    },
+    "LOYO_E2": {
+      "2021": {
+        "7": {
+          "escala_gupta_pct": 64.596424,
+          "escala_murphy_pct": 40.685759,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 68812886,
+          "npz": "resunetpp_v3_loyo2021_predictions.npz"
+        },
+        "42": {
+          "escala_gupta_pct": 75.574228,
+          "escala_murphy_pct": 52.76507,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 68812886,
+          "npz": "resunetpp_v3_loyo2021_s42_predictions.npz"
+        },
+        "123": {
+          "escala_gupta_pct": 63.516867,
+          "escala_murphy_pct": 41.582708,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 68812886,
+          "npz": "resunetpp_v3_loyo2021_s123_predictions.npz"
+        },
+        "media": {
+          "escala_gupta_pct": 67.89584,
+          "escala_murphy_pct": 45.011179
+        }
+      },
+      "2022": {
+        "7": {
+          "escala_gupta_pct": 56.755587,
+          "escala_murphy_pct": 48.558223,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 94719842,
+          "npz": "resunetpp_v3_loyo2022_predictions.npz"
+        },
+        "42": {
+          "escala_gupta_pct": 64.281527,
+          "escala_murphy_pct": 61.682962,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 94719842,
+          "npz": "resunetpp_v3_loyo2022_s42_predictions.npz"
+        },
+        "123": {
+          "escala_gupta_pct": 63.593838,
+          "escala_murphy_pct": 59.970777,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 94719842,
+          "npz": "resunetpp_v3_loyo2022_s123_predictions.npz"
+        },
+        "media": {
+          "escala_gupta_pct": 61.543651,
+          "escala_murphy_pct": 56.737321
+        }
+      },
+      "2023": {
+        "7": {
+          "escala_gupta_pct": 61.711429,
+          "escala_murphy_pct": 67.066723,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 61254423,
+          "npz": "resunetpp_v3_loyo2023_predictions.npz"
+        },
+        "42": {
+          "escala_gupta_pct": 63.355207,
+          "escala_murphy_pct": 73.439541,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 61254423,
+          "npz": "resunetpp_v3_loyo2023_s42_predictions.npz"
+        },
+        "123": {
+          "escala_gupta_pct": 63.839501,
+          "escala_murphy_pct": 66.247803,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 61254423,
+          "npz": "resunetpp_v3_loyo2023_s123_predictions.npz"
+        },
+        "media": {
+          "escala_gupta_pct": 62.968712,
+          "escala_murphy_pct": 68.918022
+        }
+      },
+      "2025": {
+        "7": {
+          "escala_gupta_pct": 59.48097,
+          "escala_murphy_pct": 69.428516,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 11933976,
+          "npz": "resunetpp_v3_loyo2025_predictions.npz"
+        },
+        "42": {
+          "escala_gupta_pct": 50.318804,
+          "escala_murphy_pct": 54.589482,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 11933976,
+          "npz": "resunetpp_v3_loyo2025_s42_predictions.npz"
+        },
+        "123": {
+          "escala_gupta_pct": 49.008154,
+          "escala_murphy_pct": 55.606439,
+          "reconstruccion_murphy_rel": 0.0,
+          "n_pixeles": 11933976,
+          "npz": "resunetpp_v3_loyo2025_s123_predictions.npz"
+        },
+        "media": {
+          "escala_gupta_pct": 52.935976,
+          "escala_murphy_pct": 59.874812
+        }
+      }
+    },
+    "definicion": "Murphy (1988): MSE = (mu_s-mu_o)^2 + (sigma_s - rho sigma_o)^2 + sigma_o^2 (1-rho^2); escala = dos primeros terminos. Gupta et al. (2009): MSE = (mu_s-mu_o)^2 + (sigma_s-sigma_o)^2 + 2 sigma_s sigma_o (1-rho); escala = dos primeros. Por tesela, ponderado por pixeles, pixeles con nieve, filtros de analysis/e1_error_decomposition.py",
+    "nota": "El 69,4 % citado en 04_methods.tex:554 como \"split temporal (E1)\" es el fold LOYO 2025 con la semilla 7 (Gupta 59,5 %), no E1 temporal; el 28,3 % si es E1 espacial (730 teselas, Gupta 37,3 %)."
+  },
+  "3_spaef_rf_antes_despues_formula": {
+    "definicion": "RF v6 temporal (pipeline anterior: solo nieve, train + val), test 2025. Antes: SPAEF con histogramas de valores; despues: forma canonica con z-scores (hallazgo 3). Mismas predicciones (R2 identico).",
+    "por_semilla": {
+      "7": {
+        "SPAEF_antes": 0.1076,
+        "SPAEF_despues": 0.3106,
+        "R2": 0.1438,
+        "copia_antes_integra": true
+      },
+      "42": {
+        "SPAEF_antes": 0.1043,
+        "SPAEF_despues": 0.3087,
+        "R2": 0.1397,
+        "copia_antes_integra": false
+      },
+      "123": {
+        "SPAEF_antes": 0.1103,
+        "SPAEF_despues": 0.3139,
+        "R2": 0.1356,
+        "copia_antes_integra": true
+      }
+    },
+    "media_antes": 0.1074,
+    "media_despues": 0.311067,
+    "precision_origen": "4 decimales (metrics.json)",
+    "fuente": "results/rf_v6_s*/rf_v6_s*_metrics.json; RF_v6_backups_pre_recalculo/rf_v6_s*_metrics_backup_pre_recompute.json"
+  },
+  "4_pixeles_excluidos": {
+    "definicion": "pixeles validos con HS <= 0.01 m (fuera de las metricas, que usan solo nieve), en % de los validos; los objetivos son los mismos en todas las semillas y modelos",
+    "espacial_702_teselas": {
+      "n_teselas": 702,
+      "pct_excluidos": 3.75797,
+      "por_fecha_pct": {
+        "20210202": 1.878075,
+        "20210304": 0.657971,
+        "20210323": 0.586835,
+        "20210414": 0.199591,
+        "20210504": 1.913679,
+        "20211216": 0.328036,
+        "20220112": 0.750344,
+        "20220128": 0.187041,
+        "20220218": 0.633916,
+        "20220417": 0.647559,
+        "20220516": 20.215549,
+        "20221201": 7.632978,
+        "20230213": 0.216036,
+        "20230316": 0.775024,
+        "20230328": 11.566193,
+        "20240125": 2.151131,
+        "20240213": 0.464577,
+        "20240307": 0.117227,
+        "20240314": 0.117227,
+        "20240405": 0.107515,
+        "20240508": 6.521567,
+        "20240605": 50.140445,
+        "20250317": 0.000629,
+        "20250327": 0.02625,
+        "20250401": 0.0,
+        "20250424": 2.548658,
+        "20250521": 24.691622
+      }
+    },
+    "espacial_730_teselas": {
+      "n_teselas": 730,
+      "pct_excluidos": 3.692822,
+      "por_fecha_pct": {
+        "20210202": 1.878075,
+        "20210304": 0.657971,
+        "20210323": 0.586835,
+        "20210414": 0.199591,
+        "20210504": 1.913679,
+        "20211216": 0.328036,
+        "20220112": 0.750344,
+        "20220128": 0.187041,
+        "20220218": 0.633916,
+        "20220417": 0.647559,
+        "20220516": 20.215549,
+        "20221201": 7.632978,
+        "20230213": 0.216036,
+        "20230316": 0.775024,
+        "20230328": 11.566193,
+        "20240125": 2.151131,
+        "20240213": 0.464577,
+        "20240307": 0.117227,
+        "20240314": 0.117227,
+        "20240405": 0.715264,
+        "20240508": 6.521567,
+        "20240605": 50.140445,
+        "20250317": 0.000629,
+        "20250327": 0.02625,
+        "20250401": 1.165253,
+        "20250424": 3.683901,
+        "20250521": 24.691622
+      }
+    },
+    "temporal_test_2025": {
+      "n_teselas": 220,
+      "pct_excluidos": 6.083162,
+      "por_fecha_pct": {
+        "20250317": 0.344988,
+        "20250327": 2.853702,
+        "20250401": 2.566066,
+        "20250424": 6.856075,
+        "20250521": 29.471917
+      }
+    },
+    "nota": "El 3,7 % citado corresponde a las 730 teselas; con las 702 sin fuga es 3,8 %.",
+    "fuente": "resunetpp_v3_spatial_sp00_s7_predictions.npz, resunetpp_v3_sp00_s7_predictions.npz, data/tile_georef.csv"
+  },
+  "5_desfase_subpixel": {
+    "definicion": "R2 de cada mapa de nieve frente a si mismo desplazado la fraccion de origen de su fecha (interpolacion bilineal); cota superior del dano. 60 teselas por fecha, como scripts/check_subpixel_shift.py",
+    "R2_total_desfase_real": 0.991787,
+    "R2_total_un_pixel": 0.968782,
+    "peor_fecha": "20210323",
+    "R2_peor_fecha": 0.964182,
+    "por_fecha": {
+      "20210202": {
+        "desplazamiento_fila": 0.567017,
+        "desplazamiento_col": 0.512909,
+        "R2_desfase_real": 0.990878,
+        "R2_un_pixel": 0.968819
+      },
+      "20210304": {
+        "desplazamiento_fila": 0.035889,
+        "desplazamiento_col": 0.548065,
+        "R2_desfase_real": 0.991053,
+        "R2_un_pixel": 0.940637
+      },
+      "20210323": {
+        "desplazamiento_fila": 0.047607,
+        "desplazamiento_col": 0.886475,
+        "R2_desfase_real": 0.964182,
+        "R2_un_pixel": 0.91638
+      },
+      "20210414": {
+        "desplazamiento_fila": 0.089111,
+        "desplazamiento_col": 0.660767,
+        "R2_desfase_real": 0.990942,
+        "R2_un_pixel": 0.96306
+      },
+      "20210504": {
+        "desplazamiento_fila": 0.513916,
+        "desplazamiento_col": 0.074951,
+        "R2_desfase_real": 0.99558,
+        "R2_un_pixel": 0.965363
+      },
+      "20211216": {
+        "desplazamiento_fila": 0.13855,
+        "desplazamiento_col": 0.06427,
+        "R2_desfase_real": 0.999591,
+        "R2_un_pixel": 0.968171
+      },
+      "20220112": {
+        "desplazamiento_fila": 0.884399,
+        "desplazamiento_col": 0.06543,
+        "R2_desfase_real": 0.977065,
+        "R2_un_pixel": 0.94623
+      },
+      "20220128": {
+        "desplazamiento_fila": 0.755371,
+        "desplazamiento_col": 0.192535,
+        "R2_desfase_real": 0.989379,
+        "R2_un_pixel": 0.966143
+      },
+      "20220218": {
+        "desplazamiento_fila": 0.218628,
+        "desplazamiento_col": 0.066162,
+        "R2_desfase_real": 0.999131,
+        "R2_un_pixel": 0.967615
+      },
+      "20220417": {
+        "desplazamiento_fila": 0.235596,
+        "desplazamiento_col": 0.822342,
+        "R2_desfase_real": 0.984243,
+        "R2_un_pixel": 0.956643
+      },
+      "20220516": {
+        "desplazamiento_fila": 0.504761,
+        "desplazamiento_col": 0.058899,
+        "R2_desfase_real": 0.99587,
+        "R2_un_pixel": 0.968191
+      },
+      "20221201": {
+        "desplazamiento_fila": 0.039673,
+        "desplazamiento_col": 0.168182,
+        "R2_desfase_real": 0.998449,
+        "R2_un_pixel": 0.907311
+      },
+      "20230213": {
+        "desplazamiento_fila": 0.405151,
+        "desplazamiento_col": 0.163879,
+        "R2_desfase_real": 0.996464,
+        "R2_un_pixel": 0.962337
+      },
+      "20230316": {
+        "desplazamiento_fila": 0.86438,
+        "desplazamiento_col": 0.451782,
+        "R2_desfase_real": 0.984447,
+        "R2_un_pixel": 0.966021
+      },
+      "20230328": {
+        "desplazamiento_fila": 0.108276,
+        "desplazamiento_col": 0.355469,
+        "R2_desfase_real": 0.99699,
+        "R2_un_pixel": 0.960438
+      },
+      "20240125": {
+        "desplazamiento_fila": 0.030762,
+        "desplazamiento_col": 0.779175,
+        "R2_desfase_real": 0.986613,
+        "R2_un_pixel": 0.958438
+      },
+      "20240213": {
+        "desplazamiento_fila": 0.067139,
+        "desplazamiento_col": 0.442596,
+        "R2_desfase_real": 0.994881,
+        "R2_un_pixel": 0.950272
+      },
+      "20240307": {
+        "desplazamiento_fila": 0.21814,
+        "desplazamiento_col": 0.305786,
+        "R2_desfase_real": 0.997868,
+        "R2_un_pixel": 0.970453
+      },
+      "20240314": {
+        "desplazamiento_fila": 0.21814,
+        "desplazamiento_col": 0.305786,
+        "R2_desfase_real": 0.997868,
+        "R2_un_pixel": 0.970453
+      },
+      "20240405": {
+        "desplazamiento_fila": 0.972046,
+        "desplazamiento_col": 0.597107,
+        "R2_desfase_real": 0.984686,
+        "R2_un_pixel": 0.976712
+      },
+      "20240508": {
+        "desplazamiento_fila": 0.910278,
+        "desplazamiento_col": 0.587646,
+        "R2_desfase_real": 0.981186,
+        "R2_un_pixel": 0.967702
+      },
+      "20240605": {
+        "desplazamiento_fila": 0.167358,
+        "desplazamiento_col": 0.567657,
+        "R2_desfase_real": 0.992934,
+        "R2_un_pixel": 0.963169
+      },
+      "20250317": {
+        "desplazamiento_fila": 0.62146,
+        "desplazamiento_col": 0.349548,
+        "R2_desfase_real": 0.992218,
+        "R2_un_pixel": 0.968947
+      },
+      "20250327": {
+        "desplazamiento_fila": 0.036377,
+        "desplazamiento_col": 0.910522,
+        "R2_desfase_real": 0.991688,
+        "R2_un_pixel": 0.979406
+      },
+      "20250401": {
+        "desplazamiento_fila": 0.196167,
+        "desplazamiento_col": 0.673798,
+        "R2_desfase_real": 0.995869,
+        "R2_un_pixel": 0.981434
+      },
+      "20250424": {
+        "desplazamiento_fila": 0.85437,
+        "desplazamiento_col": 0.094818,
+        "R2_desfase_real": 0.992265,
+        "R2_un_pixel": 0.978002
+      },
+      "20250521": {
+        "desplazamiento_fila": 0.082031,
+        "desplazamiento_col": 0.195496,
+        "R2_desfase_real": 0.999076,
+        "R2_un_pixel": 0.960453
+      }
+    },
+    "fuente": "Articulo 1/Data/izas/LiDAR (SD_*_1m.tif, DEMbigIzas_1m.tif: solo cabeceras), dataset_v4_ms_sx200/masks"
+  },
+  "6_r2_rf_temporal_completo": {
+    "definicion": "R2 acumulado sobre pixeles con nieve, test 2025 (como predict_test)",
+    "por_semilla": {
+      "7": -0.0012,
+      "42": -0.005443,
+      "123": -0.007501
+    },
+    "media": -0.004715,
+    "min": -0.007501,
+    "max": -0.0012,
+    "fuente": "E_rf_temporal_allpix/train/rf_temporal_allpix_train_s*_predictions.npz"
+  }
+}

@@ -112,7 +112,19 @@ def r2_arr(o, p):
     return 1.0 - float(np.sum((o - p) ** 2)) / ss if ss > 0 else float('nan')
 
 
-def mmm(v, nd=4):
+# Decimales de salida: 4 (y 2 en porcentajes) por defecto, como el JSON
+# original; con --nd 6 se guardan 6 (y 4 en porcentajes) en un fichero aparte.
+ND = 4
+ND_PCT = 2
+
+
+def set_nd(nd):
+    global ND, ND_PCT
+    ND, ND_PCT = nd, nd - 2
+
+
+def mmm(v, nd=None):
+    nd = ND if nd is None else nd
     v = np.asarray(v, float)
     return {'media': round(float(v.mean()), nd), 'min': round(float(v.min()), nd),
             'max': round(float(v.max()), nd), 'por_semilla': [round(float(x), nd) for x in v]}
@@ -309,7 +321,10 @@ def main():
     ap.add_argument('--folds', nargs='+', default=FOLDS)
     ap.add_argument('--out', default='analysis/cifras_canonicas_5_2.json')
     ap.add_argument('--fig-npz', default='analysis/fig05_tesela.npz')
+    ap.add_argument('--nd', type=int, default=4,
+                    help='decimales de salida (6 para cifras_canonicas_5_2_6d.json)')
     args = ap.parse_args()
+    set_nd(args.nd)
     t0 = time.time()
 
     sig = pd.read_csv(args.signals)
@@ -354,9 +369,9 @@ def main():
             red = {k: mmm([per[s]['red'][k] for s in SEEDS])
                    for k in ('r2_raw', 'r2_orac', 'r2_regr', 'spaef_raw', 'spaef_orac', 'spaef_regr', 'corr')}
             B[fold] = {'n_fechas': cl['n_fechas'], 'n_teselas': cl['n_teselas'], 'n_pixeles': cl['n_pixeles'],
-                       'cobertura_climatologia': round(cl['cobertura_climatologia'], 4),
+                       'cobertura_climatologia': round(cl['cobertura_climatologia'], ND),
                        'red': red,
-                       'climatologia': {k: round(cl['clim'][k], 4) for k in
+                       'climatologia': {k: round(cl['clim'][k], ND) for k in
                                         ('r2_raw', 'r2_orac', 'r2_regr', 'spaef_raw', 'spaef_orac', 'spaef_regr', 'corr')}}
             if fold in refB:
                 for s in SEEDS:
@@ -375,8 +390,8 @@ def main():
                   f"{cl['clim']['r2_regr']:.3f}", flush=True)
         keys = ('r2_raw', 'r2_orac', 'r2_regr', 'spaef_raw', 'spaef_orac', 'spaef_regr', 'corr')
         B['MEDIA_4_FOLDS'] = {
-            'red': {k: round(float(np.mean([B[f]['red'][k]['media'] for f in args.folds])), 4) for k in keys},
-            'climatologia': {k: round(float(np.mean([B[f]['climatologia'][k] for f in args.folds])), 4) for k in keys}}
+            'red': {k: round(float(np.mean([B[f]['red'][k]['media'] for f in args.folds])), ND) for k in keys},
+            'climatologia': {k: round(float(np.mean([B[f]['climatologia'][k] for f in args.folds])), ND) for k in keys}}
         out['1_B'] = {'fuente': 'scripts/results_5_2.py (mascara y R2 de scripts/climatology_baseline.py; '
                                 'regresor de E5 con la media de train de todas las teselas)',
                       'definiciones': 'raw: sin corregir; orac: nivel perfecto aditivo; regr: nivel del '
@@ -422,9 +437,9 @@ def main():
                 ('r2_raw', 'r2_orac', 'spaef_raw', 'spaef_orac', 'corr_mod',
                  'frac_r2', 'frac_spaef', 'frac_r2_raw', 'frac_spaef_raw')}
     t = C['red'][0]
-    techo = {'r2_orac': round(t['techo_r2'], 4), 'spaef_orac': round(t['techo_spaef'], 4),
-             'r2_raw': round(t['clim_r2_raw'], 4), 'spaef_raw': round(t['clim_spaef_raw'], 4),
-             'corr': round(t['corr_clim'], 4)}
+    techo = {'r2_orac': round(t['techo_r2'], ND), 'spaef_orac': round(t['techo_spaef'], ND),
+             'r2_raw': round(t['clim_r2_raw'], ND), 'spaef_raw': round(t['clim_spaef_raw'], ND),
+             'corr': round(t['corr_clim'], ND)}
     ref = json.load(open('analysis/eC_net_vs_rf_allpix.json', encoding='utf-8')) \
         if os.path.exists('analysis/eC_net_vs_rf_allpix.json') else {}
     cc = []
@@ -443,12 +458,12 @@ def main():
 
     # ------------------------------------------------------------ decomposition
     def dblk(label, key='decomp_mod'):
-        return {k: mmm([x[key][k] for x in C[label]], 2) for k in
+        return {k: mmm([x[key][k] for x in C[label]], ND_PCT) for k in
                 ('T1a_pct', 'T1b_pct', 'T2_pct', 'T3_pct', 'escala_T1_T2_pct', 'suma_pct')}
     out['3_descomposicion_espacial_mascara_C'] = {
         'fuente': 'scripts/results_5_2.py (como scripts/decomp_oracle_checks.py, en la mascara de C)',
         'red': dblk('red'), 'rf_justo': dblk('rf'),
-        'climatologia_sin_corregir': {k: round(C['red'][0]['decomp_clim_raw'][k], 2)
+        'climatologia_sin_corregir': {k: round(C['red'][0]['decomp_clim_raw'][k], ND_PCT)
                                       for k in ('T1a_pct', 'T1b_pct', 'T2_pct', 'T3_pct', 'escala_T1_T2_pct')},
         'nota': 'analysis/decomp_espacial.json usa la mascara del hallazgo 8 (sin exigir climatologia)'}
 
@@ -480,11 +495,11 @@ def main():
         'regla': 'R2 por tesela de la red s42 con nivel perfecto mas cercano a la mediana de todas las '
                  'tesela-fecha del test espacial (mascara de C), con >= 50 % de los 256 x 256 pixeles '
                  'con nieve dentro de la mascara',
-        'mediana_r2_todas': round(med_all, 4), 'n_tesela_fecha': len(per_tile),
+        'mediana_r2_todas': round(med_all, ND), 'n_tesela_fecha': len(per_tile),
         'n_candidatas_50pct': len(cand),
-        'tile_id': sel['tile_id'], 'fecha': sel['fecha'], 'frac_nieve': round(sel['frac_nieve'], 4),
-        'r2_red_s42_orac': round(sel['r2_orac'], 4),
-        'metricas_tesela_nivel_perfecto': {k: {kk: round(vv, 4) for kk, vv in v.items()} for k, v in met.items()},
+        'tile_id': sel['tile_id'], 'fecha': sel['fecha'], 'frac_nieve': round(sel['frac_nieve'], ND),
+        'r2_red_s42_orac': round(sel['r2_orac'], ND),
+        'metricas_tesela_nivel_perfecto': {k: {kk: round(vv, ND) for kk, vv in v.items()} for k, v in met.items()},
         'campos': args.fig_npz}
 
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
