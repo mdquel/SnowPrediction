@@ -453,5 +453,68 @@
     "min": -0.007501,
     "max": -0.0012,
     "fuente": "E_rf_temporal_allpix/train/rf_temporal_allpix_train_s*_predictions.npz"
+  },
+  "7_spaef_e4b_precision_completa": {
+    "definicion": "SPAEF medio por tesela, sin corregir el nivel, recalculado desde los .npz con el procedimiento de training/evaluate.py (spaef_like_evaluate); metrics.json solo guarda 4 decimales",
+    "casos": [
+      {
+        "cifra": "05_results.tex:349, \"Con senales\", 3866 teselas, SPAEF minimo",
+        "brazo": "dualscale",
+        "datos": "full",
+        "estadistico": "min",
+        "semillas": [
+          "7"
+        ],
+        "valor_metrics_json": 0.3045,
+        "valor_recalculado": 0.304546,
+        "por_semilla": {
+          "7": {
+            "SPAEF_metrics_json": 0.3045,
+            "SPAEF_recalculado": 0.304546,
+            "n_teselas": 220,
+            "n_teselas_metrics_json": 220,
+            "coincide_a_4_decimales": true
+          }
+        },
+        "procedimiento": "training/evaluate.py, l. 180-208 (scripts/cifras_sin_fuente.py: spaef_like_evaluate)"
+      },
+      {
+        "cifra": "05_results.tex:344, \"Doble cabeza\", 2284 teselas, SPAEF medio",
+        "brazo": "dual",
+        "datos": "sub",
+        "estadistico": "media",
+        "semillas": [
+          "7",
+          "42",
+          "123"
+        ],
+        "valor_metrics_json": 0.329467,
+        "valor_recalculado": 0.329451,
+        "por_semilla": {
+          "7": {
+            "SPAEF_metrics_json": 0.3531,
+            "SPAEF_recalculado": 0.353053,
+            "n_teselas": 220,
+            "n_teselas_metrics_json": 220,
+            "coincide_a_4_decimales": true
+          },
+          "42": {
+            "SPAEF_metrics_json": 0.3453,
+            "SPAEF_recalculado": 0.345281,
+            "n_teselas": 220,
+            "n_teselas_metrics_json": 220,
+            "coincide_a_4_decimales": true
+          },
+          "123": {
+            "SPAEF_metrics_json": 0.29,
+            "SPAEF_recalculado": 0.290019,
+            "n_teselas": 220,
+            "n_teselas_metrics_json": 220,
+            "coincide_a_4_decimales": true
+          }
+        },
+        "procedimiento": "training/evaluate.py, l. 180-208 (scripts/cifras_sin_fuente.py: spaef_like_evaluate)"
+      }
+    ]
   }
 }

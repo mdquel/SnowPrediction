@@ -30,6 +30,12 @@ las respaldara (revision del 12 de octubre de 2026):
        mismos desplazamientos.
     6. R2 del RF temporal a precision completa desde sus .npz (los
        metrics.json guardan 4 decimales; 05_results.tex:16 y 38).
+    7. SPAEF de E4b a precision completa en los dos casos en que el valor de
+       metrics.json (4 decimales) acaba en 5 y no decide el redondeo a 3
+       (05_results.tex:344 y 349). Se recalcula desde los .npz de
+       predicciones con el procedimiento de training/evaluate.py (funcion
+       spaef_like_evaluate) y se comprueba que redondeado a 4 da el
+       metrics.json.
 
 No modifica nada existente. Escribe solo el JSON de --out.
 
@@ -40,7 +46,8 @@ Uso (desde la raiz del repo)
         --seeds-dir F:\uniovi\mapunet\experimentos\E2b_semillas ^
         --e1-dir F:\uniovi\mapunet\experimentos\E1_descomposicion ^
         --rf-temporal-dir F:\uniovi\mapunet\experimentos\E_rf_temporal_allpix\train ^
-        --rf-backups F:\uniovi\mapunet\experimentos\RF_v6_backups_pre_recalculo
+        --rf-backups F:\uniovi\mapunet\experimentos\RF_v6_backups_pre_recalculo ^
+        --e4b-dir F:\uniovi\mapunet\experimentos\E4b_loyo_tres_brazos
 """
 
 import argparse
@@ -58,6 +65,7 @@ import pandas as pd
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(_HERE)
 sys.path.insert(0, _HERE)
+sys.path.insert(0, _REPO)
 sys.path.insert(0, os.path.join(_REPO, 'analysis'))
 from e1_error_decomposition import load_npz, tile_mask, decompose_tile, MIN_VALID_PIXELS  # noqa: E402
 
@@ -352,6 +360,79 @@ def block_rf_r2(args):
             'fuente': 'E_rf_temporal_allpix/train/rf_temporal_allpix_train_s*_predictions.npz'}
 
 
+# ----------------------------------------------------------------------
+# 7. SPAEF de E4b a precision completa (empates del redondeo)
+# ----------------------------------------------------------------------
+E4B_EMPATES = [
+    # (brazo, datos, cifra, semillas que entran, texto)
+    ('dualscale', 'full', 'min', ['7'], '05_results.tex:349, "Con senales", 3866 teselas, SPAEF minimo'),
+    ('dual', 'sub', 'media', ['7', '42', '123'], '05_results.tex:344, "Doble cabeza", 2284 teselas, SPAEF medio'),
+]
+
+
+def _compute_spaef():
+    # utils/metrics.py importa sklearn al cargarse (bloqueado en el PC del trabajo);
+    # compute_spaef solo usa numpy, asi que basta un modulo vacio si falla
+    try:
+        import sklearn.metrics  # noqa: F401
+    except Exception:
+        import types
+        sk, skm = types.ModuleType('sklearn'), types.ModuleType('sklearn.metrics')
+        for n in ('mean_absolute_error', 'mean_squared_error', 'r2_score'):
+            setattr(skm, n, None)
+        sk.metrics = skm
+        sys.modules['sklearn'], sys.modules['sklearn.metrics'] = sk, skm
+    from utils.metrics import compute_spaef
+    return compute_spaef
+
+
+def spaef_like_evaluate(path):
+    """SPAEF medio por tesela como training/evaluate.py (l. 180-208): por tesela,
+    pixeles con HS > 0.01 m, al menos 10, se descartan las teselas con SPAEF NaN;
+    media sin ponderar. Devuelve (spaef, n_teselas)."""
+    compute_spaef = _compute_spaef()
+    z = np.load(path)
+    tg, pr = z['targets'], z['preds']
+    vals = []
+    for t, p in zip(tg, pr):
+        t, p = t.reshape(-1), p.reshape(-1)
+        v = t > SNOW
+        if v.sum() < 10:
+            continue
+        x = compute_spaef(t[v], p[v])
+        if not np.isnan(x):
+            vals.append(x)
+    return float(np.mean(vals)), len(vals)
+
+
+def block_spaef_e4b(args):
+    out = {'definicion': 'SPAEF medio por tesela, sin corregir el nivel, recalculado desde los '
+                         '.npz con el procedimiento de training/evaluate.py (spaef_like_evaluate); '
+                         'metrics.json solo guarda 4 decimales',
+           'casos': []}
+    for arm, ds, cifra, seeds, texto in E4B_EMPATES:
+        suf = '_full' if ds == 'full' else ''
+        por = {}
+        for s in seeds:
+            name = f'e4b_{arm}{suf}_loyo2025_s{s}'
+            npz = os.path.join(args.e4b_dir, f'loyo_e4b_{arm}', name, f'{name}_predictions.npz')
+            met = os.path.join(_REPO, 'results', 'norm_v3', f'loyo_e4b_{arm}', name, f'{name}_metrics.json')
+            print(f'  SPAEF {name} ...', flush=True)
+            sp, nt = spaef_like_evaluate(npz)
+            m = json.load(open(met, encoding='utf-8'))
+            por[s] = {'SPAEF_metrics_json': m['SPAEF'], 'SPAEF_recalculado': r6(sp), 'n_teselas': nt,
+                      'n_teselas_metrics_json': m['SPAEF_n_tiles'],
+                      'coincide_a_4_decimales': abs(round(sp, 4) - m['SPAEF']) < 1e-9}
+        agg = np.mean if cifra == 'media' else np.min
+        out['casos'].append({
+            'cifra': texto, 'brazo': arm, 'datos': ds, 'estadistico': cifra, 'semillas': seeds,
+            'valor_metrics_json': round(float(agg([por[s]['SPAEF_metrics_json'] for s in seeds])), 6),
+            'valor_recalculado': r6(agg([por[s]['SPAEF_recalculado'] for s in seeds])),
+            'por_semilla': por,
+            'procedimiento': 'training/evaluate.py, l. 180-208 (scripts/cifras_sin_fuente.py: spaef_like_evaluate)'})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description='Cifras sin JSON de respaldo')
     ap.add_argument('--seed7-dir', required=True)
@@ -361,7 +442,9 @@ def main():
     ap.add_argument('--rf-backups', required=True)
     ap.add_argument('--georef', default='data/tile_georef.csv')
     ap.add_argument('--max-tiles', type=int, default=60)
-    ap.add_argument('--skip', nargs='*', default=[], help='bloques a saltar: r murphy rf bare subpixel rfr2')
+    ap.add_argument('--e4b-dir', default=None, help='carpeta E4b_loyo_tres_brazos (bloque 7)')
+    ap.add_argument('--skip', nargs='*', default=[],
+                    help='bloques a saltar: r murphy rf bare subpixel rfr2 spaef')
     ap.add_argument('--out', default='analysis/cifras_sin_fuente.json')
     args = ap.parse_args()
     sys.modules.setdefault('rasterio', __import__('types').ModuleType('rasterio'))
@@ -370,9 +453,10 @@ def main():
                           '12-oct-2026). 6 decimales.'}
     blocks = [('r', '1_r_tamano_train_anomalia', block_r), ('murphy', '2_escala_murphy_frente_a_gupta', block_murphy),
               ('rf', '3_spaef_rf_antes_despues_formula', block_rf_spaef), ('bare', '4_pixeles_excluidos', block_bare),
-              ('subpixel', '5_desfase_subpixel', block_subpixel), ('rfr2', '6_r2_rf_temporal_completo', block_rf_r2)]
+              ('subpixel', '5_desfase_subpixel', block_subpixel), ('rfr2', '6_r2_rf_temporal_completo', block_rf_r2),
+              ('spaef', '7_spaef_e4b_precision_completa', block_spaef_e4b)]
     for key, name, fn in blocks:
-        if key in args.skip:
+        if key in args.skip or (key == 'spaef' and not args.e4b_dir):
             continue
         print(f'{name}  ({(time.time() - t0) / 60:.1f} min)', flush=True)
         out[name] = fn(args)
@@ -407,6 +491,12 @@ def main():
     b = out.get('6_r2_rf_temporal_completo')
     if b:
         print(f"6. R2 RF temporal: {b['por_semilla']}  media {b['media']}  min {b['min']}")
+    b = out.get('7_spaef_e4b_precision_completa')
+    if b:
+        for c in b['casos']:
+            print(f"7. {c['cifra']}: metrics.json {c['valor_metrics_json']:.4f} -> recalculado "
+                  f"{c['valor_recalculado']:.6f}  (teselas {[v['n_teselas'] for v in c['por_semilla'].values()]}, "
+                  f"coincide a 4 dec: {all(v['coincide_a_4_decimales'] for v in c['por_semilla'].values())})")
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
     with open(args.out, 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
