@@ -1,0 +1,244 @@
+{
+  "descripcion": "Seleccion (regla fijada de antemano) de la figura de mapas LOYO-E2 en terreno ya sobrevolado; ver el docstring de scripts/fig_loyo_seleccion.py",
+  "regla": {
+    "semilla": "R2 sin corregir mediano del fold (e2_scale_checks.json)",
+    "fecha": "fechas de test con senal de cobertura; orden por T1a = b_d^2; mediana, la menor de las dos centrales si n es par",
+    "tesela": "frac. nieve >= 0.5; orden por R2 de la red tal cual; mediana con la misma regla",
+    "mascara": "B: HS > 0.01 m, valido, climatologia disponible, >= 10 pixeles",
+    "correccion_E5": "aditiva con el regresor ridge (lambda 1) sobre snow_pct, media de todas las teselas de train"
+  },
+  "folds": {
+    "2021": {
+      "semilla": "7",
+      "r2_fold_por_semilla": {
+        "7": 0.293817,
+        "42": 0.168956,
+        "123": 0.321506
+      },
+      "npz": "resunetpp_v3_loyo2021_predictions.npz",
+      "regresor": {
+        "fechas_train": [
+          "20220112",
+          "20220128",
+          "20220218",
+          "20220417",
+          "20220516",
+          "20221201",
+          "20230213",
+          "20230316",
+          "20230328",
+          "20250317",
+          "20250327",
+          "20250401",
+          "20250424",
+          "20250521"
+        ],
+        "anyos_train": [
+          "2022",
+          "2023",
+          "2025"
+        ],
+        "sin_anyo_test": true,
+        "sin_2024": true,
+        "var_prior_LOO": 0.113894
+      },
+      "fechas_ordenadas_por_T1a": [
+        {
+          "fecha": "20210414",
+          "T1a_b2": 0.059548,
+          "sesgo_b_m": 0.244024,
+          "T1a_contribucion_pct_MSE": 2.267447,
+          "media_obs_m": 0.688359,
+          "media_pred_m": 0.932383,
+          "media_regresor_m": 0.749389,
+          "delta_E5_m": -0.182994,
+          "n_pixeles": 9396564
+        },
+        {
+          "fecha": "20210323",
+          "T1a_b2": 0.066879,
+          "sesgo_b_m": -0.25861,
+          "T1a_contribucion_pct_MSE": 2.891061,
+          "media_obs_m": 1.055079,
+          "media_pred_m": 0.796469,
+          "media_regresor_m": 0.920143,
+          "delta_E5_m": 0.123674,
+          "n_pixeles": 10667563
+        },
+        {
+          "fecha": "20210304",
+          "T1a_b2": 0.134617,
+          "sesgo_b_m": -0.366902,
+          "T1a_contribucion_pct_MSE": 6.006624,
+          "media_obs_m": 1.264223,
+          "media_pred_m": 0.897321,
+          "media_regresor_m": 0.983964,
+          "delta_E5_m": 0.086643,
+          "n_pixeles": 11011048
+        },
+        {
+          "fecha": "20211216",
+          "T1a_b2": 0.201368,
+          "sesgo_b_m": -0.44874,
+          "T1a_contribucion_pct_MSE": 18.770572,
+          "media_obs_m": 1.109777,
+          "media_pred_m": 0.661037,
+          "media_regresor_m": 1.037025,
+          "delta_E5_m": 0.375988,
+          "n_pixeles": 23003020
+        }
+      ],
+      "fecha_elegida": "20210323",
+      "T1a_fecha_elegida": 0.066879,
+      "n_teselas_candidatas": 181,
+      "r2_fold_semilla_mascara_B": {
+        "tal_cual": 0.234137,
+        "E5": 0.42567,
+        "nivel_perfecto_fecha": 0.463404
+      },
+      "r2_fold_fuentes": {
+        "tal_cual": "analysis/eB_climatology_v2.json (r2_raw)",
+        "E5": "analysis/e5_regresor_dependientes.json (parte1_B 'todas')",
+        "nivel_perfecto_fecha": "analysis/eB_climatology_v2.json (r2_oraculo)"
+      },
+      "control_r2_fold_max_dif": 2.0092960628659284e-10,
+      "tesela_elegida": {
+        "tile_id": "20210323_lidar_tile_1280_1536.npy",
+        "fecha": "20210323",
+        "frac_nieve": 0.903305,
+        "r2_tal_cual": 0.300021,
+        "r2_E5": 0.058067,
+        "r2_nivel_perfecto_fecha": -0.538636,
+        "r2_mejor_desplazamiento_tesela": 0.31586,
+        "desplazamiento_E5_m": 0.123674,
+        "desplazamiento_nivel_perfecto_m": 0.25861
+      }
+    },
+    "2022": {
+      "semilla": "123",
+      "r2_fold_por_semilla": {
+        "7": 0.51576,
+        "42": 0.445645,
+        "123": 0.472418
+      },
+      "npz": "resunetpp_v3_loyo2022_s123_predictions.npz",
+      "regresor": {
+        "fechas_train": [
+          "20210304",
+          "20210323",
+          "20210414",
+          "20211216",
+          "20230213",
+          "20230316",
+          "20230328",
+          "20250317",
+          "20250327",
+          "20250401",
+          "20250424",
+          "20250521"
+        ],
+        "anyos_train": [
+          "2021",
+          "2023",
+          "2025"
+        ],
+        "sin_anyo_test": true,
+        "sin_2024": true,
+        "var_prior_LOO": 0.044408
+      },
+      "fechas_ordenadas_por_T1a": [
+        {
+          "fecha": "20220417",
+          "T1a_b2": 0.001833,
+          "sesgo_b_m": -0.042809,
+          "T1a_contribucion_pct_MSE": 0.081469,
+          "media_obs_m": 0.798972,
+          "media_pred_m": 0.756163,
+          "media_regresor_m": 0.726271,
+          "delta_E5_m": -0.029892,
+          "n_pixeles": 12637146
+        },
+        {
+          "fecha": "20220128",
+          "T1a_b2": 0.002777,
+          "sesgo_b_m": -0.0527,
+          "T1a_contribucion_pct_MSE": 0.156053,
+          "media_obs_m": 1.021811,
+          "media_pred_m": 0.969111,
+          "media_regresor_m": 1.156977,
+          "delta_E5_m": 0.187866,
+          "n_pixeles": 15972712
+        },
+        {
+          "fecha": "20220112",
+          "T1a_b2": 0.007657,
+          "sesgo_b_m": -0.087503,
+          "T1a_contribucion_pct_MSE": 0.479287,
+          "media_obs_m": 0.951461,
+          "media_pred_m": 0.863957,
+          "media_regresor_m": 1.193907,
+          "delta_E5_m": 0.329949,
+          "n_pixeles": 17793931
+        },
+        {
+          "fecha": "20220516",
+          "T1a_b2": 0.014637,
+          "sesgo_b_m": 0.120983,
+          "T1a_contribucion_pct_MSE": 0.3406,
+          "media_obs_m": 0.437487,
+          "media_pred_m": 0.558471,
+          "media_regresor_m": 0.445271,
+          "delta_E5_m": -0.1132,
+          "n_pixeles": 6614867
+        },
+        {
+          "fecha": "20220218",
+          "T1a_b2": 0.034175,
+          "sesgo_b_m": -0.184864,
+          "T1a_contribucion_pct_MSE": 2.823183,
+          "media_obs_m": 0.910346,
+          "media_pred_m": 0.725481,
+          "media_regresor_m": 1.078096,
+          "delta_E5_m": 0.352615,
+          "n_pixeles": 23483398
+        },
+        {
+          "fecha": "20221201",
+          "T1a_b2": 0.408522,
+          "sesgo_b_m": 0.639157,
+          "T1a_contribucion_pct_MSE": 26.068732,
+          "media_obs_m": 0.252826,
+          "media_pred_m": 0.891983,
+          "media_regresor_m": 1.236172,
+          "delta_E5_m": 0.344189,
+          "n_pixeles": 18139742
+        }
+      ],
+      "fecha_elegida": "20220112",
+      "T1a_fecha_elegida": 0.007657,
+      "n_teselas_candidatas": 305,
+      "r2_fold_semilla_mascara_B": {
+        "tal_cual": 0.471314,
+        "E5": 0.265009,
+        "nivel_perfecto_fecha": 0.629652
+      },
+      "r2_fold_fuentes": {
+        "tal_cual": "analysis/eB_climatology_v2.json (r2_raw)",
+        "E5": "analysis/e5_regresor_dependientes.json (parte1_B 'todas')",
+        "nivel_perfecto_fecha": "analysis/eB_climatology_v2.json (r2_oraculo)"
+      },
+      "control_r2_fold_max_dif": 1.7696071274997394e-09,
+      "tesela_elegida": {
+        "tile_id": "20220112_lidar_tile_1280_2944.npy",
+        "fecha": "20220112",
+        "frac_nieve": 0.759506,
+        "r2_tal_cual": 0.465184,
+        "r2_E5": -0.122844,
+        "r2_nivel_perfecto_fecha": 0.51122,
+        "r2_mejor_desplazamiento_tesela": 0.513695,
+        "desplazamiento_E5_m": 0.329949,
+        "desplazamiento_nivel_perfecto_m": 0.087503
+      }
+    }
+  }
+}
