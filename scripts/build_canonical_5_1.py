@@ -37,6 +37,26 @@ LAMBDAS = [('0.0', '00'), ('0.1', '01'), ('0.25', '025'), ('0.4', '04'),
            ('0.5', '05'), ('0.6', '06'), ('0.75', '075'), ('1.0', '10')]
 FOLDS = ['2021', '2022', '2023', '2025']
 
+# resunetpp_v3_sp00_s7 se entreno dos veces con la misma configuracion y la
+# misma semilla: julio de 2026 (no guardo predicciones y no se conservaron sus
+# pesos) y agosto de 2026 con el config ..._preds.yaml, que si las exporto. El
+# .npz y la descomposicion de analysis/e1_results.json salen del de agosto, asi
+# que se adopta ese. Es el mismo experimento que el punto lambda=0 del barrido,
+# que el rendimiento base del split temporal y que el modelo completo de la
+# ablacion, de modo que el cambio es global: no se puede elegir por bloque sin
+# dejar dos cifras distintas para la misma configuracion.
+S7_PREDS = ('results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/'
+            'resunetpp_v3_sp00_s7_metrics.json')
+S7_JULIO = ('results/norm_v3/lambda/resunetpp_v3_sp00_s7/'
+            'resunetpp_v3_sp00_s7_metrics.json')
+
+
+def met_sp(code, s, tpl):
+    """metrics.json del barrido: la semilla 7 de lambda=0 sale del run de agosto."""
+    if code == '00' and str(s) == '7' and os.path.exists(S7_PREDS):
+        return S7_PREDS
+    return tpl.format(c=code, s=s)
+
 
 def load(p):
     with open(p, encoding='utf-8') as f:
@@ -70,7 +90,7 @@ def main():
     tpl = 'results/norm_v3/lambda/resunetpp_v3_sp{c}_s{s}/resunetpp_v3_sp{c}_s{s}_metrics.json'
     lam = {}
     for name, code in LAMBDAS:
-        ms = [load(tpl.format(c=code, s=s)) for s in SEEDS]
+        ms = [load(met_sp(code, s, tpl)) for s in SEEDS]
         lam[name] = {'R2': mmm([m['R2'] for m in ms]), 'SPAEF': mmm([m['SPAEF'] for m in ms]),
                      'n_teselas_test': ms[0]['SPAEF_n_tiles']}
     best_r2 = max(lam, key=lambda k: lam[k]['R2']['media'])
@@ -82,20 +102,35 @@ def main():
                          'split temporal (train 2021-23, val 2024, test 2025), 50 epocas, '
                          'configs/norm_v3/resunetpp_v3_sp<lambda>_s<semilla>.yaml',
         'por_lambda': lam, 'mejor_lambda_R2': best_r2, 'mejor_lambda_SPAEF': best_sp,
+        'fuente_lambda0_semilla7': S7_PREDS,
+        'nota_lambda0_semilla7': (
+            'la semilla 7 de lambda=0 sale del entrenamiento de agosto de 2026 (R2 0.2259, '
+            'SPAEF 0.3316), el que exporto predicciones; el de julio de 2026 (R2 0.2134, '
+            'SPAEF 0.3464) se descarta porque no guardo predicciones y no se conservaron sus '
+            'pesos, asi que su descomposicion del error no es reproducible. Configuracion '
+            'identica y misma semilla: la diferencia es no determinismo de cuDNN. El cambio no '
+            'altera el resultado del barrido: lambda=0 sigue siendo el mejor en R2 y en SPAEF '
+            'con un margen muy superior a la diferencia entre los dos entrenamientos. '
+            'results/norm_v3/lambda/norm_v3_lambda_summary.json NO se regenera y conserva las '
+            'cifras de julio.'),
         'aviso': 'Respecto al barrido antiguo cambian DOS cosas a la vez (normalizacion v3 y '
                  'perdida enmascarada; commits ded1a0d y f372687). No hay ejecuciones v3 sin '
                  'mascara: el barrido no aisla el efecto de la mascara.'}
 
     # ------------------------------------------------------- 2a. temporal
     rf_t = load('analysis/rf_temporal_allpix_train.json')
-    net_t = [load(tpl.format(c='00', s=s)) for s in SEEDS]
+    net_t = [load(met_sp('00', s, tpl)) for s in SEEDS]
     out['2a_base_temporal'] = {
         'definicion': 'split temporal completo: train 2021-2023 (todas las teselas), val 2024, '
                       'test 2025 (220 teselas, 5 fechas); R2 acumulado sobre pixeles con nieve, '
                       'SPAEF medio por tesela; sin corregir el nivel. NO es el fold LOYO 2025 '
                       '(ese submuestrea el train a 2659 teselas).',
         'red': {'R2': mmm([m['R2'] for m in net_t]), 'SPAEF': mmm([m['SPAEF'] for m in net_t]),
-                'fuente': tpl.format(c='00', s='<semilla>')},
+                'fuente': tpl.format(c='00', s='<semilla>'),
+                'fuente_semilla_7': S7_PREDS,
+                'nota_semilla_7': ('run de agosto de 2026; el de julio (' + S7_JULIO +
+                                   ') da R2 0.2134 y SPAEF 0.3464 y se descarta por no ser '
+                                   'reproducible (sin predicciones ni pesos)')},
         'rf_justo': {'R2': mmm([rf_t['rf_nuevo']['por_semilla'][s]['R2'] for s in SEEDS]),
                      'SPAEF': mmm([rf_t['rf_nuevo']['por_semilla'][s]['SPAEF'] for s in SEEDS]),
                      'fuente': 'analysis/rf_temporal_allpix_train.json (rf_nuevo; todos los '
@@ -199,6 +234,35 @@ def main():
                        'R2': {k: ab[g]['R2'][k] for k in ('media', 'min', 'max')},
                        'SPAEF': {k: ab[g]['SPAEF'][k] for k in ('media', 'min', 'max')}}
                    for g in ('completo', 'sin_pers', 'sin_sce', 'sin_sx', 'sin_topo1', 'sin_topo5')}}
+
+    # ------------------------------- 5. repeticion frente a semillas
+    # Los dos entrenamientos de sp00_s7 dan, sin buscarlo, una medida de la
+    # varianza de REPETICION (misma semilla, misma configuracion), que es lo
+    # que permite leer el recorrido entre semillas: si fueran del mismo orden,
+    # ese recorrido no mediria nada.
+    if os.path.exists(S7_PREDS) and os.path.exists(S7_JULIO):
+        a, b = load(S7_PREDS), load(S7_JULIO)
+        r2s = out['2a_base_temporal']['red']['R2']
+        out['5_repeticion_frente_a_semillas'] = {
+            'definicion': 'dos entrenamientos de resunetpp_v3_sp00_s7 con configuracion y '
+                          'semilla identicas (no determinismo de cuDNN), frente al recorrido '
+                          'entre las semillas 7, 42 y 123 del mismo experimento',
+            'fuente': [S7_PREDS, S7_JULIO],
+            'adoptado': {'timestamp': a.get('timestamp'), 'R2': a['R2'], 'MAE': a['MAE'],
+                         'RMSE': a['RMSE'], 'SPAEF': a['SPAEF']},
+            'descartado': {'timestamp': b.get('timestamp'), 'R2': b['R2'], 'MAE': b['MAE'],
+                           'RMSE': b['RMSE'], 'SPAEF': b['SPAEF']},
+            'repeticion': {'delta_R2': round(abs(a['R2'] - b['R2']), ND),
+                           'delta_MAE': round(abs(a['MAE'] - b['MAE']), ND),
+                           'delta_RMSE': round(abs(a['RMSE'] - b['RMSE']), ND),
+                           'delta_SPAEF': round(abs(a['SPAEF'] - b['SPAEF']), ND)},
+            'semillas': {'recorrido_R2': round(r2s['max'] - r2s['min'], ND),
+                         'min': r2s['min'], 'max': r2s['max']},
+            'cociente_repeticion_entre_semillas': round(
+                abs(a['R2'] - b['R2']) / (r2s['max'] - r2s['min']), ND_PCT + 2),
+            'lectura': 'la variabilidad de repeticion es del orden del 10 % del recorrido entre '
+                       'semillas, de modo que ese recorrido mide el efecto de la semilla y no '
+                       'ruido de entrenamiento'}
 
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
     with open(args.out, 'w', encoding='utf-8') as f:

@@ -35,10 +35,26 @@ import yaml
 SEEDS = (7, 42, 123)
 GROUPS = ('sin_pers', 'sin_sce', 'sin_sx', 'sin_topo1', 'sin_topo5')
 FULL = 'results/norm_v3/lambda/resunetpp_v3_sp00_s{s}/resunetpp_v3_sp00_s{s}_metrics.json'
-ABL = 'results/norm_v3/ablation/resunetpp_v3_abl_{g}_s{s}/resunetpp_v3_abl_{g}_s{s}_metrics.json'
+# La semilla 7 se toma del entrenamiento que exporto predicciones (agosto,
+# config ..._preds.yaml): es el del .npz y el de la descomposicion de
+# analysis/e1_results.json, y del de julio no se conservaron los pesos. Es el
+# MISMO experimento que el punto lambda=0 del barrido y que el rendimiento
+# base del split temporal, asi que el cambio es global y no una eleccion por
+# bloque. La config del modelo es identica (el ..._preds.yaml solo anyade
+# evaluation.save_predictions y cambia los nombres de salida), por eso
+# CFG_FULL sigue apuntando al original.
+FULL_S7 = 'results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/resunetpp_v3_sp00_s7_metrics.json'
+FULL_S7_DESCARTADO = ('results/norm_v3/lambda/resunetpp_v3_sp00_s7/'
+                      'resunetpp_v3_sp00_s7_metrics.json')
+ABL ='results/norm_v3/ablation/resunetpp_v3_abl_{g}_s{s}/resunetpp_v3_abl_{g}_s{s}_metrics.json'
 CFG_FULL = 'configs/norm_v3/resunetpp_v3_sp00_s{s}.yaml'
 CFG_ABL = 'configs/norm_v3/resunetpp_v3_abl_{g}_s{s}.yaml'
 OUT = 'analysis/ablation_v3_summary.json'
+
+def full_path(s):
+    """metrics.json del modelo completo para la semilla s."""
+    return FULL_S7 if int(s) == 7 and os.path.exists(FULL_S7) else FULL.format(s=s)
+
 
 # claves que se espera que difieran entre el completo y la ablacion
 ESPERADAS = {('experiment', 'name'), ('output', 'models_dir'),
@@ -102,8 +118,13 @@ def main():
         print('  OK: solo difieren nombre, rutas y canales (comparando el YAML interpretado).')
 
     # 2. tabla
-    full = [metrics(FULL.format(s=s)) for s in SEEDS]
+    full = [metrics(full_path(s)) for s in SEEDS]
     res = {'completo': {'ruta': FULL.format(s='<seed>'),
+                        'ruta_semilla_7': full_path(7),
+                        'nota_semilla_7': (
+                            'dos entrenamientos de la misma configuracion y semilla; se usa el '
+                            'que exporto predicciones (agosto). El descartado, '
+                            + FULL_S7_DESCARTADO + ', da R2 0.2134 y SPAEF 0.3464'),
                         'R2': resume([x[0] for x in full]),
                         'SPAEF': resume([x[1] for x in full])}}
     for g in GROUPS:

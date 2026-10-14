@@ -1,22 +1,24 @@
 {
   "completo": {
     "ruta": "results/norm_v3/lambda/resunetpp_v3_sp00_s<seed>/resunetpp_v3_sp00_s<seed>_metrics.json",
+    "ruta_semilla_7": "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/resunetpp_v3_sp00_s7_metrics.json",
+    "nota_semilla_7": "dos entrenamientos de la misma configuracion y semilla; se usa el que exporto predicciones (agosto). El descartado, results/norm_v3/lambda/resunetpp_v3_sp00_s7/resunetpp_v3_sp00_s7_metrics.json, da R2 0.2134 y SPAEF 0.3464",
     "R2": {
-      "media": 0.1676,
+      "media": 0.17176666666666665,
       "min": 0.1072,
-      "max": 0.2134,
+      "max": 0.2259,
       "por_semilla": {
-        "7": 0.2134,
+        "7": 0.2259,
         "42": 0.1072,
         "123": 0.1822
       }
     },
     "SPAEF": {
-      "media": 0.3552666666666667,
-      "min": 0.3464,
+      "media": 0.3503333333333334,
+      "min": 0.3316,
       "max": 0.3612,
       "por_semilla": {
-        "7": 0.3464,
+        "7": 0.3316,
         "42": 0.3612,
         "123": 0.3582
       }

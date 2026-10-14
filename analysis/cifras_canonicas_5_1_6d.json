@@ -7,21 +7,21 @@
     "por_lambda": {
       "0.0": {
         "R2": {
-          "media": 0.1676,
+          "media": 0.171767,
           "min": 0.1072,
-          "max": 0.2134,
+          "max": 0.2259,
           "por_semilla": [
-            0.2134,
+            0.2259,
             0.1072,
             0.1822
           ]
         },
         "SPAEF": {
-          "media": 0.355267,
-          "min": 0.3464,
+          "media": 0.350333,
+          "min": 0.3316,
           "max": 0.3612,
           "por_semilla": [
-            0.3464,
+            0.3316,
             0.3612,
             0.3582
           ]
@@ -192,32 +192,36 @@
     },
     "mejor_lambda_R2": "0.0",
     "mejor_lambda_SPAEF": "0.0",
+    "fuente_lambda0_semilla7": "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/resunetpp_v3_sp00_s7_metrics.json",
+    "nota_lambda0_semilla7": "la semilla 7 de lambda=0 sale del entrenamiento de agosto de 2026 (R2 0.2259, SPAEF 0.3316), el que exporto predicciones; el de julio de 2026 (R2 0.2134, SPAEF 0.3464) se descarta porque no guardo predicciones y no se conservaron sus pesos, asi que su descomposicion del error no es reproducible. Configuracion identica y misma semilla: la diferencia es no determinismo de cuDNN. El cambio no altera el resultado del barrido: lambda=0 sigue siendo el mejor en R2 y en SPAEF con un margen muy superior a la diferencia entre los dos entrenamientos. results/norm_v3/lambda/norm_v3_lambda_summary.json NO se regenera y conserva las cifras de julio.",
     "aviso": "Respecto al barrido antiguo cambian DOS cosas a la vez (normalizacion v3 y perdida enmascarada; commits ded1a0d y f372687). No hay ejecuciones v3 sin mascara: el barrido no aisla el efecto de la mascara."
   },
   "2a_base_temporal": {
     "definicion": "split temporal completo: train 2021-2023 (todas las teselas), val 2024, test 2025 (220 teselas, 5 fechas); R2 acumulado sobre pixeles con nieve, SPAEF medio por tesela; sin corregir el nivel. NO es el fold LOYO 2025 (ese submuestrea el train a 2659 teselas).",
     "red": {
       "R2": {
-        "media": 0.1676,
+        "media": 0.171767,
         "min": 0.1072,
-        "max": 0.2134,
+        "max": 0.2259,
         "por_semilla": [
-          0.2134,
+          0.2259,
           0.1072,
           0.1822
         ]
       },
       "SPAEF": {
-        "media": 0.355267,
-        "min": 0.3464,
+        "media": 0.350333,
+        "min": 0.3316,
         "max": 0.3612,
         "por_semilla": [
-          0.3464,
+          0.3316,
           0.3612,
           0.3582
         ]
       },
-      "fuente": "results/norm_v3/lambda/resunetpp_v3_sp00_s<semilla>/resunetpp_v3_sp00_s<semilla>_metrics.json"
+      "fuente": "results/norm_v3/lambda/resunetpp_v3_sp00_s<semilla>/resunetpp_v3_sp00_s<semilla>_metrics.json",
+      "fuente_semilla_7": "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/resunetpp_v3_sp00_s7_metrics.json",
+      "nota_semilla_7": "run de agosto de 2026; el de julio (results/norm_v3/lambda/resunetpp_v3_sp00_s7/resunetpp_v3_sp00_s7_metrics.json) da R2 0.2134 y SPAEF 0.3464 y se descarta por no ser reproducible (sin predicciones ni pesos)"
     },
     "rf_justo": {
       "R2": {
@@ -840,13 +844,13 @@
       "completo": {
         "canales_quitados": [],
         "R2": {
-          "media": 0.1676,
+          "media": 0.17176666666666665,
           "min": 0.1072,
-          "max": 0.2134
+          "max": 0.2259
         },
         "SPAEF": {
-          "media": 0.3552666666666667,
-          "min": 0.3464,
+          "media": 0.3503333333333334,
+          "min": 0.3316,
           "max": 0.3612
         }
       },
@@ -943,5 +947,39 @@
         }
       }
     }
+  },
+  "5_repeticion_frente_a_semillas": {
+    "definicion": "dos entrenamientos de resunetpp_v3_sp00_s7 con configuracion y semilla identicas (no determinismo de cuDNN), frente al recorrido entre las semillas 7, 42 y 123 del mismo experimento",
+    "fuente": [
+      "results/norm_v3/lambda/resunetpp_v3_sp00_s7_preds/resunetpp_v3_sp00_s7_metrics.json",
+      "results/norm_v3/lambda/resunetpp_v3_sp00_s7/resunetpp_v3_sp00_s7_metrics.json"
+    ],
+    "adoptado": {
+      "timestamp": "2026-08-05 22:55:38",
+      "R2": 0.2259,
+      "MAE": 0.4705,
+      "RMSE": 0.6406,
+      "SPAEF": 0.3316
+    },
+    "descartado": {
+      "timestamp": "2026-07-15 03:52:58",
+      "R2": 0.2134,
+      "MAE": 0.491,
+      "RMSE": 0.6458,
+      "SPAEF": 0.3464
+    },
+    "repeticion": {
+      "delta_R2": 0.0125,
+      "delta_MAE": 0.0205,
+      "delta_RMSE": 0.0052,
+      "delta_SPAEF": 0.0148
+    },
+    "semillas": {
+      "recorrido_R2": 0.1187,
+      "min": 0.1072,
+      "max": 0.2259
+    },
+    "cociente_repeticion_entre_semillas": 0.105307,
+    "lectura": "la variabilidad de repeticion es del orden del 10 % del recorrido entre semillas, de modo que ese recorrido mide el efecto de la semilla y no ruido de entrenamiento"
   }
 }
