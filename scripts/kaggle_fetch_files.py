@@ -12,7 +12,9 @@ pueden bajar, asi que este script baja solo lo que necesita el entrenamiento:
 y deja fuera Data/izas/LiDAR. Conserva las rutas de Kaggle bajo <destino>, de
 modo que vast_run_sat_v2.sh los encuentra igual que si viniesen del zip.
 
-* En paralelo (--hilos, 16 por defecto), con reintentos.
+* En paralelo con procesos (--procesos, 8 por defecto), con reintentos. Con
+  hilos el cliente de Kaggle se queda bloqueado y no baja nada.
+* --limite N baja solo los N primeros (prueba de velocidad).
 * Relanzable: salta los ficheros que ya estan con el tamanyo esperado.
 * Si Kaggle entrega un fichero comprimido (<nombre>.zip), lo descomprime.
 * La integridad la comprueba despues el manifiesto (MD5 de cada fichero).
@@ -27,23 +29,24 @@ Uso
 import argparse
 import os
 import sys
-import threading
 import time
 import zipfile
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 PREFIJOS = ('dataset_v4_ms_sx200/', 'sat_v2/')
 CSVS = ('dataset_v4_ms_sx200.csv', 'dataset_v4_ms_sx200_spatial.csv')
-_local = threading.local()
+_API = None
 
 
 def api():
-    if not hasattr(_local, 'api'):
-        _local.api = KaggleApi()
-        _local.api.authenticate()
-    return _local.api
+    """Un cliente por proceso."""
+    global _API
+    if _API is None:
+        _API = KaggleApi()
+        _API.authenticate()
+    return _API
 
 
 def wanted(name):
@@ -95,30 +98,34 @@ def main():
     ap = argparse.ArgumentParser(description='Descarga selectiva de Kaggle')
     ap.add_argument('dataset')
     ap.add_argument('destino')
-    ap.add_argument('--hilos', type=int, default=16)
+    ap.add_argument('--procesos', type=int, default=8)
+    ap.add_argument('--limite', type=int, default=0)
     a = ap.parse_args()
 
     print('Listando ficheros del dataset')
     files = listar(a.dataset)
+    if a.limite:
+        files = files[:a.limite]
     gb = sum(s for _, s in files) / 1e9
     print(f'{len(files)} ficheros, {gb:.1f} GB')
 
     t0, n, err = time.time(), 0, []
-    with ThreadPoolExecutor(a.hilos) as ex:
+    with ProcessPoolExecutor(a.procesos) as ex:
         futs = {ex.submit(bajar, a.dataset, f, s, a.destino): f for f, s in files}
         for fut in as_completed(futs):
             n += 1
             r = fut.result()
             if r.startswith('ERROR'):
                 err.append((futs[fut], r))
-            if n % 500 == 0 or n == len(files):
+            if n % 100 == 0 or n == len(files):
                 print(f'  {n}/{len(files)}  ({(time.time() - t0) / 60:.1f} min, {len(err)} errores)',
                       flush=True)
     for f, r in err[:20]:
         print(f'  {f}: {r}')
     if err:
         sys.exit(f'STOP: {len(err)} ficheros sin bajar; relanza el script para reintentarlos')
-    print('Descarga completa')
+    gb_s = sum(s for _, s in files) / 1e9
+    print(f'Descarga completa: {gb_s:.1f} GB en {(time.time() - t0) / 60:.1f} min')
 
 
 if __name__ == '__main__':
