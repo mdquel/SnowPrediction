@@ -119,6 +119,13 @@ class SnowDataset(Dataset):
         # config training.masked_loss. Default False = 2-tupla legacy.
         self.return_valid = False     # se puede sobreescribir desde main.py
 
+        # Canales satelitales v2 (data/patch_sat_channels.py): carpeta con un
+        # .npy de 8 canales por tesela, mismo nombre. Si se fija, se anaden
+        # DETRAS de los 22 originales (indices 22-29), ya en [0, 1], y no se
+        # les aplica el escalado de meteorologia de los canales 22+. None =
+        # comportamiento de siempre. Lo fija main.py via data.extra_channels_dir.
+        self.extra_channels_dir = None
+
         # --- Senales de escala externas (E4) ---
         # Escalares por FECHA de vuelo (cobertura de nieve, grados-dia,
         # precipitacion acumulada) que alimentan la cabeza de escala del
@@ -209,7 +216,7 @@ class SnowDataset(Dataset):
         msk_path = os.path.join(self.masks_dir,  tile_id)
 
         try:
-            image = np.load(img_path).astype(np.float32)
+            image = self._add_extra(np.load(img_path).astype(np.float32), tile_id)
             mask  = np.load(msk_path).astype(np.float32)
         except Exception as e:
             print(f"Error cargando {tile_id}: {e}")
@@ -256,6 +263,13 @@ class SnowDataset(Dataset):
     # ------------------------------------------------------------------
     # Metodos privados
     # ------------------------------------------------------------------
+    def _add_extra(self, image: np.ndarray, tile_id: str) -> np.ndarray:
+        """Anade los canales satelitales v2 detras de los 22 originales."""
+        if not self.extra_channels_dir:
+            return image
+        extra = np.load(os.path.join(self.extra_channels_dir, tile_id)).astype(np.float32)
+        return np.concatenate([image, extra], axis=0)
+
     def _clean(self, image: np.ndarray, mask: np.ndarray):
         image[image == -9999] = 0
         image = np.nan_to_num(image, nan=0.0, posinf=0.0, neginf=0.0)
@@ -303,7 +317,7 @@ class SnowDataset(Dataset):
         # Canales 22-25 (meteorologia correo2): escalares por fecha
         # t2m_7d, t2m_15d, t2m_30d en degC -> dividir por 10 (rango aprox -5 a +10)
         # ppAcc_from_oct en mm -> dividir por 1000 (rango aprox 0 a 2000)
-        if n >= 26 and self.norm_extended:
+        if n >= 26 and self.norm_extended and not self.extra_channels_dir:
             image[22] = image[22] / 10.0
             image[23] = image[23] / 10.0
             image[24] = image[24] / 10.0
@@ -313,7 +327,7 @@ class SnowDataset(Dataset):
         # ws_7d, ws_15d, ws_30d en m/s -> dividir por 10 (rango 0-9)
         # rh_7d, rh_15d, rh_30d en % -> dividir por 100 (rango 0-100)
         # rad_7d, rad_15d, rad_30d en W/m2 -> dividir por 600 (rango 0-600)
-        if n >= 35 and self.norm_extended:
+        if n >= 35 and self.norm_extended and not self.extra_channels_dir:
             image[26] = image[26] / 10.0
             image[27] = image[27] / 10.0
             image[28] = image[28] / 10.0
@@ -386,13 +400,15 @@ class SnowDataset(Dataset):
             # 19 (northness_5m) y 20 (eastness_5m) ya en [-1, 1]
             image[21] = _tpi(image[21], V['tpi5_scale'], V['tpi5_max_valid'])
 
-        # Canales meteo (22+): mismos escalados que la norm extendida
-        if n >= 26:
+        # Canales meteo (22+): mismos escalados que la norm extendida.
+        # Con extra_channels_dir los canales 22+ son los satelitales v2, ya en
+        # [0, 1]: no se escalan.
+        if n >= 26 and not self.extra_channels_dir:
             image[22] = image[22] / 10.0
             image[23] = image[23] / 10.0
             image[24] = image[24] / 10.0
             image[25] = image[25] / 1000.0
-        if n >= 35:
+        if n >= 35 and not self.extra_channels_dir:
             image[26] = image[26] / 10.0
             image[27] = image[27] / 10.0
             image[28] = image[28] / 10.0
@@ -461,7 +477,7 @@ class SnowDatasetEval(SnowDataset):
         msk_path = os.path.join(self.masks_dir,  tile_id)
 
         try:
-            image = np.load(img_path).astype(np.float32)
+            image = self._add_extra(np.load(img_path).astype(np.float32), tile_id)
             mask  = np.load(msk_path).astype(np.float32)
         except Exception as e:
             print(f"Error cargando {tile_id}: {e}")

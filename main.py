@@ -62,6 +62,12 @@ def _get_paths(config: dict) -> tuple:
     return csv_path, imgs_dir, masks_dir
 
 
+def _extra_dir(config: dict):
+    """Carpeta de canales satelitales v2 (data.extra_channels_dir), o None."""
+    sub = config['data'].get('extra_channels_dir')
+    return os.path.join(config['data']['root'], sub) if sub else None
+
+
 # ----------------------------------------------------------------------
 # Modos de ejecucion
 # ----------------------------------------------------------------------
@@ -109,6 +115,10 @@ def run_train(config: dict):
     val_ds.norm_extended     = norm_extended
     val_ds.norm_version      = norm_version
     val_ds.return_valid      = masked_loss
+    # Canales satelitales v2 (data/patch_sat_channels.py), relativos a data.root
+    extra_dir = _extra_dir(config)
+    train_ds.extra_channels_dir = extra_dir
+    val_ds.extra_channels_dir   = extra_dir
 
     # --- Senales de escala externas (E4) ---
     # Escalares por fecha que alimentan la cabeza de escala del modelo dual.
@@ -172,6 +182,7 @@ def run_evaluate(config: dict):
     test_ds.channel_indices = channel_indices
     test_ds.norm_extended   = cfg_data.get('norm_extended', True)
     test_ds.norm_version    = cfg_data.get('norm_version', None)
+    test_ds.extra_channels_dir = _extra_dir(config)
     # Devolver la mascara de validez para calcular metricas full-domain y de
     # deteccion (falsos positivos) ademas de las snow-only.
     test_ds.return_valid    = True

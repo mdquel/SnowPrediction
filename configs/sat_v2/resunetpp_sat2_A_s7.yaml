@@ -1,0 +1,69 @@
+# Experimento satelital v2, brazo A (scripts/generate_sat_v2_configs.py)
+experiment:
+  name: resunetpp_sat2_A_s7
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: dataset_v4_ms_sx200.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+  extra_channels_dir: sat_v2
+  channel_indices:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+model:
+  architecture: resunetpp
+  in_channels: 23
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: spatial_mse
+  lambda_pearson: 0.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/sat_v2/weights
+  results_dir: results/sat_v2/resunetpp_sat2_A_s7
+  model_name: resunetpp_sat2_A_s7

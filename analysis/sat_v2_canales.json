@@ -1,0 +1,567 @@
+{
+  "descripcion": "Canales satelitales v2 (canal 5 y persistencia recodificados). Indices 22-29 detras de los 22 originales.",
+  "canales": {
+    "22": "sat_nieve",
+    "23": "sat_observado",
+    "24": "pers_nieve_15d",
+    "25": "pers_nieve_30d",
+    "26": "pers_nieve_60d",
+    "27": "frac_despejado_15d",
+    "28": "frac_despejado_30d",
+    "29": "frac_despejado_60d"
+  },
+  "parametros": {
+    "ventanas_dias": [
+      15,
+      30,
+      60
+    ],
+    "desfase_max_dias": 2,
+    "remuestreo": "bilineal de mascaras binarias o sus sumas, 10 m -> 1 m"
+  },
+  "fuentes": {
+    "sce": "Articulo 1/Data/izas/LiDAR/images_SCE",
+    "georef": "data/tile_georef.csv",
+    "dem": "Articulo 1/Data/izas/LiDAR/Topografia/DEMbigIzas_1m.tif"
+  },
+  "por_fecha": {
+    "20210202": {
+      "n_teselas": 118,
+      "imagen_del_dia": "20210202",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 23
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20210304": {
+      "n_teselas": 194,
+      "imagen_del_dia": "20210304",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 4e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 4e-06
+    },
+    "20210323": {
+      "n_teselas": 194,
+      "imagen_del_dia": "20210321",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 2e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 6e-06
+    },
+    "20210414": {
+      "n_teselas": 195,
+      "imagen_del_dia": "20210413",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 1e-05,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 1e-05
+    },
+    "20210504": {
+      "n_teselas": 257,
+      "imagen_del_dia": "20210503",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20211216": {
+      "n_teselas": 374,
+      "imagen_del_dia": "20211216",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 6,
+        "60d": 6
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20220112": {
+      "n_teselas": 319,
+      "imagen_del_dia": "20220110",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 17
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20220128": {
+      "n_teselas": 280,
+      "imagen_del_dia": "20220128",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 23
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20220218": {
+      "n_teselas": 379,
+      "imagen_del_dia": "20220217",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 6e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 1e-05
+    },
+    "20220417": {
+      "n_teselas": 270,
+      "imagen_del_dia": "20220415",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20220516": {
+      "n_teselas": 219,
+      "imagen_del_dia": "20220515",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20221201": {
+      "n_teselas": 335,
+      "imagen_del_dia": "20221201",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 0,
+        "30d": 0,
+        "60d": 0
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20230213": {
+      "n_teselas": 367,
+      "imagen_del_dia": "20230212",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20230316": {
+      "n_teselas": 363,
+      "imagen_del_dia": "20230316",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 3e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 7e-06
+    },
+    "20230328": {
+      "n_teselas": 377,
+      "imagen_del_dia": "20230326",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 4e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 6e-06
+    },
+    "20240125": {
+      "n_teselas": 95,
+      "imagen_del_dia": "20240125",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 5,
+        "30d": 11,
+        "60d": 21
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240213": {
+      "n_teselas": 95,
+      "imagen_del_dia": "20240212",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 11,
+        "60d": 23
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240307": {
+      "n_teselas": 52,
+      "imagen_del_dia": "20240305",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 23
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240314": {
+      "n_teselas": 52,
+      "imagen_del_dia": "20240313",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 23
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240405": {
+      "n_teselas": 29,
+      "imagen_del_dia": "20240404",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        1,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.04895,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240508": {
+      "n_teselas": 75,
+      "imagen_del_dia": "20240507",
+      "desfase_dias": 1,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        1,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.040742,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20240605": {
+      "n_teselas": 33,
+      "imagen_del_dia": "20240603",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20250317": {
+      "n_teselas": 57,
+      "imagen_del_dia": "20250317",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 6,
+        "30d": 12,
+        "60d": 24
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 1e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 4e-06
+    },
+    "20250327": {
+      "n_teselas": 87,
+      "imagen_del_dia": "20250327",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 7,
+        "30d": 13,
+        "60d": 25
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        1
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 1.1,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 5e-06
+    },
+    "20250401": {
+      "n_teselas": 23,
+      "imagen_del_dia": "20250330",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 8,
+        "30d": 14,
+        "60d": 26
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 2e-06,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 4e-06
+    },
+    "20250424": {
+      "n_teselas": 23,
+      "imagen_del_dia": "20250424",
+      "desfase_dias": 0,
+      "imagen_mismo_dia_en_canal5_actual": true,
+      "n_imagenes_ventana": {
+        "15d": 7,
+        "30d": 15,
+        "60d": 28
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    },
+    "20250521": {
+      "n_teselas": 30,
+      "imagen_del_dia": "20250519",
+      "desfase_dias": 2,
+      "imagen_mismo_dia_en_canal5_actual": false,
+      "n_imagenes_ventana": {
+        "15d": 8,
+        "30d": 15,
+        "60d": 30
+      },
+      "desplazamiento_georef_fila_col": [
+        0,
+        0
+      ],
+      "alineacion_verificable": true,
+      "alineacion_dif_sin_desplazar": 0.0,
+      "control_max_dif_canal5": 0.0,
+      "control_max_dif_persistencia": 0.0
+    }
+  },
+  "control": {
+    "tolerancia": 0.0001,
+    "max_dif_canal5_actual": 0.0,
+    "max_dif_persistencia_actual": 1e-05,
+    "superado": true,
+    "lectura": "reconstruir el canal 5 y la persistencia actuales con la misma via de calculo valida la rejilla y la seleccion de imagenes",
+    "fechas_con_desplazamiento_georef": {
+      "20240405": [
+        1,
+        0
+      ],
+      "20240508": [
+        1,
+        0
+      ],
+      "20250327": [
+        0,
+        1
+      ]
+    }
+  },
+  "teselas": {
+    "escritas": 4892,
+    "ya_existian": 0
+  }
+}

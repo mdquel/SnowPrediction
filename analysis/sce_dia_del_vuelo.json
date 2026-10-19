@@ -1,0 +1,1654 @@
+{
+  "descripcion": "Cobertura del satelite en el dia del vuelo con tolerancia de k dias. Porcentajes del dominio (pixeles de 10 m de la cuenca).",
+  "fuente": {
+    "sce": "Articulo 1/Data/izas/LiDAR/images_SCE",
+    "fechas": "dataset_v4_ms_sx200/dataset_v4_ms_sx200.csv",
+    "canal_actual": "data/generate_dataset_v4_ms_sx200.py, bloque B"
+  },
+  "dominio_pixeles_10m": 758852,
+  "por_fecha": {
+    "20210202": {
+      "n_teselas": 118,
+      "k0_pasado": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 41.1726,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 41.1726,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 41.1726,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 41.1726,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 41.1726,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 48.6883,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 49.4953,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20210202",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 41.1726,
+        "pct_despejado_pixel": 55.5506,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20210304": {
+      "n_teselas": 194,
+      "k0_pasado": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.97,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.9725,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20210304",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.97,
+        "pct_despejado_pixel": 99.9725,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20210323": {
+      "n_teselas": 194,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20210324",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 99.873,
+        "pct_despejado_pixel": 99.873,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20210321",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 11.5463,
+        "pct_despejado_pixel": 11.5463,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20210324",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 99.873,
+        "pct_despejado_pixel": 99.873,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20210321",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 11.5463,
+        "pct_despejado_pixel": 11.5463,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20210324",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 99.873,
+        "pct_despejado_pixel": 99.9755,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20210414": {
+      "n_teselas": 195,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9858,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9963,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9858,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9963,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9858,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20210413",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9858,
+        "pct_despejado_pixel": 99.9963,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20210504": {
+      "n_teselas": 257,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 1.5672,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 53.3316,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 1.5672,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 53.3316,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 1.5672,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20210503",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 1.5672,
+        "pct_despejado_pixel": 53.3316,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20211216": {
+      "n_teselas": 374,
+      "k0_pasado": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.6915,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.6915,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.6915,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.6915,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.9941,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.9941,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.9941,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20211216",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.6915,
+        "pct_despejado_pixel": 99.9997,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20220112": {
+      "n_teselas": 319,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20220113",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 97.9083,
+        "pct_despejado_pixel": 97.9083,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20220110",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 87.4773,
+        "pct_despejado_pixel": 87.4773,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20220113",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 97.9083,
+        "pct_despejado_pixel": 99.9722,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20220110",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 87.4773,
+        "pct_despejado_pixel": 87.4773,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20220113",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 97.9083,
+        "pct_despejado_pixel": 99.9783,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20220128": {
+      "n_teselas": 280,
+      "k0_pasado": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 99.9418,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 98.9264,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20220128",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9264,
+        "pct_despejado_pixel": 99.9418,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20220218": {
+      "n_teselas": 379,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6361,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6406,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6361,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6406,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6361,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20220217",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 92.6361,
+        "pct_despejado_pixel": 92.6406,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20220417": {
+      "n_teselas": 270,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20220418",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 92.7894,
+        "pct_despejado_pixel": 92.7894,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20220415",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 99.7612,
+        "pct_despejado_pixel": 99.7612,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20220418",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 92.7894,
+        "pct_despejado_pixel": 99.9739,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20220415",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 99.7612,
+        "pct_despejado_pixel": 99.7612,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20220418",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 92.7894,
+        "pct_despejado_pixel": 99.9739,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20220516": {
+      "n_teselas": 219,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 70.6714,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 70.6714,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 70.6714,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 73.8613,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 95.0537,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20220515",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 70.6714,
+        "pct_despejado_pixel": 95.3194,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20221201": {
+      "n_teselas": 335,
+      "k0_pasado": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k3_pasado": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9614,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20221201",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9614,
+        "pct_despejado_pixel": 99.9732,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20230213": {
+      "n_teselas": 367,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.8365,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.9325,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.8365,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.9325,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.8365,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20230212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.8365,
+        "pct_despejado_pixel": 99.9325,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20230316": {
+      "n_teselas": 363,
+      "k0_pasado": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.5448,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20230316",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.5448,
+        "pct_despejado_pixel": 99.7793,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20230328": {
+      "n_teselas": 377,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20230329",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 96.6379,
+        "pct_despejado_pixel": 96.6379,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20230326",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 59.2786,
+        "pct_despejado_pixel": 59.2786,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20230329",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 96.6379,
+        "pct_despejado_pixel": 99.0334,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20230326",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 59.2786,
+        "pct_despejado_pixel": 59.2786,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20230329",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 96.6379,
+        "pct_despejado_pixel": 99.0334,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20240125": {
+      "n_teselas": 95,
+      "k0_pasado": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.8926,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.8926,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.8926,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.8926,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.9854,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.9854,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.9854,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20240125",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.8926,
+        "pct_despejado_pixel": 99.9922,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20240213": {
+      "n_teselas": 95,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 16.9163,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 94.7627,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 16.9163,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 94.7627,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 16.9163,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20240212",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 16.9163,
+        "pct_despejado_pixel": 94.7627,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20240307": {
+      "n_teselas": 52,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20240308",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 0.0752,
+        "pct_despejado_pixel": 0.0752,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20240305",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 0.4803,
+        "pct_despejado_pixel": 0.4803,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240308",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 0.0752,
+        "pct_despejado_pixel": 0.5556,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240305",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 0.4803,
+        "pct_despejado_pixel": 0.4803,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20240308",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 0.0752,
+        "pct_despejado_pixel": 0.5556,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20240314": {
+      "n_teselas": 52,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9928,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9934,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9928,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9934,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9928,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20240313",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 99.9928,
+        "pct_despejado_pixel": 99.9934,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20240405": {
+      "n_teselas": 29,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.6498,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.6498,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.6498,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.6498,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.722,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20240404",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 98.6498,
+        "pct_despejado_pixel": 98.722,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20240508": {
+      "n_teselas": 75,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 17.0493,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 99.9165,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 17.0493,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 99.9165,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 17.0493,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20240507",
+        "desfase_dias": -1,
+        "pct_despejado_imagen": 17.0493,
+        "pct_despejado_pixel": 99.9165,
+        "n_imagenes_ventana": 2
+      }
+    },
+    "20240605": {
+      "n_teselas": 33,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20240606",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 72.761,
+        "pct_despejado_pixel": 72.761,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20240603",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 25.6012,
+        "pct_despejado_pixel": 25.6012,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20240606",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 72.761,
+        "pct_despejado_pixel": 82.1876,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20240603",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 25.6012,
+        "pct_despejado_pixel": 25.6012,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20240606",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 72.761,
+        "pct_despejado_pixel": 99.9974,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20250317": {
+      "n_teselas": 57,
+      "k0_pasado": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 98.9367,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 98.9367,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 98.9367,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 99.0198,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 99.8633,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 99.8761,
+        "n_imagenes_ventana": 3
+      },
+      "k3_pasado": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 99.8633,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20250317",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 98.9367,
+        "pct_despejado_pixel": 99.9518,
+        "n_imagenes_ventana": 4
+      }
+    },
+    "20250327": {
+      "n_teselas": 87,
+      "k0_pasado": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 88.768,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 88.768,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 88.768,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 89.3065,
+        "n_imagenes_ventana": 2
+      },
+      "k2_pasado": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 89.4177,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 89.9501,
+        "n_imagenes_ventana": 3
+      },
+      "k3_pasado": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 89.4177,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20250327",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 88.768,
+        "pct_despejado_pixel": 99.9884,
+        "n_imagenes_ventana": 4
+      }
+    },
+    "20250401": {
+      "n_teselas": 23,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20250402",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 1.3972,
+        "pct_despejado_pixel": 1.3972,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20250330",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 99.9752,
+        "pct_despejado_pixel": 99.9752,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20250402",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 1.3972,
+        "pct_despejado_pixel": 99.9752,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20250330",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 99.9752,
+        "pct_despejado_pixel": 99.9752,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20250402",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 1.3972,
+        "pct_despejado_pixel": 99.9752,
+        "n_imagenes_ventana": 3
+      }
+    },
+    "20250424": {
+      "n_teselas": 23,
+      "k0_pasado": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 1
+      },
+      "k0_simetrico": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 1
+      },
+      "k1_pasado": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 1
+      },
+      "k1_simetrico": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 2
+      },
+      "k2_simetrico": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 3
+      },
+      "k3_pasado": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9838,
+        "n_imagenes_ventana": 2
+      },
+      "k3_simetrico": {
+        "imagen": "20250424",
+        "desfase_dias": 0,
+        "pct_despejado_imagen": 99.9838,
+        "pct_despejado_pixel": 99.9881,
+        "n_imagenes_ventana": 4
+      }
+    },
+    "20250521": {
+      "n_teselas": 30,
+      "k0_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k0_simetrico": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_pasado": {
+        "imagen": null,
+        "desfase_dias": null,
+        "pct_despejado_imagen": 0.0,
+        "pct_despejado_pixel": 0.0,
+        "n_imagenes_ventana": 0
+      },
+      "k1_simetrico": {
+        "imagen": "20250522",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 27.129,
+        "pct_despejado_pixel": 27.129,
+        "n_imagenes_ventana": 1
+      },
+      "k2_pasado": {
+        "imagen": "20250519",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 12.1087,
+        "pct_despejado_pixel": 12.1087,
+        "n_imagenes_ventana": 1
+      },
+      "k2_simetrico": {
+        "imagen": "20250522",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 27.129,
+        "pct_despejado_pixel": 38.3614,
+        "n_imagenes_ventana": 2
+      },
+      "k3_pasado": {
+        "imagen": "20250519",
+        "desfase_dias": -2,
+        "pct_despejado_imagen": 12.1087,
+        "pct_despejado_pixel": 12.1087,
+        "n_imagenes_ventana": 1
+      },
+      "k3_simetrico": {
+        "imagen": "20250522",
+        "desfase_dias": 1,
+        "pct_despejado_imagen": 27.129,
+        "pct_despejado_pixel": 99.9997,
+        "n_imagenes_ventana": 3
+      }
+    }
+  },
+  "resumen": {
+    "k0_pasado": {
+      "fechas_con_imagen": 10,
+      "pct_teselas_con_imagen": 39.3704,
+      "pct_despejado_medio_imagen": 37.6145,
+      "pct_despejado_medio_pixel": 37.6145
+    },
+    "k0_simetrico": {
+      "fechas_con_imagen": 10,
+      "pct_teselas_con_imagen": 39.3704,
+      "pct_despejado_medio_imagen": 37.6145,
+      "pct_despejado_medio_pixel": 37.6145
+    },
+    "k1_pasado": {
+      "fechas_con_imagen": 19,
+      "pct_teselas_con_imagen": 73.4669,
+      "pct_despejado_medio_imagen": 61.7503,
+      "pct_despejado_medio_pixel": 61.7503
+    },
+    "k1_simetrico": {
+      "fechas_con_imagen": 27,
+      "pct_teselas_con_imagen": 100.0,
+      "pct_despejado_medio_imagen": 85.3285,
+      "pct_despejado_medio_pixel": 90.8487
+    },
+    "k2_pasado": {
+      "fechas_con_imagen": 27,
+      "pct_teselas_con_imagen": 100.0,
+      "pct_despejado_medio_imagen": 78.7088,
+      "pct_despejado_medio_pixel": 78.7561
+    },
+    "k2_simetrico": {
+      "fechas_con_imagen": 27,
+      "pct_teselas_con_imagen": 100.0,
+      "pct_despejado_medio_imagen": 85.3285,
+      "pct_despejado_medio_pixel": 92.594
+    },
+    "k3_pasado": {
+      "fechas_con_imagen": 27,
+      "pct_teselas_con_imagen": 100.0,
+      "pct_despejado_medio_imagen": 78.7088,
+      "pct_despejado_medio_pixel": 80.0489
+    },
+    "k3_simetrico": {
+      "fechas_con_imagen": 27,
+      "pct_teselas_con_imagen": 100.0,
+      "pct_despejado_medio_imagen": 85.3285,
+      "pct_despejado_medio_pixel": 94.4214
+    }
+  }
+}
