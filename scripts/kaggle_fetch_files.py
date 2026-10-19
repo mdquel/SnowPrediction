@@ -27,7 +27,9 @@ Uso
 """
 
 import argparse
+import multiprocessing as mp
 import os
+import socket
 import sys
 import time
 import zipfile
@@ -47,6 +49,14 @@ def api():
         _API = KaggleApi()
         _API.authenticate()
     return _API
+
+
+def _init_worker():
+    """Cada proceso abre su propia conexion (nada heredado del listado) y
+    ninguna lectura puede quedarse colgada mas de 120 s."""
+    global _API
+    _API = None
+    socket.setdefaulttimeout(120)
 
 
 def wanted(name):
@@ -110,7 +120,8 @@ def main():
     print(f'{len(files)} ficheros, {gb:.1f} GB')
 
     t0, n, err = time.time(), 0, []
-    with ProcessPoolExecutor(a.procesos) as ex:
+    with ProcessPoolExecutor(a.procesos, mp_context=mp.get_context('spawn'),
+                             initializer=_init_worker) as ex:
         futs = {ex.submit(bajar, a.dataset, f, s, a.destino): f for f, s in files}
         for fut in as_completed(futs):
             n += 1
