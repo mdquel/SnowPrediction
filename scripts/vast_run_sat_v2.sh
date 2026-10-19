@@ -23,7 +23,7 @@
 # Requisitos en la instancia:
 #   * ~/.kaggle/kaggle.json (token de Kaggle) con permisos 600
 #   * GITHUB_TOKEN en el entorno solo si el fork es privado
-#   * disco: unos 120 GB libres (zip de Kaggle + datos descomprimidos + resultados)
+#   * disco: unos 60 GB libres (datos necesarios + resultados)
 #
 # Uso:
 #   bash vast_run_sat_v2.sh            # todo
@@ -45,7 +45,7 @@ log() { echo "[$(date '+%F %T')] $*"; }
 # --- 1. dependencias ----------------------------------------------------------
 log "Dependencias"
 python -c "import torch; assert torch.cuda.is_available(), 'sin GPU visible'; print('torch', torch.__version__, 'CUDA', torch.version.cuda, torch.cuda.get_device_name(0))"
-pip install -q pandas scikit-learn scipy matplotlib seaborn tqdm pyyaml opencv-python-headless kaggle
+pip install -q pandas scikit-learn scipy matplotlib seaborn tqdm pyyaml opencv-python-headless "kaggle==1.6.17"
 
 # --- 2. codigo ----------------------------------------------------------------
 if [ ! -d "$REPO/.git" ]; then
@@ -64,10 +64,11 @@ log "Codigo en el commit $COMMIT"
 chmod 600 "$HOME/.kaggle/kaggle.json"
 mkdir -p "$DATA"
 if [ ! -f "$DATA/.descomprimido" ]; then
-  log "Descargando $KAGGLE_DS"
-  kaggle datasets download -d "$KAGGLE_DS" -p "$DATA"
-  log "Descomprimiendo"
-  (cd "$DATA" && unzip -q ./*.zip && rm -f ./*.zip && touch .descomprimido)
+  # Kaggle no genera el zip completo (404 "No gcs url found"): se bajan solo
+  # images, masks, sat_v2 y los CSV, fichero a fichero (cliente kaggle 1.6.x)
+  log "Descargando $KAGGLE_DS (ficheros necesarios)"
+  python scripts/kaggle_fetch_files.py "$KAGGLE_DS" "$DATA"
+  touch "$DATA/.descomprimido"
 fi
 
 # carpeta con images/, masks/ y el CSV temporal; y carpeta sat_v2 con los .npy
