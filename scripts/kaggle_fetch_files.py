@@ -35,7 +35,12 @@ import time
 import zipfile
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
-from kaggle.api.kaggle_api_extended import KaggleApi
+# El cliente de Kaggle crea al importarse un grupo de hilos del tamanyo de
+# os.cpu_count() (todos los nucleos del servidor, no los de la instancia). Con
+# varios procesos se agota el limite de hilos ("can't start new thread"); se
+# reduce a 2 antes de importarlo.
+os.cpu_count = lambda: 2
+from kaggle.api.kaggle_api_extended import KaggleApi  # noqa: E402
 
 PREFIJOS = ('dataset_v4_ms_sx200/', 'sat_v2/')
 CSVS = ('dataset_v4_ms_sx200.csv', 'dataset_v4_ms_sx200_spatial.csv')
