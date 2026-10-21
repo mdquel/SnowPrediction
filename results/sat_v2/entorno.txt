@@ -1,0 +1,10 @@
+fecha_inicio: 2026-10-20 13:47:53 UTC
+commit: 4ffea6e
+kaggle_dataset: martinezdequel/articulo-1-data
+gpu: NVIDIA GeForce RTX 5070 Ti, 16303 MiB, 570.181
+torch: 2.11.0+cu128
+cuda: 12.8
+cudnn: 91900
+python: 3.12.15
+cpu: 20 nucleos
+fecha_fin: 2026-10-21 13:01:52 UTC
