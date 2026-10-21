@@ -160,7 +160,7 @@ for x, y in (('A', 'base'), ('B', 'A'), ('B', 'base')):
                                                  for k in ('R2', 'SPAEF') if k in bx and k in by}
 res['referencia_repeticion'] = 'delta R2 de repetir el mismo entrenamiento: 0.0125 (hallazgo 14)'
 json.dump(res, open(os.path.join(OUT, 'resumen.json'), 'w'), indent=2)
-for a, v in res['por_brazo'].items():
+for a, v in [(a, v) for a, v in res['por_brazo'].items() if 'R2' in v]:  # solo brazos con ejecuciones
     print(f"  {a:5s} R2 {v['R2']['media']:.3f} [{v['R2']['min']:.3f}-{v['R2']['max']:.3f}]  "
           f"SPAEF {v['SPAEF']['media']:.3f} [{v['SPAEF']['min']:.3f}-{v['SPAEF']['max']:.3f}]  (n={v['R2']['n']})")
 for k, v in res['diferencias_de_medias'].items():
