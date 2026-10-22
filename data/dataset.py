@@ -123,8 +123,19 @@ class SnowDataset(Dataset):
         # .npy de 8 canales por tesela, mismo nombre. Si se fija, se anaden
         # DETRAS de los 22 originales (indices 22-29), ya en [0, 1], y no se
         # les aplica el escalado de meteorologia de los canales 22+. None =
-        # comportamiento de siempre. Lo fija main.py via data.extra_channels_dir.
+        # comportamiento de siempre. Lo fija main.py via data.extra_channels_dir
+        # (una carpeta o una lista de carpetas, que se anaden en ese orden).
         self.extra_channels_dir = None
+
+        # Climatologia (data/patch_clim_channels.py, paso 2). clim_channels:
+        # indices de clim y clim_disp en la pila COMPLETA (antes de
+        # channel_indices). clim_dropout: probabilidad, por tesela y en cada
+        # lectura, de poner esos canales a 0 en el ENTRENAMIENTO (aprende a
+        # predecir sin climatologia). clim_off: los pone siempre a 0 (evaluacion
+        # "sin climatologia"). Por defecto no hacen nada.
+        self.clim_channels = None
+        self.clim_dropout = 0.0
+        self.clim_off = False
 
         # --- Senales de escala externas (E4) ---
         # Escalares por FECHA de vuelo (cobertura de nieve, grados-dia,
@@ -233,6 +244,7 @@ class SnowDataset(Dataset):
 
         image, mask = self._clean(image, mask)
         image = self._normalize(image)
+        image = self._clim_mask(image, train=True)
         if self.channel_indices is not None:
             image = image[self.channel_indices, :, :]
         else:
@@ -264,11 +276,26 @@ class SnowDataset(Dataset):
     # Metodos privados
     # ------------------------------------------------------------------
     def _add_extra(self, image: np.ndarray, tile_id: str) -> np.ndarray:
-        """Anade los canales satelitales v2 detras de los 22 originales."""
+        """Anade los canales extra detras de los 22 originales: una carpeta
+        (sat_v2) o varias en orden (sat_v2 y luego clim_v1)."""
         if not self.extra_channels_dir:
             return image
-        extra = np.load(os.path.join(self.extra_channels_dir, tile_id)).astype(np.float32)
-        return np.concatenate([image, extra], axis=0)
+        dirs = self.extra_channels_dir
+        if isinstance(dirs, str):
+            dirs = [dirs]
+        extra = [np.load(os.path.join(d, tile_id)).astype(np.float32) for d in dirs]
+        return np.concatenate([image] + extra, axis=0)
+
+    def _clim_mask(self, image: np.ndarray, train: bool) -> np.ndarray:
+        """Apaga los canales de climatologia (clim_off) o, solo en el
+        entrenamiento, con probabilidad clim_dropout."""
+        if not self.clim_channels:
+            return image
+        off = self.clim_off or (train and self.clim_dropout > 0
+                                and random.random() < self.clim_dropout)
+        if off:
+            image[self.clim_channels] = 0.0
+        return image
 
     def _clean(self, image: np.ndarray, mask: np.ndarray):
         image[image == -9999] = 0
@@ -493,6 +520,7 @@ class SnowDatasetEval(SnowDataset):
 
         image, mask = self._clean(image, mask)
         image = self._normalize(image)
+        image = self._clim_mask(image, train=False)
         if self.channel_indices is not None:
             image = image[self.channel_indices, :, :]
         else:

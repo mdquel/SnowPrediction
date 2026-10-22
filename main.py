@@ -63,9 +63,21 @@ def _get_paths(config: dict) -> tuple:
 
 
 def _extra_dir(config: dict):
-    """Carpeta de canales satelitales v2 (data.extra_channels_dir), o None."""
+    """Carpeta(s) de canales extra (data.extra_channels_dir), relativas a
+    data.root: una (sat_v2) o una lista (sat_v2 y clim_v1). None si no hay."""
     sub = config['data'].get('extra_channels_dir')
-    return os.path.join(config['data']['root'], sub) if sub else None
+    if not sub:
+        return None
+    if isinstance(sub, (list, tuple)):
+        return [os.path.join(config['data']['root'], x) for x in sub]
+    return os.path.join(config['data']['root'], sub)
+
+
+def _set_clim(ds, config: dict, dropout: float = 0.0):
+    """Canales de climatologia (paso 2): indices en la pila completa y
+    probabilidad de apagado (solo para el dataset de entrenamiento)."""
+    ds.clim_channels = config['data'].get('clim_channels')
+    ds.clim_dropout = dropout if ds.clim_channels else 0.0
 
 
 # ----------------------------------------------------------------------
@@ -119,6 +131,9 @@ def run_train(config: dict):
     extra_dir = _extra_dir(config)
     train_ds.extra_channels_dir = extra_dir
     val_ds.extra_channels_dir   = extra_dir
+    # Climatologia: apagado aleatorio solo en entrenamiento; validacion completa
+    _set_clim(train_ds, config, float(cfg_data.get('clim_dropout', 0.0)))
+    _set_clim(val_ds, config)
 
     # --- Senales de escala externas (E4) ---
     # Escalares por fecha que alimentan la cabeza de escala del modelo dual.
@@ -183,6 +198,7 @@ def run_evaluate(config: dict):
     test_ds.norm_extended   = cfg_data.get('norm_extended', True)
     test_ds.norm_version    = cfg_data.get('norm_version', None)
     test_ds.extra_channels_dir = _extra_dir(config)
+    _set_clim(test_ds, config)
     # Devolver la mascara de validez para calcular metricas full-domain y de
     # deteccion (falsos positivos) ademas de las snow-only.
     test_ds.return_valid    = True
@@ -211,19 +227,33 @@ def run_evaluate(config: dict):
         print("Ejecuta primero con --mode train\n")
         return
 
-    # Evaluar checkpoint best (mejor val loss)
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    print(f"Pesos cargados desde: {model_path}")
-    evaluate_model(model, test_loader, device, config)
-
-    # Evaluar checkpoint last (ultima epoca) si existe
+    # Con climatologia (paso 2) se evalua dos veces el mismo modelo sobre las
+    # mismas teselas: con ella y con ella apagada (sufijo _sinclim), como si
+    # la zona no se hubiera volado nunca.
+    modos = [('', False)]
+    if test_ds.clim_channels:
+        modos.append(('_sinclim', True))
     last_model_path = model_path.replace('.pth', '_last.pth')
-    if os.path.exists(last_model_path):
-        print(f"\n--- Evaluando checkpoint ultima epoca ---")
-        model.load_state_dict(torch.load(last_model_path, map_location=device))
-        print(f"Pesos cargados desde: {last_model_path}")
-        config_last = {**config, 'experiment': {'name': config['experiment']['name'] + '_last'}}
-        evaluate_model(model, test_loader, device, config_last)
+    name = config['experiment']['name']
+    for sufijo, apagada in modos:
+        test_ds.clim_off = apagada
+        if sufijo:
+            print(f"\n=== Evaluacion con la climatologia apagada ({sufijo}) ===")
+
+        # Evaluar checkpoint best (mejor val loss)
+        model.load_state_dict(torch.load(model_path, map_location=device))
+        print(f"Pesos cargados desde: {model_path}")
+        evaluate_model(model, test_loader, device,
+                       {**config, 'experiment': {'name': name + sufijo}})
+
+        # Evaluar checkpoint last (ultima epoca) si existe
+        if os.path.exists(last_model_path):
+            print(f"\n--- Evaluando checkpoint ultima epoca ---")
+            model.load_state_dict(torch.load(last_model_path, map_location=device))
+            print(f"Pesos cargados desde: {last_model_path}")
+            evaluate_model(model, test_loader, device,
+                           {**config, 'experiment': {'name': name + '_last' + sufijo}})
+    test_ds.clim_off = False
 
     # Benchmark naive como referencia
     run_naive_benchmark(train_df, test_df, masks_dir)
