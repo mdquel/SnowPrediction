@@ -1,0 +1,335 @@
+{
+  "mejor_epoca": {
+    "Bclim_con_climatologia": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.2568,
+          "min": 0.2337,
+          "max": 0.2878,
+          "por_semilla": [
+            0.2878,
+            0.2489,
+            0.2337
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3597,
+          "min": 0.345,
+          "max": 0.3778,
+          "por_semilla": [
+            0.3778,
+            0.345,
+            0.3562
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.3779,
+          "min": 0.3659,
+          "max": 0.3869,
+          "por_semilla": [
+            0.3659,
+            0.3809,
+            0.3869
+          ]
+        },
+        "SPAEF": {
+          "media": 0.4175,
+          "min": 0.4079,
+          "max": 0.4257,
+          "por_semilla": [
+            0.4079,
+            0.4189,
+            0.4257
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "Bclim_sin_climatologia": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.2105,
+          "min": 0.177,
+          "max": 0.2586,
+          "por_semilla": [
+            0.1958,
+            0.2586,
+            0.177
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3134,
+          "min": 0.2846,
+          "max": 0.3351,
+          "por_semilla": [
+            0.3204,
+            0.3351,
+            0.2846
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.302,
+          "min": 0.2621,
+          "max": 0.348,
+          "por_semilla": [
+            0.2621,
+            0.348,
+            0.2959
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3541,
+          "min": 0.3385,
+          "max": 0.3678,
+          "por_semilla": [
+            0.3385,
+            0.3678,
+            0.3561
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "B_paso1": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.1962,
+          "min": 0.1845,
+          "max": 0.2121,
+          "por_semilla": [
+            0.1845,
+            0.1919,
+            0.2121
+          ]
+        },
+        "SPAEF": {
+          "media": 0.338,
+          "min": 0.3092,
+          "max": 0.3581,
+          "por_semilla": [
+            0.3092,
+            0.3466,
+            0.3581
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.2704,
+          "min": 0.2593,
+          "max": 0.2828,
+          "por_semilla": [
+            0.269,
+            0.2828,
+            0.2593
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3764,
+          "min": 0.3565,
+          "max": 0.4083,
+          "por_semilla": [
+            0.3565,
+            0.4083,
+            0.3644
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    }
+  },
+  "ultima_epoca": {
+    "Bclim_con_climatologia": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.1544,
+          "min": 0.0866,
+          "max": 0.1942,
+          "por_semilla": [
+            0.0866,
+            0.1823,
+            0.1942
+          ]
+        },
+        "SPAEF": {
+          "media": 0.2785,
+          "min": 0.2333,
+          "max": 0.3132,
+          "por_semilla": [
+            0.2333,
+            0.2889,
+            0.3132
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.2574,
+          "min": 0.2181,
+          "max": 0.2882,
+          "por_semilla": [
+            0.2181,
+            0.266,
+            0.2882
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3693,
+          "min": 0.347,
+          "max": 0.3885,
+          "por_semilla": [
+            0.347,
+            0.3723,
+            0.3885
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "Bclim_sin_climatologia": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.1434,
+          "min": 0.0773,
+          "max": 0.1824,
+          "por_semilla": [
+            0.0773,
+            0.1824,
+            0.1705
+          ]
+        },
+        "SPAEF": {
+          "media": 0.269,
+          "min": 0.2215,
+          "max": 0.2939,
+          "por_semilla": [
+            0.2215,
+            0.2917,
+            0.2939
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.2393,
+          "min": 0.1941,
+          "max": 0.2638,
+          "por_semilla": [
+            0.1941,
+            0.2638,
+            0.26
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3564,
+          "min": 0.3312,
+          "max": 0.3698,
+          "por_semilla": [
+            0.3312,
+            0.3698,
+            0.3683
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "B_paso1": {
+      "tal_cual": {
+        "R2": {
+          "media": 0.1335,
+          "min": 0.1316,
+          "max": 0.1358,
+          "por_semilla": [
+            0.1358,
+            0.1316,
+            0.1332
+          ]
+        },
+        "SPAEF": {
+          "media": 0.255,
+          "min": 0.2429,
+          "max": 0.2764,
+          "por_semilla": [
+            0.2456,
+            0.2764,
+            0.2429
+          ]
+        }
+      },
+      "nivel_corregido": {
+        "R2": {
+          "media": 0.2521,
+          "min": 0.2499,
+          "max": 0.2545,
+          "por_semilla": [
+            0.2545,
+            0.2519,
+            0.2499
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3614,
+          "min": 0.3559,
+          "max": 0.3711,
+          "por_semilla": [
+            0.3559,
+            0.3711,
+            0.3574
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    }
+  },
+  "climatologia_sola": {
+    "tal_cual": {
+      "R2": -0.0176,
+      "SPAEF": 0.203
+    },
+    "nivel_corregido": {
+      "R2": 0.4573,
+      "SPAEF": 0.4264
+    },
+    "sesgo_medio_por_fecha": {
+      "20250317": -0.4962,
+      "20250327": -0.4725,
+      "20250401": -0.6559,
+      "20250424": -0.2548,
+      "20250521": 0.6146
+    }
+  },
+  "control_tal_cual_frente_a_metrics_json": {
+    "tolerancia": 0.001,
+    "fallos": [],
+    "superado": true
+  },
+  "descripcion": "Nivel corregido = nivel perfecto aditivo por fecha (media observada - media predicha sobre los pixeles con nieve de la fecha). Mide solo el dibujo; no es desplegable."
+}
