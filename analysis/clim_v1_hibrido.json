@@ -1,0 +1,313 @@
+{
+  "descripcion": "Exploratorio: max(0, climatologia + (media_red - media_clim)) por fecha; medias sobre todos los pixeles volados de la fecha. Metricas tal cual.",
+  "mejor_epoca": {
+    "Bclim_con_climatologia": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.2568,
+          "min": 0.2337,
+          "max": 0.2878,
+          "por_semilla": [
+            0.2878,
+            0.2489,
+            0.2337
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3597,
+          "min": 0.345,
+          "max": 0.3778,
+          "por_semilla": [
+            0.3778,
+            0.345,
+            0.3562
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3367,
+          "min": 0.3043,
+          "max": 0.3785,
+          "por_semilla": [
+            0.3785,
+            0.3275,
+            0.3043
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3753,
+          "min": 0.3561,
+          "max": 0.4071,
+          "por_semilla": [
+            0.4071,
+            0.3626,
+            0.3561
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "Bclim_sin_climatologia": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.2105,
+          "min": 0.177,
+          "max": 0.2586,
+          "por_semilla": [
+            0.1958,
+            0.2586,
+            0.177
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3134,
+          "min": 0.2846,
+          "max": 0.3351,
+          "por_semilla": [
+            0.3204,
+            0.3351,
+            0.2846
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3666,
+          "min": 0.3389,
+          "max": 0.3921,
+          "por_semilla": [
+            0.3921,
+            0.3689,
+            0.3389
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3949,
+          "min": 0.3778,
+          "max": 0.4166,
+          "por_semilla": [
+            0.4166,
+            0.3901,
+            0.3778
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "B_paso1": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.1962,
+          "min": 0.1845,
+          "max": 0.2121,
+          "por_semilla": [
+            0.1845,
+            0.1919,
+            0.2121
+          ]
+        },
+        "SPAEF": {
+          "media": 0.338,
+          "min": 0.3092,
+          "max": 0.3581,
+          "por_semilla": [
+            0.3092,
+            0.3466,
+            0.3581
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3847,
+          "min": 0.3677,
+          "max": 0.4119,
+          "por_semilla": [
+            0.3744,
+            0.3677,
+            0.4119
+          ]
+        },
+        "SPAEF": {
+          "media": 0.4014,
+          "min": 0.3899,
+          "max": 0.4168,
+          "por_semilla": [
+            0.3975,
+            0.3899,
+            0.4168
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    }
+  },
+  "ultima_epoca": {
+    "Bclim_con_climatologia": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.1544,
+          "min": 0.0866,
+          "max": 0.1942,
+          "por_semilla": [
+            0.0866,
+            0.1823,
+            0.1942
+          ]
+        },
+        "SPAEF": {
+          "media": 0.2785,
+          "min": 0.2333,
+          "max": 0.3132,
+          "por_semilla": [
+            0.2333,
+            0.2889,
+            0.3132
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3557,
+          "min": 0.3268,
+          "max": 0.3755,
+          "por_semilla": [
+            0.3268,
+            0.3755,
+            0.3649
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3856,
+          "min": 0.3713,
+          "max": 0.3961,
+          "por_semilla": [
+            0.3713,
+            0.3961,
+            0.3894
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "Bclim_sin_climatologia": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.1434,
+          "min": 0.0773,
+          "max": 0.1824,
+          "por_semilla": [
+            0.0773,
+            0.1824,
+            0.1705
+          ]
+        },
+        "SPAEF": {
+          "media": 0.269,
+          "min": 0.2215,
+          "max": 0.2939,
+          "por_semilla": [
+            0.2215,
+            0.2917,
+            0.2939
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3634,
+          "min": 0.3421,
+          "max": 0.3783,
+          "por_semilla": [
+            0.3421,
+            0.3783,
+            0.3699
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3905,
+          "min": 0.3802,
+          "max": 0.3985,
+          "por_semilla": [
+            0.3802,
+            0.3985,
+            0.3929
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    },
+    "B_paso1": {
+      "red_tal_cual": {
+        "R2": {
+          "media": 0.1335,
+          "min": 0.1316,
+          "max": 0.1358,
+          "por_semilla": [
+            0.1358,
+            0.1316,
+            0.1332
+          ]
+        },
+        "SPAEF": {
+          "media": 0.255,
+          "min": 0.2429,
+          "max": 0.2764,
+          "por_semilla": [
+            0.2456,
+            0.2764,
+            0.2429
+          ]
+        }
+      },
+      "clim_mas_nivel_de_la_red": {
+        "R2": {
+          "media": 0.3402,
+          "min": 0.339,
+          "max": 0.3415,
+          "por_semilla": [
+            0.3401,
+            0.339,
+            0.3415
+          ]
+        },
+        "SPAEF": {
+          "media": 0.3808,
+          "min": 0.3798,
+          "max": 0.3817,
+          "por_semilla": [
+            0.381,
+            0.3817,
+            0.3798
+          ]
+        }
+      },
+      "semillas": [
+        7,
+        42,
+        123
+      ]
+    }
+  }
+}
