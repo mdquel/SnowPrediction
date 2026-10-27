@@ -1,0 +1,110 @@
+{
+  "descripcion": "HS media agrupada por temporada (oct-sep, nombre = año en que termina), mismo tratamiento que la Fig. 3: negativos a 0, recorte a 5 m.",
+  "umbral_nieve_m": 0.01,
+  "controles_superados": true,
+  "control_anio_natural": {
+    "2021-2023": 0.7222,
+    "2025": 1.0899
+  },
+  "por_temporada": {
+    "2021": {
+      "fechas": [
+        "2021-02-02",
+        "2021-03-04",
+        "2021-03-23",
+        "2021-04-14",
+        "2021-05-04"
+      ],
+      "todos_validos": {
+        "media_m": 0.8101,
+        "n_pix": 15126429
+      },
+      "solo_nieve": {
+        "media_m": 0.9589,
+        "n_pix": 12777842
+      }
+    },
+    "2022": {
+      "fechas": [
+        "2021-12-16",
+        "2022-01-12",
+        "2022-01-28",
+        "2022-02-18",
+        "2022-04-17",
+        "2022-05-16"
+      ],
+      "todos_validos": {
+        "media_m": 0.8539,
+        "n_pix": 31967179
+      },
+      "solo_nieve": {
+        "media_m": 0.9446,
+        "n_pix": 28896281
+      }
+    },
+    "2023": {
+      "fechas": [
+        "2022-12-01",
+        "2023-02-13",
+        "2023-03-16",
+        "2023-03-28"
+      ],
+      "todos_validos": {
+        "media_m": 0.5009,
+        "n_pix": 25034471
+      },
+      "solo_nieve": {
+        "media_m": 0.5576,
+        "n_pix": 22485638
+      }
+    },
+    "2024": {
+      "fechas": [
+        "2024-01-25",
+        "2024-02-13",
+        "2024-03-07",
+        "2024-03-14",
+        "2024-04-05",
+        "2024-05-08",
+        "2024-06-05"
+      ],
+      "todos_validos": {
+        "media_m": 0.717,
+        "n_pix": 27621087
+      },
+      "solo_nieve": {
+        "media_m": 0.8262,
+        "n_pix": 23966379
+      }
+    },
+    "2025": {
+      "fechas": [
+        "2025-03-17",
+        "2025-03-27",
+        "2025-04-01",
+        "2025-04-24",
+        "2025-05-21"
+      ],
+      "todos_validos": {
+        "media_m": 1.0899,
+        "n_pix": 14388719
+      },
+      "solo_nieve": {
+        "media_m": 1.1608,
+        "n_pix": 13508756
+      }
+    }
+  },
+  "agrupadas": {
+    "entrenamiento_2021_2023": {
+      "todos_validos": 0.7222,
+      "solo_nieve": 0.8118
+    },
+    "test_2025": {
+      "todos_validos": 1.0899,
+      "solo_nieve": 1.1608
+    },
+    "diferencia_test_frente_a_entrenamiento_pct_todos_validos": 50.9,
+    "diferencia_test_frente_a_entrenamiento_pct_solo_nieve": 43.0
+  }
+}
