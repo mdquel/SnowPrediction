@@ -106,7 +106,46 @@ dato ni criterio.
 
 ## 8. Desviaciones
 
-(vacío)
+### Enmienda 1 — 31-10-2026 (antes de abrir los datos de 2026)
+
+Motivo: revisión de Hernán Díaz (correo del 27-10-2026). Se añade antes de
+descargar o calcular nada sobre los valores de nieve de 2026.
+
+**8.1. Métricas nuevas.** Se informan para todos los modelos del apartado 4,
+con la mejor época y con la última, en 2025 y en 2026. Son descriptivas: los
+criterios del apartado 6 no cambian.
+
+1. Correlación de patrón por tesela: coeficiente de Pearson entre la HS
+   observada y la predicha, sobre los mismos píxeles que el R² (con nieve,
+   HS > 0,01 m, y dato válido). Se calcula en las mismas teselas que el SPAEF
+   y se resume con la media sin ponderar y la mediana. No depende del nivel:
+   es la medida del dibujo.
+2. RMSE y MAE en metros, sobre los mismos píxeles que el R².
+3. Métricas a 5 m: dentro de cada tesela, bloques de 5 × 5 píxeles (las
+   últimas filas y columnas que no completan un bloque se descartan). El
+   valor del bloque es la media de sus píxeles válidos; el bloque cuenta si
+   tiene al menos 13 de 25 píxeles válidos. Sobre los bloques con nieve
+   (media observada > 0,01 m) se calculan el R², el SPAEF, la correlación de
+   patrón, el RMSE y el MAE, igual que a 1 m.
+
+**8.2. Error de nivel.** Para cada modelo y fecha: media predicha menos media
+observada sobre los píxeles con nieve de la fecha, en metros. Se informa por
+fecha y como media de su valor absoluto.
+
+**8.3. Presentación.** En dos pasos: primero las opciones aplicables, tal
+cual; después la lectura con el nivel corregido, como diagnóstico, no como
+opción real.
+
+**8.4. Mapa del 13-05-2026.** Jesús Revuelto lo ha sustituido por una versión
+corregida (correo del 27-10-2026). La huella del apartado 9 queda como
+registro de la versión anterior; la nueva se añade aquí al descargarla,
+consultando solo su MD5 y sus metadatos.
+
+**8.5. Mapas de marzo de 2024.** Jesús confirma que los mapas del 7 y el
+14 de marzo de 2024 tenían un error y los ha corregido. Están en validación,
+así que intervienen en la elección de la mejor época. Si se regeneran sus
+teselas y se reentrenan los modelos, se hará antes de abrir los datos de
+2026, con el mismo protocolo de entrenamiento, y se declarará aquí.
 
 ## 9. Huellas MD5 de los mapas recibidos
 
