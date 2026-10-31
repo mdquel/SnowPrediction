@@ -153,6 +153,10 @@ metadatos; no se abre ningún valor de nieve.
   (709451,87, 4736455,74), float64, sin dato = -9999. El 13-05-2026 ya no
   usa -9998, así que queda resuelta la pregunta del apartado 10.
 - Para la evaluación se usa la versión corregida del 13-05-2026.
+- La primera entrega (incluida la versión anterior del 13-05-2026) se ha
+  borrado; su huella queda en el apartado 9. Los 8 mapas vigentes están en
+  `Articulo 1/Data/izas/LiDAR/SnowDepth_2025_26/` (fuera de git), con un
+  LEEME.md y sus huellas, comprobadas de nuevo tras moverlos el 31-10-2026.
 
 **8.5. Mapas de marzo de 2024.** Jesús confirma que los mapas del 7 y el
 14 de marzo de 2024 tenían un error y los ha corregido. Están en validación,
