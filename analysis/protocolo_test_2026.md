@@ -141,6 +141,19 @@ corregida (correo del 27-10-2026). La huella del apartado 9 queda como
 registro de la versión anterior; la nueva se añade aquí al descargarla,
 consultando solo su MD5 y sus metadatos.
 
+Descarga del 31-10-2026 (carpeta MapasOK, enlace de Jesús): llegan de nuevo
+los 8 mapas de 2025-26. Solo se calculan las huellas MD5 y se leen los
+metadatos; no se abre ningún valor de nieve.
+- Los 7 mapas del 09-12-2025 al 07-05-2026 tienen la misma huella que en el
+  apartado 9: no han cambiado.
+- SD_20260513.tif, versión corregida:
+  `b0a13a553262dfd939254856468abdb6`. La anterior era
+  `2b27f78f066c855d8503e8e68391da18`.
+- Metadatos de los 8: 3696 × 3257 píxeles, 1 m, EPSG:25830, origen
+  (709451,87, 4736455,74), float64, sin dato = -9999. El 13-05-2026 ya no
+  usa -9998, así que queda resuelta la pregunta del apartado 10.
+- Para la evaluación se usa la versión corregida del 13-05-2026.
+
 **8.5. Mapas de marzo de 2024.** Jesús confirma que los mapas del 7 y el
 14 de marzo de 2024 tenían un error y los ha corregido. Están en validación,
 así que intervienen en la elección de la mejor época. Si se regeneran sus
