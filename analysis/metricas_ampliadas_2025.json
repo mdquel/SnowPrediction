@@ -1,5 +1,5 @@
 {
-  "descripcion": "MÈtricas de la enmienda 1 del protocolo (apartados 8.1-8.3) en el test 2025. Media [mÌn-m·x] y valor por semilla (7, 42, 123).",
+  "descripcion": "M√©tricas de la enmienda 1 del protocolo (apartados 8.1-8.3) en el test 2025. Media [m√≠n-m√°x] y valor por semilla (7, 42, 123).",
   "definiciones": {
     "umbral_nieve_m": 0.01,
     "bloque_px": 5,
