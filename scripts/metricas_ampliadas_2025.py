@@ -307,7 +307,7 @@ def main():
         raise SystemExit('STOP: no se escribe nada.')
 
     os.makedirs(os.path.dirname(a.out) or '.', exist_ok=True)
-    json.dump(res, open(a.out, 'w'), indent=2, ensure_ascii=False)
+    json.dump(res, open(a.out, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
 
     def fila(nombre, d, lect, extra=''):
         g = lambda k: d[lect][k]['media'] if isinstance(d[lect][k], dict) else d[lect][k]
