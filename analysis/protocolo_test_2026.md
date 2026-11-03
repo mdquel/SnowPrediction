@@ -164,6 +164,24 @@ así que intervienen en la elección de la mejor época. Si se regeneran sus
 teselas y se reentrenan los modelos, se hará antes de abrir los datos de
 2026, con el mismo protocolo de entrenamiento, y se declarará aquí.
 
+### Enmienda 2 — 3-11-2026 (antes de abrir los datos de 2026)
+
+Motivo: revisión de Hernán Díaz (correo del 2-11-2026).
+
+**8.6. Métricas a 10 m.** Igual que las de 5 m (8.1.3), con bloques de
+10 × 10 píxeles: se descartan las 6 últimas filas y columnas de cada tesela
+(256 = 25 × 10 + 6) y el bloque cuenta si tiene al menos 51 de 100 píxeles
+válidos. Mismas métricas, descriptivas, en 2025 y en 2026.
+
+**8.7. Mapas de marzo de 2024 (aplica 8.5).** Se regeneran las teselas del
+7 y del 14 de marzo de 2024 con los mapas corregidos y se reentrenan, con
+las mismas semillas y el mismo protocolo de entrenamiento, la red sin
+climatología (B) y la red con climatología; la combinación se recalcula con
+la nueva red B. Se informa la tabla antes y después en 2025. Los modelos
+reentrenados sustituyen a los anteriores en el apartado 4 y son la
+referencia del criterio 5 (red de dos cabezas). La climatología no cambia
+(temporadas 2021-2023). Todo se hace antes de abrir los datos de 2026.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
