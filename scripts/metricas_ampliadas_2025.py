@@ -20,6 +20,8 @@ válido); la predicción se recorta a 0, como en training/evaluate.py:
     R2 (acumulado), SPAEF (por tesela, media sin ponderar), RMSE y MAE (m),
     correlación de patrón por tesela (Pearson, en las mismas teselas que el
     SPAEF; media y mediana).
+A 10 m (enmienda 2): igual, con bloques de 10 x 10 (se descartan las 6
+últimas filas y columnas) y al menos 51 de 100 píxeles válidos.
 A 5 m: dentro de cada tesela, bloques de 5 x 5 píxeles (se descartan la
 última fila y la última columna, 256 = 51*5 + 1). Un bloque cuenta si tiene
 al menos 13 de 25 píxeles válidos; su valor es la media de esos píxeles,
@@ -131,8 +133,7 @@ def hybrid(clim_ids, clim_p, net_ids, net_p, valid):
 SNOW = 0.01
 TOL = 1e-3
 SEEDS = (7, 42, 123)
-BLOCK = 5
-MIN_VALID = 13
+BLOQUES = {'a_5m': (5, 13), 'a_10m': (10, 51)}   # lado (px) y minimo de pixeles validos
 LIMITE = '20250930'
 EPOCAS = (('mejor_epoca', ''), ('ultima_epoca', '_last'))
 MODELOS = ('combinacion', 'Bclim_con_climatologia', 'Bclim_sin_climatologia', 'B_paso1')
@@ -168,8 +169,8 @@ def conjunto(pares):
             'corr_mediana': float(np.nanmedian(cr)), 'n_teselas': len(sp), 'n': n}
 
 
-def bloques(o, p, v):
-    """Medias por bloque de 5 x 5 con al menos MIN_VALID píxeles válidos."""
+def bloques(o, p, v, BLOCK, MIN_VALID):
+    """Medias por bloque de BLOCK x BLOCK con al menos MIN_VALID píxeles válidos."""
     k = (o.shape[0] // BLOCK) * BLOCK
     o, p, v = o[:k, :k], p[:k, :k], v[:k, :k]
     sh = (k // BLOCK, BLOCK, k // BLOCK, BLOCK)
@@ -202,12 +203,14 @@ def evaluar(ids, p, o, v):
 
     tal = conjunto([(o[i][m[i]], pc[i][m[i]]) for i in range(len(ids))])
     niv = conjunto([(o[i][m[i]], p[i][m[i]] + corr[dates[i]]) for i in range(len(ids))])
-    b5 = []
-    for i in range(len(ids)):
-        oi = np.where(valid[i], o[i], 0.0)
-        b5.append(bloques(oi, pc[i], valid[i]))
-    a5 = conjunto(b5)
-    return {'tal_cual': tal, 'nivel_corregido': niv, 'a_5m': a5,
+    agregadas = {}
+    for nombre, (lado, minimo) in BLOQUES.items():
+        bl = []
+        for i in range(len(ids)):
+            oi = np.where(valid[i], o[i], 0.0)
+            bl.append(bloques(oi, pc[i], valid[i], lado, minimo))
+        agregadas[nombre] = conjunto(bl)
+    return {'tal_cual': tal, 'nivel_corregido': niv, **agregadas,
             'error_nivel_por_fecha': {d: round(e, 4) for d, e in sorted(err.items())},
             'error_nivel_media_abs': float(np.mean(np.abs(list(err.values()))))}
 
@@ -244,8 +247,9 @@ def main():
 
     res = {'descripcion': ('Métricas de la enmienda 1 del protocolo (apartados 8.1-8.3) en el test '
                            '2025. Media [mín-máx] y valor por semilla (7, 42, 123).'),
-           'definiciones': {'umbral_nieve_m': SNOW, 'bloque_px': BLOCK, 'minimo_validos_bloque': MIN_VALID,
-                            'recorte_a_0': 'tal cual y 5 m; no en nivel corregido'}}
+           'definiciones': {'umbral_nieve_m': SNOW,
+                            'bloques_lado_px_y_minimo_validos': {k: list(v) for k, v in BLOQUES.items()},
+                            'recorte_a_0': 'tal cual, 5 m y 10 m; no en nivel corregido'}}
 
     # climatología sola
     r = evaluar(c_ids, c_p, c_o, c_v)
@@ -287,11 +291,11 @@ def main():
                               ref_n[epoca][modelo]['nivel_corregido'][k]['por_semilla'][i])
                 filas[s] = r
                 print(f"{epoca:12s} {modelo:24s} s{s:<3d} R2 {r['tal_cual']['R2']:.3f} "
-                      f"corr {r['tal_cual']['corr_media']:.3f} | 5 m R2 {r['a_5m']['R2']:.3f}", flush=True)
+                      f"corr {r['tal_cual']['corr_media']:.3f} | 5 m R2 {r['a_5m']['R2']:.3f} | 10 m R2 {r['a_10m']['R2']:.3f}", flush=True)
             if not filas:
                 continue
             out = {'semillas': sorted(filas)}
-            for lect in ('tal_cual', 'nivel_corregido', 'a_5m'):
+            for lect in ('tal_cual', 'nivel_corregido', 'a_5m', 'a_10m'):
                 out[lect] = {k: mmm([filas[s][lect][k] for s in filas]) for k in claves}
             fechas = sorted(next(iter(filas.values()))['error_nivel_por_fecha'])
             out['error_nivel_por_fecha'] = {d: mmm([filas[s]['error_nivel_por_fecha'][d] for s in filas])
@@ -322,6 +326,7 @@ def main():
         print(f'\n===== {epoca} (media de 3 semillas) =====')
         for lect, titulo in (('tal_cual', 'Paso 1. Opciones aplicables, tal cual, 1 m'),
                              ('a_5m', 'Tal cual, a 5 m'),
+                             ('a_10m', 'Tal cual, a 10 m'),
                              ('nivel_corregido', 'Paso 2. Diagnóstico: nivel corregido, 1 m')):
             print(f'\n{titulo}\n{cab}')
             for modelo in MODELOS:
