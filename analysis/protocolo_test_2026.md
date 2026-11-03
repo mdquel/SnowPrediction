@@ -182,6 +182,79 @@ reentrenados sustituyen a los anteriores en el apartado 4 y son la
 referencia del criterio 5 (red de dos cabezas). La climatología no cambia
 (temporadas 2021-2023). Todo se hace antes de abrir los datos de 2026.
 
+### Registro — 3-11-2026: imágenes de cobertura de nieve de 2025-26
+
+**8.8.** Llegan las imágenes del producto de cobertura de nieve de la
+temporada 2025-26 (enlace de Jesús Revuelto, 3-11-2026): 118 ficheros de 98
+fechas, del 03-12-2025 al 28-06-2026. Solo se han consultado sus metadatos,
+sus códigos y la fracción de píxeles observados; ninguna estadística de nieve.
+- Mismo formato que las temporadas anteriores: rejilla de 10 m (941 × 1025),
+  EPSG:25830, códigos 0 (sin observación), 10 (sin nieve) y 11 (nieve).
+- Sin imágenes de octubre ni noviembre, como en todas las temporadas
+  anteriores (empiezan el 1 de diciembre). Las ventanas de persistencia del
+  vuelo del 09-12-2025 solo contienen tres fechas (3, 5 y 8 de diciembre).
+- En 18 fechas hay dos o tres ficheros (sufijos «(1)» y «(2)»), que cubren
+  zonas en parte distintas y coinciden en un 93-100 % donde se solapan. Se
+  aplica la misma regla que en 2021-2025 (`build_sce_index` y
+  `patch_sat_channels.py` solo leen `izas_AAAAMMDD.tif`): se usa el fichero
+  sin sufijo. Pendiente de confirmar con Jesús qué son; si cambia la regla,
+  se declarará aquí antes de abrir los datos de 2026.
+- Huellas MD5 de los 118 ficheros: `analysis/sce_2025_26_md5.txt`.
+
+### Registro — 3-11-2026: regeneración de las teselas de marzo de 2024 (aplica 8.7)
+
+**8.9.** Se escribe antes de reentrenar y antes de ver ningún resultado.
+
+*Mapas usados.* `SD_20240307.tif` (`ae0351e09c721e5c12ccd8d2c70658bc`) y
+`SD_20240314.tif` (`ef7916863ee111fa66555b987f82ed68`), en
+`Articulo 1/Data/izas/LiDAR/SnowDepth_2024_corregidos/`. Se convierten al
+formato de los originales (sin dato -9999 a NaN) y se teselan con el mismo
+código del generador (`data/regen_mapas_2024.py`, que importa
+`data/generate_dataset_v4_ms_sx200.py`). Ejecutado en Vast.ai.
+
+*Control de reproducción.* Antes de escribir nada se regeneran las 95
+teselas del 13-02-2024 desde su mapa original y se comparan con las
+existentes. Máscara (HS) idéntica y 14 de los 22 canales idénticos; difieren
+por redondeo de float32 los canales derivados del MDE:
+
+| Canales | Qué son | Diferencia máxima |
+|---|---|---|
+| 1-3, 18-20 | pendiente, northness, eastness (1 m y 5 m) | 1e-5 |
+| 17 | MDE a 5 m (2000-2300 m) | 0,00195 m |
+| 21 | TPI a 5 m | 0,0015 m |
+
+Se atribuye a versiones distintas de las bibliotecas (instancia: opencv
+4.14.0, numpy 2.5.4, GDAL 3.12.2; las originales no constan). Con opencv
+5.0.0 el resultado es el mismo. Se acepta una tolerancia de 0,005 y el
+control queda superado (0 teselas por encima).
+
+*Resultado.* Teselas del 07-03-2024: 52 → 56; del 14-03-2024: 52 → 82
+(antes las dos fechas usaban el mismo mapa). Validación: 431 → 465; total:
+4892 → 4926. Entrenamiento (2021-2023) y test (2025) no cambian, ni las
+estadísticas de normalización, que salen de entrenamiento. La posición de
+las teselas nuevas coincide con el MDE (diferencia 0). Las teselas antiguas
+se guardan en `_reemplazadas_mapas2024/` dentro del dataset, y los CSV
+anteriores como `dataset_v4_ms_sx200_v1.csv` y `data/tile_georef_v1.csv`.
+Resumen: `analysis/regen_mapas_2024.json`.
+
+*Canales añadidos.* sat_v2 y clim_v1 de las 138 teselas nuevas con los
+mismos scripts (`patch_sat_channels.py`, `patch_clim_channels.py`); controles
+de clim_v1 superados (igualdad con el experimento B, 1e-6; causalidad).
+Resúmenes: `analysis/sat_v2_canales_regen2024.json` y
+`analysis/clim_v1_canales_regen2024.json`.
+
+*No se actualiza* `dataset_v4_ms_sx200_spatial.csv`: sus filas del 7 y del
+14 de marzo de 2024 quedan desfasadas. Ningún modelo del apartado 4 usa el
+split espacial; si se repite un experimento espacial, se regenerará antes.
+
+*Reentrenamiento.* `scripts/vast_run_regen2024.sh`: B y la red con
+climatología, semillas 7, 42 y 123, mismas configuraciones salvo las
+carpetas de salida (`results/regen2024/`). La combinación se recalcula con la
+nueva B; la climatología sola se vuelve a evaluar como control (mismas
+teselas de test: debe salir igual). Se informan las dos tablas, antes y
+después, con la mejor época y con la última. Los modelos nuevos son los del
+apartado 4 y la referencia del criterio 5, sea cual sea el resultado.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
