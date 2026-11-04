@@ -1,0 +1,563 @@
+{
+  "descripcion": "Canales de climatologia v1 (paso 2). Climatologia causal por temporada de entrenamiento; la validacion no entra en ninguna.",
+  "canales": [
+    "clim",
+    "clim_disp"
+  ],
+  "temporadas_entrenamiento": {
+    "2021": [
+      "20210202",
+      "20210304",
+      "20210323",
+      "20210414",
+      "20210504"
+    ],
+    "2022": [
+      "20211216",
+      "20220112",
+      "20220128",
+      "20220218",
+      "20220417",
+      "20220516"
+    ],
+    "2023": [
+      "20221201",
+      "20230213",
+      "20230316",
+      "20230328"
+    ]
+  },
+  "control_experimento_B": {
+    "fechas_B": 15,
+    "misma_cobertura": true,
+    "max_dif": 1e-06,
+    "tolerancia": 1e-05,
+    "superado": true
+  },
+  "por_fecha": {
+    "20210202": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [],
+      "n_teselas": 118,
+      "cobertura_media": 0.0,
+      "teselas_sin_climatologia": 118,
+      "alineacion_corr_sin_desplazar": null,
+      "alineacion_mejor_desplazamiento": null,
+      "alineacion_corr_mejor": null
+    },
+    "20210304": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [],
+      "n_teselas": 194,
+      "cobertura_media": 0.0,
+      "teselas_sin_climatologia": 194,
+      "alineacion_corr_sin_desplazar": null,
+      "alineacion_mejor_desplazamiento": null,
+      "alineacion_corr_mejor": null
+    },
+    "20210323": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [],
+      "n_teselas": 194,
+      "cobertura_media": 0.0,
+      "teselas_sin_climatologia": 194,
+      "alineacion_corr_sin_desplazar": null,
+      "alineacion_mejor_desplazamiento": null,
+      "alineacion_corr_mejor": null
+    },
+    "20210414": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [],
+      "n_teselas": 195,
+      "cobertura_media": 0.0,
+      "teselas_sin_climatologia": 195,
+      "alineacion_corr_sin_desplazar": null,
+      "alineacion_mejor_desplazamiento": null,
+      "alineacion_corr_mejor": null
+    },
+    "20210504": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [],
+      "n_teselas": 257,
+      "cobertura_media": 0.0,
+      "teselas_sin_climatologia": 257,
+      "alineacion_corr_sin_desplazar": null,
+      "alineacion_mejor_desplazamiento": null,
+      "alineacion_corr_mejor": null
+    },
+    "20211216": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 374,
+      "cobertura_media": 0.724018,
+      "teselas_sin_climatologia": 55,
+      "alineacion_corr_sin_desplazar": 0.685589,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.689534
+    },
+    "20220112": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 319,
+      "cobertura_media": 0.692423,
+      "teselas_sin_climatologia": 58,
+      "alineacion_corr_sin_desplazar": 0.580496,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.584814
+    },
+    "20220128": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 280,
+      "cobertura_media": 0.76714,
+      "teselas_sin_climatologia": 30,
+      "alineacion_corr_sin_desplazar": 0.674402,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        -1
+      ],
+      "alineacion_corr_mejor": 0.675154
+    },
+    "20220218": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 379,
+      "cobertura_media": 0.71619,
+      "teselas_sin_climatologia": 57,
+      "alineacion_corr_sin_desplazar": 0.703494,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.705724
+    },
+    "20220417": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 270,
+      "cobertura_media": 0.673739,
+      "teselas_sin_climatologia": 57,
+      "alineacion_corr_sin_desplazar": 0.633416,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        -1
+      ],
+      "alineacion_corr_mejor": 0.641269
+    },
+    "20220516": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021
+      ],
+      "n_teselas": 219,
+      "cobertura_media": 0.859277,
+      "teselas_sin_climatologia": 6,
+      "alineacion_corr_sin_desplazar": 0.7262,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        -1
+      ],
+      "alineacion_corr_mejor": 0.739156
+    },
+    "20221201": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 335,
+      "cobertura_media": 0.991518,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.27072,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.285396
+    },
+    "20230213": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 367,
+      "cobertura_media": 0.979846,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.49247,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        0
+      ],
+      "alineacion_corr_mejor": 0.49247
+    },
+    "20230316": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 363,
+      "cobertura_media": 0.991227,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.671707,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.676983
+    },
+    "20230328": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 377,
+      "cobertura_media": 0.979522,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.645173,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.645248
+    },
+    "20240125": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 95,
+      "cobertura_media": 0.994393,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.649015,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.672698
+    },
+    "20240213": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 95,
+      "cobertura_media": 0.993985,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.717116,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        1
+      ],
+      "alineacion_corr_mejor": 0.726489
+    },
+    "20240307": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 56,
+      "cobertura_media": 0.995896,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.84922,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.869497
+    },
+    "20240314": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 82,
+      "cobertura_media": 0.992631,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.828242,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.841098
+    },
+    "20240405": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 29,
+      "cobertura_media": 0.997096,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.79466,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        1
+      ],
+      "alineacion_corr_mejor": 0.801137
+    },
+    "20240508": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 75,
+      "cobertura_media": 0.973476,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.687342,
+      "alineacion_mejor_desplazamiento": [
+        1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.70315
+    },
+    "20240605": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 33,
+      "cobertura_media": 0.998364,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.676576,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        1
+      ],
+      "alineacion_corr_mejor": 0.688925
+    },
+    "20250317": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 57,
+      "cobertura_media": 0.990192,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.700323,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.702701
+    },
+    "20250327": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 87,
+      "cobertura_media": 0.978851,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.663529,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.677761
+    },
+    "20250401": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 23,
+      "cobertura_media": 0.996436,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.706799,
+      "alineacion_mejor_desplazamiento": [
+        0,
+        0
+      ],
+      "alineacion_corr_mejor": 0.706799
+    },
+    "20250424": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 23,
+      "cobertura_media": 0.998239,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.697291,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        1
+      ],
+      "alineacion_corr_mejor": 0.703618
+    },
+    "20250521": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 30,
+      "cobertura_media": 0.98814,
+      "teselas_sin_climatologia": 0,
+      "alineacion_corr_sin_desplazar": 0.529927,
+      "alineacion_mejor_desplazamiento": [
+        -1,
+        0
+      ],
+      "alineacion_corr_mejor": 0.535884
+    }
+  },
+  "control_causalidad": {
+    "superado": true
+  },
+  "teselas": {
+    "escritas": 138,
+    "ya_existian": 4788
+  },
+  "alineacion_fechas_con_maximo_desplazado": {
+    "20211216": [
+      1,
+      0
+    ],
+    "20220112": [
+      1,
+      0
+    ],
+    "20220128": [
+      0,
+      -1
+    ],
+    "20220218": [
+      1,
+      0
+    ],
+    "20220417": [
+      0,
+      -1
+    ],
+    "20220516": [
+      1,
+      -1
+    ],
+    "20221201": [
+      -1,
+      1
+    ],
+    "20230316": [
+      -1,
+      1
+    ],
+    "20230328": [
+      -1,
+      0
+    ],
+    "20240125": [
+      -1,
+      1
+    ],
+    "20240213": [
+      0,
+      1
+    ],
+    "20240307": [
+      1,
+      1
+    ],
+    "20240314": [
+      1,
+      1
+    ],
+    "20240405": [
+      0,
+      1
+    ],
+    "20240508": [
+      1,
+      1
+    ],
+    "20240605": [
+      0,
+      1
+    ],
+    "20250317": [
+      -1,
+      0
+    ],
+    "20250327": [
+      -1,
+      1
+    ],
+    "20250424": [
+      -1,
+      1
+    ],
+    "20250521": [
+      -1,
+      0
+    ]
+  }
+}

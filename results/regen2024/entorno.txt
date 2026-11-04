@@ -1,0 +1,9 @@
+fecha_inicio: 2026-11-03 21:23:42 UTC
+commit: 95fdc71
+gpu: NVIDIA GeForce RTX 5070 Ti, 16303 MiB, 570.181
+torch: 2.11.0+cu128
+cuda: 12.8
+cudnn: 91900
+python: 3.12.15
+cpu: 24 hilos visibles
+fecha_fin: 2026-11-04 18:17:23 UTC

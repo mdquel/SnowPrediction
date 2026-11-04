@@ -1,0 +1,7 @@
+ejecucion,inicio_utc,fin_utc,minutos,gpu
+resunetpp_sat2_B_s7,2026-11-03 21:23:46,2026-11-04 00:33:32,189,NVIDIA GeForce RTX 5070 Ti
+resunetpp_clim1_Bclim_s7,2026-11-04 00:33:32,2026-11-04 03:58:20,204,NVIDIA GeForce RTX 5070 Ti
+resunetpp_sat2_B_s42,2026-11-04 03:58:20,2026-11-04 07:07:32,189,NVIDIA GeForce RTX 5070 Ti
+resunetpp_clim1_Bclim_s42,2026-11-04 07:07:32,2026-11-04 10:37:12,209,NVIDIA GeForce RTX 5070 Ti
+resunetpp_sat2_B_s123,2026-11-04 10:37:12,2026-11-04 14:27:31,230,NVIDIA GeForce RTX 5070 Ti
+resunetpp_clim1_Bclim_s123,2026-11-04 14:27:31,2026-11-04 18:15:33,228,NVIDIA GeForce RTX 5070 Ti

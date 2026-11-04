@@ -1,0 +1,44 @@
+{
+  "descripcion": "Regeneración de las teselas del 7 y del 14 de marzo de 2024 (enmienda 2, 8.7).",
+  "mapas_corregidos": {
+    "20240307": {
+      "pixeles_validos": 3391053,
+      "nodata_original": -9999.0,
+      "md5_original": "ae0351e09c721e5c12ccd8d2c70658bc"
+    },
+    "20240314": {
+      "pixeles_validos": 5506319,
+      "nodata_original": -9999.0,
+      "md5_original": "ef7916863ee111fa66555b987f82ed68"
+    }
+  },
+  "control": {
+    "fecha": "20240213",
+    "teselas_existentes": 95,
+    "teselas_regeneradas": 95,
+    "diferencia_maxima": 0.001953125,
+    "tolerancia": 0.005,
+    "distintas": [],
+    "superado": true
+  },
+  "fechas": {
+    "20240307": {
+      "teselas_antes": 52,
+      "teselas_despues": 56,
+      "valid_frac_media": 0.8638,
+      "georef_dif_mediana_max_m": 0.0
+    },
+    "20240314": {
+      "teselas_antes": 52,
+      "teselas_despues": 82,
+      "valid_frac_media": 0.9123,
+      "georef_dif_mediana_max_m": 0.0
+    }
+  },
+  "totales": {
+    "teselas_antes": 4892,
+    "teselas_despues": 4926,
+    "val_antes": 431,
+    "val_despues": 465
+  }
+}
