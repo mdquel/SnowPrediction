@@ -255,6 +255,53 @@ teselas de test: debe salir igual). Se informan las dos tablas, antes y
 después, con la mejor época y con la última. Los modelos nuevos son los del
 apartado 4 y la referencia del criterio 5, sea cual sea el resultado.
 
+### Registro — 4-11-2026: resultado del reentrenamiento y respuesta de Jesús
+
+**8.10. Resultado del reentrenamiento (8.9).** Test 2025, R² tal cual, media
+de las 3 semillas (7 / 42 / 123). Fuentes:
+`results/regen2024/resumen_antes_despues.json` y
+`analysis/clim_v1_hibrido_regen2024.json`.
+
+| Modelo | Mejor época, antes | Mejor época, después | Última época, antes | Última época, después |
+|---|---|---|---|---|
+| Red B | 0,196 | 0,231 (0,291 / 0,161 / 0,241) | 0,134 | 0,149 |
+| Red con climatología | 0,257 | 0,259 (0,267 / 0,257 / 0,253) | 0,154 | 0,152 |
+| Misma red, climatología apagada | 0,210 | 0,177 (0,191 / 0,243 / 0,099) | 0,143 | 0,143 |
+| Combinación (nivel de B) | 0,385 | 0,400 (0,416 / 0,388 / 0,397) | 0,340 | 0,346 |
+
+- La climatología sola sale idéntica (diferencia 0): control superado.
+- Las configuraciones no usan planificador de la tasa de aprendizaje ni
+  parada temprana; la validación solo elige la mejor época. Las diferencias
+  en la última época son, por tanto, ruido de repetición del entrenamiento
+  (de 0,000 a 0,015), del orden de la referencia de 0,0125.
+- Criterios del apartado 6 aplicados a 2025 con los modelos nuevos (mejor
+  época; descriptivo, la evaluación del protocolo es 2026):
+  1 cumplido (+0,169, 3 de 3); 2 cumplido (+0,142, 3 de 3); 3 no cumplido
+  (+0,028, pero 2 de 3: en la semilla 7 la red B supera a la red con
+  climatología); 4 no cumplido (−0,054, sobre todo por la semilla 123).
+  Con los modelos anteriores se cumplían los cuatro.
+- Criterio 5: la referencia es la combinación con la nueva B, 0,400
+  (0,416 / 0,388 / 0,397 por semilla).
+
+**8.11. Respuesta de Jesús Revuelto (correo del 4-11-2026).**
+- *Ficheros duplicados de cobertura de nieve (8.8):* son imágenes de teselas
+  distintas del satélite del mismo día. Basta con una; la otra solo tendría
+  sentido si la primera está muy nublada. Se mantiene la regla en todas las
+  temporadas: el fichero sin sufijo. No se combinan para no cambiar los
+  canales respecto a los del entrenamiento (en 2025 cambiaría el
+  09-05-2025, que entra en la ventana del vuelo de test del 21-05-2025).
+  Queda cerrado el pendiente del 8.8.
+- *Imágenes de noviembre:* se pueden procesar desde el 1 de noviembre (antes
+  no tiene sentido: el manto persistente empieza en diciembre). Pendiente de
+  decidir con Hernán Díaz. Si se incorporan, se regenerarán sat_v2 y los
+  modelos antes de abrir los datos de 2026, y se declarará aquí.
+- *Mapas de marzo de 2024:* los del enlace de Jesús tienen las mismas huellas
+  MD5 que los usados en 8.9. La misma carpeta trae los 8 mapas de 2025-26,
+  con las huellas del 8.4 (solo se calcularon las huellas).
+- *Meteorología:* los huecos de la serie son fallos de sensor. La serie de
+  equivalente en agua de la nieve (SWE) empieza en 2024: no se usa, y la
+  temporada 2025-26 no se analiza.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
