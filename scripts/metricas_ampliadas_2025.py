@@ -38,14 +38,22 @@ Controles (si alguno falla, se detiene sin escribir nada)
 1. Tal cual a 1 m: R2, SPAEF, RMSE y MAE iguales a los de cada metrics.json
    (tolerancia 1e-3).
 2. Combinación: R2 y SPAEF iguales a analysis/clim_v1_hibrido.json.
-3. Nivel corregido: R2 y SPAEF iguales a analysis/clim_v1_nivel_corregido.json.
+3. Nivel corregido: R2 y SPAEF iguales a analysis/clim_v1_nivel_corregido.json
+   (se omite con --nivel "": ese JSON solo existe para los modelos anteriores
+   a la regeneración de marzo de 2024; los controles 1 y 2 se mantienen).
 4. Ninguna tesela posterior al 30-09-2025 (la temporada 2026 está reservada).
 
 Uso (desde la raíz de repo-moises, con geo_env)
 -----------------------------------------------
     python scripts/metricas_ampliadas_2025.py
 Opciones: --clim-dir (results/clim_v1), --b-dir (results/sat_v2),
+          --hibrido, --nivel ("" para omitir el control 3),
           --out (analysis/metricas_ampliadas_2025.json)
+
+Modelos reentrenados con los mapas de marzo de 2024 corregidos (protocolo 8.9):
+    python scripts/metricas_ampliadas_2025.py --clim-dir results/regen2024/clim_v1 \
+        --b-dir results/regen2024/sat_v2 --hibrido analysis/clim_v1_hibrido_regen2024.json \
+        --nivel "" --out analysis/metricas_ampliadas_2025_regen2024.json
 """
 
 import argparse
@@ -226,7 +234,7 @@ def main():
     a = ap.parse_args()
 
     ref_h = json.load(open(a.hibrido))
-    ref_n = json.load(open(a.nivel))
+    ref_n = json.load(open(a.nivel)) if a.nivel else None   # None: sin control 3
     fallos = []
 
     def check(nombre, valor, ref):
@@ -257,7 +265,8 @@ def main():
     for k in ('R2', 'SPAEF', 'RMSE', 'MAE'):
         check(f'climatologia_sola {k}', r['tal_cual'][k], ref[k])
     for k in ('R2', 'SPAEF'):
-        check(f'climatologia_sola nivel {k}', r['nivel_corregido'][k], ref_n['climatologia_sola']['nivel_corregido'][k])
+        if ref_n is not None:
+            check(f'climatologia_sola nivel {k}', r['nivel_corregido'][k], ref_n['climatologia_sola']['nivel_corregido'][k])
     res['climatologia_sola'] = r
     print(f"climatologia_sola  R2 {r['tal_cual']['R2']:.3f}", flush=True)
 
@@ -285,8 +294,9 @@ def main():
                     ref = json.load(open(base + '_metrics.json'))
                     for k in ('R2', 'SPAEF', 'RMSE', 'MAE'):
                         check(f'{epoca} {modelo} s{s} {k}', r['tal_cual'][k], ref[k])
-                    i = ref_n[epoca][modelo]['semillas'].index(s)
-                    for k in ('R2', 'SPAEF'):
+                    if ref_n is not None:
+                      i = ref_n[epoca][modelo]['semillas'].index(s)
+                      for k in ('R2', 'SPAEF'):
                         check(f'{epoca} {modelo} s{s} nivel {k}', r['nivel_corregido'][k],
                               ref_n[epoca][modelo]['nivel_corregido'][k]['por_semilla'][i])
                 filas[s] = r
@@ -303,7 +313,9 @@ def main():
             out['error_nivel_media_abs'] = mmm([filas[s]['error_nivel_media_abs'] for s in filas])
             res[epoca][modelo] = out
 
-    res['controles'] = {'tolerancia': TOL, 'fallos': fallos, 'superados': not fallos}
+    res['controles'] = {'tolerancia': TOL, 'fallos': fallos, 'superados': not fallos,
+                        'control_nivel_corregido': bool(ref_n is not None),
+                        'fuentes': {'clim_dir': a.clim_dir, 'b_dir': a.b_dir, 'hibrido': a.hibrido}}
     if fallos:
         print('\nControles NO superados:')
         for f in fallos:
