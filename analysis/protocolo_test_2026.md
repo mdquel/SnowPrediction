@@ -302,6 +302,68 @@ de las 3 semillas (7 / 42 / 123). Fuentes:
   equivalente en agua de la nieve (SWE) empieza en 2024: no se usa, y la
   temporada 2025-26 no se analiza.
 
+### Enmienda 3 — 10-11-2026 (antes de abrir los datos de 2026)
+
+Motivo: respuesta de Hernán Díaz (correo del 10-11-2026).
+
+**8.12. Imágenes de noviembre.** No se incorporan. La evaluación de 2026 se
+hace con las imágenes de cobertura de nieve tal como están (desde el 1 de
+diciembre), igual que en 2021-2025.
+
+**8.13. Red de dos cabezas (criterio 5).** Diseño fijado antes de programarla
+y de entrenarla.
+
+*Salida.* Para cada fecha *d* y píxel *x*:
+
+    HS = máx(0, L(d) + w · (C(x) − C̄(d)) + Δ)
+
+- C(x): climatología del píxel (m). C̄(d): su media en la fecha.
+- L(d): nivel de la fecha.
+- w y Δ: una pareja de valores por tesela, que da la red. w está acotado a
+  [0,5; 1,5] y Δ a [−0,5; +0,5] m.
+- Al empezar, w = 1 y Δ = 0, de modo que la salida es exactamente la
+  combinación.
+
+*Nivel.* Las medias se calculan sobre todos los píxeles volados de la fecha,
+como en la combinación (`scripts/clim_v1_hybrid.py`):
+- en entrenamiento y validación, L(d) es la media observada de la fecha,
+  calculada sobre su mosaico, sin contar dos veces el solape de las teselas;
+- en el test, L(d) es la media de la predicción de la red B de la misma
+  semilla.
+
+Así la red solo aprende a corregir el dibujo; el nivel lo pone B.
+
+*Climatología de entrenamiento.* La causal deja la temporada 2021 sin
+climatología (958 de las 4241 teselas de entrenamiento), y con C = 0 la red
+tendría que dibujar sola, que es la degeneración que se quiere evitar.
+- Para las fechas de entrenamiento se usa una climatología sin la temporada
+  propia: cada temporada recibe la media de las otras dos de entrenamiento.
+  Se guarda en una carpeta nueva, `clim_v2`, sin tocar `clim_v1`.
+- En validación y test, la climatología es la misma que en la combinación
+  (2021-2023). Control: idéntica bit a bit a `clim_v1`.
+- Limitación declarada: en entrenamiento la climatología es de dos
+  temporadas, y en validación y test, de tres.
+
+*Entrenamiento.*
+- Mismas entradas que la red con climatología (28 canales), sin apagado
+  aleatorio de la climatología.
+- Misma pérdida, excluyendo los píxeles sin climatología.
+- Mismos hiperparámetros: 50 épocas, semillas 7, 42 y 123.
+- La mejor época se elige con la validación de 2024.
+
+*Evaluación.*
+- Mismas métricas, píxeles y teselas que el resto de modelos, con la mejor
+  época y con la última.
+- Se guardan w y Δ de cada tesela, para comprobar que no se quedan en los
+  límites.
+- Criterio 5: superar a la combinación en más de 0,0125 de R² de media y con
+  cada una de las tres semillas, comparando cada semilla con la combinación
+  de la misma semilla.
+- En 2025 es descriptivo; la evaluación del criterio es la de 2026.
+
+*Revisión.* Hernán Díaz revisa el código antes de los entrenamientos.
+Cualquier cambio que salga de la revisión se declara aquí antes de entrenar.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
