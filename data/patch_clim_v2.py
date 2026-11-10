@@ -35,9 +35,11 @@ de entrenamiento) y sobre todos los pixeles volados con dato valido, como la
 combinacion (scripts/clim_v1_hybrid.py):
 
     clim_media_m   C(d): media del canal clim (0 donde no hay climatologia)
-    nivel_obs_m    L(d) observado: media de la HS observada. Solo en
-                   entrenamiento y validacion; en el test queda vacio,
-                   porque alli el nivel es el de la red B (apartado 8.13).
+    nivel_obs_m    L(d) observado: media de la HS observada, con los
+                   negativos a 0, que es como entra la HS en la perdida y en
+                   la evaluacion (SnowDataset._clean). Solo en entrenamiento
+                   y validacion; en el test queda vacio, porque alli el nivel
+                   es el de la red B (apartado 8.13).
 
 Controles (si alguno falla, se detiene)
 ---------------------------------------
@@ -190,7 +192,7 @@ def main():
         v = np.isfinite(mz)
         cw = np.where(np.isfinite(clim), clim, 0.0)              # 0 donde no hay climatologia
         clim_media = float(cw[v].mean()) if v.any() else None
-        nivel_obs = float(mz[v].mean()) if (v.any() and sp != 'test') else None
+        nivel_obs = float(np.maximum(mz[v], 0.0).mean()) if (v.any() and sp != 'test') else None
         filas_niveles.append({'date': date, 'split': sp, 'temporada': season,
                               'temporadas_clim': '-'.join(str(s) for s in used),
                               'clim_media_m': r6(clim_media),

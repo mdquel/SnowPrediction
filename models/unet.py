@@ -5,6 +5,7 @@ from models.resunet import ResUNetPP
 from models.unet_gn import UNetGN
 from models.resunetpp_dual import ResUNetPPDual
 from models.resunetpp_dual_scale import ResUNetPPDualScale
+from models.resunetpp_dos_cabezas import ResUNetPPDosCabezas
 
 
 class DoubleConv(nn.Module):
@@ -265,7 +266,18 @@ def build_model(config: dict) -> nn.Module:
                                    num_groups=num_groups,
                                    normalize_pattern=cfg.get('normalize_pattern', False),
                                    n_scale_signals=n_signals)
-                                   
+    elif arch == 'resunetpp_dos_cabezas':
+        # Red de dos cabezas sobre la climatologia (protocolo 2026, 8.13):
+        # w y delta por tesela, acotados; arranca en la combinacion.
+        features  = cfg.get('features', [64, 128, 256, 512])
+        num_groups = cfg.get('num_groups', 8)
+        model = ResUNetPPDosCabezas(in_channels=in_ch, out_channels=out_ch,
+                                    features=features, dropout_p=dropout_p,
+                                    num_groups=num_groups,
+                                    clim_index=cfg['clim_index'],
+                                    w_range=tuple(cfg.get('w_range', (0.5, 1.5))),
+                                    delta_max=cfg.get('delta_max', 0.5))
+
     else:
         raise ValueError(f"Arquitectura desconocida: '{arch}'. "
                          f"Disponibles: 'unet', 'unet_gn', 'unet_small', "
@@ -276,5 +288,6 @@ def build_model(config: dict) -> nn.Module:
     print(f"Canales    : {in_ch} entrada -> {out_ch} salida")
     print(f"Parametros : {n_params:,}")
     if dropout_p > 0:
-        print(f"Dropout    : {dropout_p} (en decoder)")
+        donde = 'en las cabezas' if arch == 'resunetpp_dos_cabezas' else 'en decoder'
+        print(f"Dropout    : {dropout_p} ({donde})")
     return model

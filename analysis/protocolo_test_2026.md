@@ -364,6 +364,44 @@ tendría que dibujar sola, que es la degeneración que se quiere evitar.
 *Revisión.* Hernán Díaz revisa el código antes de los entrenamientos.
 Cualquier cambio que salga de la revisión se declara aquí antes de entrenar.
 
+**8.14. Implementación de la red de dos cabezas (antes de entrenar).** Detalles
+fijados al programarla, con su comprobación en Vast.ai (10-11-2026):
+
+- *Nivel por época.* En el test, la mejor época de la red usa el nivel de la
+  mejor época de la red B de la misma semilla, y la última usa el de la
+  última. Es lo mismo que hace la combinación en cada lectura.
+- *Validación.* La pérdida de validación, que elige la mejor época, también
+  excluye los píxeles sin climatología (el 0,3 % de los píxeles válidos de
+  2024).
+- *Arquitectura.* Codificador y cuello ASPP de ResUNet++ sin cambios. Como la
+  red solo da w y Δ por tesela, no tiene decodificador. Cada cabeza es una
+  capa oculta seguida de una salida, y el dropout del modelo (0,077) se
+  aplica en esas capas ocultas. Los límites se imponen de forma suave, con
+  una tangente hiperbólica. Tiene 21.051.826 parámetros.
+- *Nivel observado.* Se calcula con los negativos de la HS observada a 0, que
+  es como entra la nieve en la pérdida. Corrige `data/patch_clim_v2.py` antes
+  de su primer uso.
+- *Comprobaciones antes de entrenar.* Todas superadas:
+  - `clim_v2`: las 685 teselas de validación y test son idénticas a
+    `clim_v1`, ninguna fecha usa su propia temporada y ninguna tesela de
+    entrenamiento queda sin climatología;
+  - con la tabla de niveles se reproduce exactamente la combinación
+    (diferencia 0);
+  - sin entrenar, la red da la combinación en las 220 teselas de test, con
+    diferencia ≤ 1,4·10⁻⁶ m, y w = 1 y Δ = 0 en todas, para las tres
+    semillas;
+  - ningún píxel sin climatología entra en la pérdida;
+  - la pérdida de validación al arrancar es 0,1933, que es la referencia de
+    la curva de entrenamiento;
+  - un entrenamiento de prueba de 1 época (semilla 7) recorre todo el
+    circuito. Sus resultados se descartan y no se usan para ninguna decisión.
+- *Código:*
+  - `models/resunetpp_dos_cabezas.py`, `training/dos_cabezas.py`;
+  - `scripts/dos_cabezas_niveles.py`, `scripts/generate_dos_cabezas_configs.py`,
+    `scripts/dos_cabezas_control_inicio.py`;
+  - cambios en `main.py`, `data/dataset.py` y `models/unet.py`, que no afectan
+    a los demás modelos.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```

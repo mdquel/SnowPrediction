@@ -38,6 +38,7 @@ def _resolve(path: str) -> Path:
 from models.unet import build_model
 from training.train import train_model, get_device
 from training.evaluate import evaluate_model, run_naive_benchmark
+from training.dos_cabezas import volcar_w_delta
 
 
 # ----------------------------------------------------------------------
@@ -78,6 +79,25 @@ def _set_clim(ds, config: dict, dropout: float = 0.0):
     probabilidad de apagado (solo para el dataset de entrenamiento)."""
     ds.clim_channels = config['data'].get('clim_channels')
     ds.clim_dropout = dropout if ds.clim_channels else 0.0
+
+
+def _set_date_levels(ds, config: dict, last: bool = False) -> bool:
+    """Red de dos cabezas (protocolo 2026, 8.13): nivel L(d) y media de la
+    climatologia Cm(d) de cada fecha, que el modelo recibe como segundo
+    argumento. data.date_levels_csv es relativo a la raiz del repo.
+    data.date_level_cols se usa en entrenamiento, validacion y test con la
+    mejor epoca; data.date_level_cols_last, en el test con la ultima epoca (el
+    nivel de la red B de esa misma epoca). Devuelve False, sin hacer nada, si
+    la config no declara date_levels_csv."""
+    cfg = config['data']
+    csv_path = cfg.get('date_levels_csv')
+    if not csv_path:
+        return False
+    cols = cfg['date_level_cols']
+    if last:
+        cols = cfg.get('date_level_cols_last', cols)
+    ds.load_date_levels(str(_resolve(csv_path)), cols)
+    return True
 
 
 # ----------------------------------------------------------------------
@@ -146,6 +166,21 @@ def run_train(config: dict):
         train_ds.load_scale_signals(sig_csv, sig_cols)
         val_ds.load_scale_signals(sig_csv, sig_cols)
 
+    # --- Red de dos cabezas (protocolo 2026, 8.13) ---
+    # Nivel y media de la climatologia por fecha (en entrenamiento y
+    # validacion, el nivel observado), y perdida solo sobre los pixeles con
+    # climatologia. Sin esas claves en la config no cambia nada.
+    if _set_date_levels(train_ds, config):
+        _set_date_levels(val_ds, config)
+        print(f"Niveles por fecha: {cfg_data['date_level_cols']}  <- {cfg_data['date_levels_csv']}")
+    req_ch = cfg_data.get('loss_requires_channel')
+    if req_ch is not None:
+        if not masked_loss:
+            raise ValueError("data.loss_requires_channel requiere training.masked_loss = true")
+        train_ds.loss_requires_channel = req_ch
+        val_ds.loss_requires_channel = req_ch
+        print(f"Perdida    : solo pixeles con el canal {req_ch} > 0 (con climatologia)")
+
     train_loader = DataLoader(
         train_ds,
         batch_size=cfg_tr['batch_size'],
@@ -209,6 +244,9 @@ def run_evaluate(config: dict):
         print(f"Senales de escala: {sig_cols}  <- {sig_csv}")
         test_ds.load_scale_signals(sig_csv, sig_cols)    
     
+    # Red de dos cabezas: nivel de la red B por fecha (protocolo 2026, 8.13)
+    dos_cabezas = _set_date_levels(test_ds, config)
+
     test_loader = DataLoader(
         test_ds,
         batch_size=cfg_tr['batch_size'],
@@ -241,18 +279,26 @@ def run_evaluate(config: dict):
             print(f"\n=== Evaluacion con la climatologia apagada ({sufijo}) ===")
 
         # Evaluar checkpoint best (mejor val loss)
+        _set_date_levels(test_ds, config)              # dos cabezas: nivel de B, mejor epoca
         model.load_state_dict(torch.load(model_path, map_location=device))
         print(f"Pesos cargados desde: {model_path}")
         evaluate_model(model, test_loader, device,
                        {**config, 'experiment': {'name': name + sufijo}})
+        if dos_cabezas:
+            volcar_w_delta(model, test_loader, device,
+                           os.path.join(cfg_out['results_dir'], f"{name}{sufijo}_w_delta.csv"))
 
         # Evaluar checkpoint last (ultima epoca) si existe
         if os.path.exists(last_model_path):
             print(f"\n--- Evaluando checkpoint ultima epoca ---")
+            _set_date_levels(test_ds, config, last=True)   # dos cabezas: nivel de B, ultima epoca
             model.load_state_dict(torch.load(last_model_path, map_location=device))
             print(f"Pesos cargados desde: {last_model_path}")
             evaluate_model(model, test_loader, device,
                            {**config, 'experiment': {'name': name + '_last' + sufijo}})
+            if dos_cabezas:
+                volcar_w_delta(model, test_loader, device,
+                               os.path.join(cfg_out['results_dir'], f"{name}_last{sufijo}_w_delta.csv"))
     test_ds.clim_off = False
 
     # Benchmark naive como referencia

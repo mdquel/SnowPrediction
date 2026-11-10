@@ -137,6 +137,15 @@ class SnowDataset(Dataset):
         self.clim_dropout = 0.0
         self.clim_off = False
 
+        # Red de dos cabezas (protocolo 2026, 8.13). loss_requires_channel:
+        # indice, en la pila COMPLETA, de un canal que tiene que ser > 0 para
+        # que el pixel cuente en la perdida. Con clim_disp (31) se excluyen los
+        # pixeles sin climatologia. Solo actua en esta clase (entrenamiento y
+        # validacion); SnowDatasetEval no lo aplica, asi que el test se evalua
+        # sobre todos los pixeles validos, como el resto de modelos. Por
+        # defecto no hace nada.
+        self.loss_requires_channel = None
+
         # --- Senales de escala externas (E4) ---
         # Escalares por FECHA de vuelo (cobertura de nieve, grados-dia,
         # precipitacion acumulada) que alimentan la cabeza de escala del
@@ -210,6 +219,39 @@ class SnowDataset(Dataset):
                   f"{', '.join(faltan[:5])}{' ...' if len(faltan) > 5 else ''}")
             print(f"          se les asignaran ceros; revisa el CSV del fold.")
 
+    def load_date_levels(self, csv_path: str, cols: list):
+        """Escalares por fecha para la red de dos cabezas (protocolo 2026, 8.13).
+
+        Lee del CSV (una fila por fecha; columna 'date' en formato YYYYMMDD)
+        las columnas `cols`, por ese orden: [nivel L(d), media de la
+        climatologia Cm(d)], en metros. Usa el mismo camino que las senales de
+        escala de E4 (los valores llegan al modelo como segundo argumento),
+        con dos diferencias:
+
+          * no se normalizan: entran en metros, tal cual;
+          * es estricto: si falta una fecha de este split, o algun valor no es
+            finito, se detiene. Con load_scale_signals una fecha ausente
+            recibe ceros, y aqui un nivel 0 seria una prediccion equivocada
+            sin ningun aviso.
+        """
+        tab = pd.read_csv(csv_path, dtype={'date': str})
+        falta_col = [c for c in ['date'] + list(cols) if c not in tab.columns]
+        if falta_col:
+            raise ValueError(f"{csv_path}: faltan las columnas {falta_col}")
+        if tab['date'].duplicated().any():
+            raise ValueError(f"{csv_path}: hay fechas repetidas")
+        table = {r['date']: np.array([float(r[c]) for c in cols], dtype=np.float32)
+                 for _, r in tab.iterrows()}
+        fechas = sorted({str(t).split('_')[0] for t in self.df['tile_id']})
+        malas = [d for d in fechas
+                 if d not in table or not np.all(np.isfinite(table[d]))]
+        if malas:
+            raise ValueError(f"{csv_path}: sin valor valido de {list(cols)} para las "
+                             f"fechas {malas}")
+        self.scale_signals = table
+        self.scale_signal_cols = list(cols)
+        self.n_scale_signals = len(cols)
+
     def _get_scale(self, tile_id: str) -> np.ndarray:
         """Senales de escala del tile, a partir de su fecha."""
         key = str(tile_id).split('_')[0]
@@ -241,6 +283,9 @@ class SnowDataset(Dataset):
         # Validez del target ANTES de _clean (que destruye la marca de nodata
         # convirtiendo NaN -> 0). NaN = fuera de la huella LiDAR.
         valid = (np.isfinite(mask) & (mask > -100)).astype(np.float32)
+        # Dos cabezas: fuera de la perdida los pixeles sin climatologia.
+        if self.loss_requires_channel is not None:
+            valid = valid * (image[self.loss_requires_channel] > 0).astype(np.float32)
 
         image, mask = self._clean(image, mask)
         image = self._normalize(image)
