@@ -51,6 +51,8 @@ Arquitectura
     entrada (28 canales, los de la red con climatologia)
       -> codificador y cuello ASPP de ResUNet++ (models/resunet.py, sin cambios)
       -> media espacial del cuello (un vector por tesela)
+      -> se le anaden L(d) y Cm(d), en metros (8.15: el contraste depende
+         de cuanta nieve hay)
       -> cabeza w     : Linear -> ReLU -> Dropout -> Linear(1) -> acotado
       -> cabeza delta : Linear -> ReLU -> Dropout -> Linear(1) -> acotado
 
@@ -142,7 +144,7 @@ class ResUNetPPDosCabezas(nn.Module):
 
         def cabeza():
             return nn.Sequential(
-                nn.Linear(f4, mid),
+                nn.Linear(f4 + len(self.SIGNALS), mid),     # cuello + [L(d), Cm(d)]
                 nn.ReLU(inplace=True),
                 nn.Dropout(dropout_p) if dropout_p > 0 else nn.Identity(),
                 nn.Linear(mid, 1),
@@ -172,19 +174,25 @@ class ResUNetPPDosCabezas(nn.Module):
         b = self.aspp(b)
         return self.bottleneck_out(b)
 
-    def _w_delta(self, x: torch.Tensor):
-        """w y delta de cada tesela, ya acotados. Forma (B, 1, 1, 1)."""
+    def _w_delta(self, x: torch.Tensor, signals: torch.Tensor):
+        """w y delta de cada tesela, ya acotados. Forma (B, 1, 1, 1).
+
+        Las cabezas reciben el cuello de la red y los dos escalares de la
+        fecha, L(d) y Cm(d) (protocolo 2026, 8.15)."""
         v = self.gap(self._encode(x))                                   # (B, f4)
+        v = torch.cat([v, signals.to(v.dtype)], dim=1)                  # (B, f4 + 2)
         w = self._w_centro + self._w_semiancho * torch.tanh(self.head_w(v) + self._a0)
         delta = self.delta_max * torch.tanh(self.head_delta(v))
         return w.view(-1, 1, 1, 1), delta.view(-1, 1, 1, 1)
 
-    def _hs(self, x, signals, w, delta):
+    def _check(self, x, signals):
         if signals is None:
             raise ValueError('ResUNetPPDosCabezas necesita signals = [L(d), Cm(d)] por tesela '
                              '(data.date_levels_csv y data.date_level_cols en la config)')
         if signals.dim() != 2 or signals.size(1) != 2 or signals.size(0) != x.size(0):
             raise ValueError(f'signals debe ser (B, 2); recibido {tuple(signals.shape)}')
+
+    def _hs(self, x, signals, w, delta):
         signals = signals.to(x.dtype)
         nivel = signals[:, 0].view(-1, 1, 1, 1)
         clim_media = signals[:, 1].view(-1, 1, 1, 1)
@@ -192,7 +200,8 @@ class ResUNetPPDosCabezas(nn.Module):
         return torch.relu(nivel + w * (clim - clim_media) + delta)
 
     def forward(self, x: torch.Tensor, signals: torch.Tensor = None) -> torch.Tensor:
-        w, delta = self._w_delta(x)
+        self._check(x, signals)
+        w, delta = self._w_delta(x, signals)
         return self._hs(x, signals, w, delta)
 
     # ------------------------------------------------------------------
@@ -202,10 +211,11 @@ class ResUNetPPDosCabezas(nn.Module):
         w y delta tienen forma (B,). Sirve para guardar las correcciones de
         cada tesela y comprobar que no se quedan en los limites (8.13).
         """
+        self._check(x, signals)
         was_training = self.training
         self.eval()
         with torch.no_grad():
-            w, delta = self._w_delta(x)
+            w, delta = self._w_delta(x, signals)
             hs = self._hs(x, signals, w, delta)
         if was_training:
             self.train()

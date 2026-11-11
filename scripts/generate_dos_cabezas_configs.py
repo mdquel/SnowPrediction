@@ -18,6 +18,9 @@ las semillas 7, 42 y 123. Lo que cambia:
       (scripts/dos_cabezas_niveles.py). Nivel observado en entrenamiento y
       validacion; nivel de la red B de la misma semilla en el test (mejor
       epoca con nivel_m, ultima con nivel_last_m);
+    * el arranque (la combinacion) se guarda como epoca 0 y solo lo
+      sustituye una epoca que mejore la perdida de validacion
+      (training.save_initial, 8.15);
     * perdida solo sobre los pixeles con climatologia (canal 31 > 0), en
       entrenamiento y en validacion. El test se evalua sobre todos los
       pixeles validos, como el resto de modelos.
@@ -67,7 +70,7 @@ def config(seed):
                      'epochs': 50, 'loss': 'spatial_mse', 'lambda_pearson': 0.0,
                      'masked_loss': True, 'weight_decay': 1.239e-04,
                      'optimizer': 'adamw', 'grad_clip': 1.0, 'early_stopping': False,
-                     'num_workers': 0, 'device': 'auto'},
+                     'num_workers': 0, 'device': 'auto', 'save_initial': True},
         'evaluation': {'save_predictions': True},
         'output': {'models_dir': f'{RES_DIR}/weights',
                    'results_dir': f'{RES_DIR}/{name}',

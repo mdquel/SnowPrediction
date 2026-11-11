@@ -385,6 +385,18 @@ def train_model(model:        nn.Module,
     print(f"Train tiles : {len(train_loader.dataset)}  |  "
           f"Val tiles: {len(val_loader.dataset)}\n")
 
+    # Epoca 0 (solo si training.save_initial = true; red de dos cabezas,
+    # protocolo 2026, 8.15): el arranque cuenta como candidato a mejor epoca.
+    # Se evalua la validacion con los pesos iniciales y se guardan; una epoca
+    # solo los sustituye si mejora esa perdida. Si ninguna mejora, el modelo
+    # "mejor epoca" es el arranque (en la red de dos cabezas, la combinacion).
+    val_loss_inicial = None
+    if cfg_tr.get('save_initial', False):
+        val_loss_inicial = _val_epoch(model, val_loader, criterion, device)
+        best_val_loss = val_loss_inicial
+        torch.save(model.state_dict(), model_path)
+        print(f"Epoch 000/{epochs} | arranque | Val: {val_loss_inicial:.4f}  [GUARDADO]")
+
     for epoch in range(1, epochs + 1):
         tr_loss  = _train_epoch(model, train_loader, optimizer, criterion, device, grad_clip)
         val_loss = _val_epoch(model, val_loader, criterion, device)
@@ -449,6 +461,10 @@ def train_model(model:        nn.Module,
     history_out  = {
         'experiment':   exp,
         'best_val_loss': round(best_val_loss, 6),
+        'val_loss_inicial': (round(val_loss_inicial, 6)
+                             if val_loss_inicial is not None else None),
+        'mejor_es_el_arranque': (val_loss_inicial is not None
+                                 and best_val_loss == val_loss_inicial),
         'epochs_run':    len(history['train_loss']),
         'train_loss':    [round(v, 6) for v in history['train_loss']],
         'val_loss':      [round(v, 6) for v in history['val_loss']],

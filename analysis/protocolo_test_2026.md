@@ -402,6 +402,43 @@ fijados al programarla, con su comprobación en Vast.ai (10-11-2026):
   - cambios en `main.py`, `data/dataset.py` y `models/unet.py`, que no afectan
     a los demás modelos.
 
+**8.15. Revisión de Hernán Díaz (correo del 11-11-2026), antes de entrenar.**
+Revisó el código y el diseño sin encontrar errores, y pidió cuatro cosas:
+
+1. *Cómo contarlo.* Con un w y un Δ por tesela, dentro de cada tesela el
+   dibujo es exactamente el de la climatología. La correlación por tesela de
+   la red es, por tanto, siempre la de la climatología (0,656 en 2025). La
+   red solo corrige el nivel de cada tesela (Δ) y lo marcado del patrón (w).
+   Así se describirá en el artículo: la red no mejora el dibujo, ajusta el
+   nivel y el contraste de cada zona.
+2. *Techo, antes de gastar GPU.* En 2025, con w y Δ ideales por tesela
+   (mínimos cuadrados dentro de los límites y nivel observado de la fecha),
+   el R² es 0,733, frente a 0,470 de la combinación con ese mismo nivel:
+   **+0,26** de margen como máximo (`scripts/dos_cabezas_techo.py`,
+   `analysis/dos_cabezas_techo_2025.json`).
+   - Δ solo aporta +0,16 y w solo +0,09.
+   - Se usa el nivel sobre todos los píxeles volados, la definición de 8.13.
+     Con el nivel calculado en los píxeles con nieve, la combinación da
+     0,463.
+   - En los valores ideales, un 21–23 % de las teselas tiene w en un límite
+     y un 15–16 % tiene Δ en un límite. Los límites no se cambian: decidirlo
+     mirando 2025 sería ajustar con datos de test.
+   - Es un techo optimista, porque usa la nieve observada de cada tesela, y
+     en el test el nivel es el de B.
+   - Como el margen es mucho mayor que el umbral de duda que fijó Hernán
+     (unas 0,03), se entrena.
+3. *Las cabezas reciben L(d) y C̄(d).* El contraste entre zonas depende de
+   cuánta nieve hay, así que los dos valores de la fecha se añaden al vector
+   que entra en las cabezas. La última capa sigue empezando en cero, y la red
+   arranca en la combinación.
+4. *Época 0.* El arranque se evalúa en validación y se guarda como mejor
+   época antes de entrenar (`training.save_initial`). Una época solo lo
+   sustituye si mejora esa pérdida. Si ninguna la mejora, el modelo de la
+   "mejor época" es la combinación. Esta opción solo se activa en esta red.
+
+Antes de entrenar se repiten las comprobaciones de 8.14 con el código
+modificado.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
