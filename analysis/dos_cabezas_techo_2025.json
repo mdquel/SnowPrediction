@@ -1,0 +1,98 @@
+{
+  "descripcion": "Techo de la red de dos cabezas en el test 2025: w y delta ideales por tesela (minimos cuadrados dentro de los limites de 8.13) con el nivel observado de la fecha. Es un techo: usa la nieve observada.",
+  "limites": {
+    "w": [
+      0.5,
+      1.5
+    ],
+    "delta_m": 0.5
+  },
+  "controles": {
+    "climatologia_sola_tal_cual": [
+      -0.0176,
+      -0.0176
+    ],
+    "climatologia_nivel_corregido": [
+      0.4573,
+      0.4573
+    ],
+    "superados": true
+  },
+  "nivel_por_fecha": {
+    "20250317": {
+      "L_obs_m": 1.2598,
+      "Cm_m": 0.7663
+    },
+    "20250327": {
+      "L_obs_m": 1.1598,
+      "Cm_m": 0.709
+    },
+    "20250401": {
+      "L_obs_m": 1.4422,
+      "Cm_m": 0.8097
+    },
+    "20250424": {
+      "L_obs_m": 0.9887,
+      "Cm_m": 0.7782
+    },
+    "20250521": {
+      "L_obs_m": 0.3421,
+      "Cm_m": 0.9546
+    }
+  },
+  "combinacion_con_nivel_observado_R2": 0.4697,
+  "techo": {
+    "ajuste_en_pixeles_con_nieve": {
+      "w_y_delta": {
+        "R2": 0.7336,
+        "ganancia_sobre_combinacion": 0.2639,
+        "w_mediana": 0.6678,
+        "w_en_limite_pct": 22.7,
+        "delta_mediana_m": 0.026,
+        "delta_en_limite_pct": 15.0
+      },
+      "solo_delta": {
+        "R2": 0.6343,
+        "ganancia_sobre_combinacion": 0.1646,
+        "w_mediana": 1.0,
+        "w_en_limite_pct": 0.0,
+        "delta_mediana_m": -0.0077,
+        "delta_en_limite_pct": 12.7
+      },
+      "solo_w": {
+        "R2": 0.5634,
+        "ganancia_sobre_combinacion": 0.0937,
+        "w_mediana": 0.7703,
+        "w_en_limite_pct": 26.4,
+        "delta_mediana_m": 0.0,
+        "delta_en_limite_pct": 0.0
+      }
+    },
+    "ajuste_en_todos_los_validos": {
+      "w_y_delta": {
+        "R2": 0.7326,
+        "ganancia_sobre_combinacion": 0.2629,
+        "w_mediana": 0.6756,
+        "w_en_limite_pct": 20.9,
+        "delta_mediana_m": 0.0028,
+        "delta_en_limite_pct": 15.9
+      },
+      "solo_delta": {
+        "R2": 0.6322,
+        "ganancia_sobre_combinacion": 0.1625,
+        "w_mediana": 1.0,
+        "w_en_limite_pct": 0.0,
+        "delta_mediana_m": -0.0047,
+        "delta_en_limite_pct": 11.8
+      },
+      "solo_w": {
+        "R2": 0.563,
+        "ganancia_sobre_combinacion": 0.0934,
+        "w_mediana": 0.7817,
+        "w_en_limite_pct": 26.4,
+        "delta_mediana_m": 0.0,
+        "delta_en_limite_pct": 0.0
+      }
+    }
+  }
+}
