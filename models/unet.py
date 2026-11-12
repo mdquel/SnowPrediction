@@ -276,7 +276,11 @@ def build_model(config: dict) -> nn.Module:
                                     num_groups=num_groups,
                                     clim_index=cfg['clim_index'],
                                     w_range=tuple(cfg.get('w_range', (0.5, 1.5))),
-                                    delta_max=cfg.get('delta_max', 0.5))
+                                    delta_max=cfg.get('delta_max', 0.5),
+                                    encoder_in_channels=cfg.get('encoder_in_channels'),
+                                    encoder_init=cfg.get('encoder_init'),
+                                    freeze_encoder=cfg.get('freeze_encoder', False),
+                                    head_signals=cfg.get('head_signals', True))
 
     else:
         raise ValueError(f"Arquitectura desconocida: '{arch}'. "

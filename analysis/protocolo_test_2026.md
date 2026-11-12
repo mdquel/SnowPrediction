@@ -439,6 +439,43 @@ Revisó el código y el diseño sin encontrar errores, y pidió cuatro cosas:
 Antes de entrenar se repiten las comprobaciones de 8.14 con el código
 modificado.
 
+**8.16. Resultado de dc1 y variante dc2 (12-11-2026, registrado antes de
+entrenar dc2).**
+
+*Resultado de dc1 (8.13–8.15) en 2025:*
+- Mejor época: R² medio 0,429, frente a 0,400 de la combinación (+0,028;
+  3/3 semillas). Cumple el criterio 5, pero el resultado es frágil.
+- Las mejores épocas son la 1, la 1 y la 3. En la última, el R² cae a 0,133,
+  frente a 0,346 de la combinación.
+- La pérdida de entrenamiento baja de 0,19 a 0,10, mientras la de validación
+  no baja de 0,187.
+- Diagnóstico: con 21 M de parámetros, el DEM identifica el lugar y L/C̄ la
+  fecha, de modo que la red memoriza el residuo de cada tesela.
+
+*Variante dc2:* mismo diseño que dc1 (8.13–8.15), con dos cambios:
+1. el codificador y el ASPP son los de la red B de la misma semilla (mejor
+   época), solo ven los 26 canales de B y quedan congelados; solo se entrenan
+   las dos cabezas (unos 130 000 parámetros);
+2. las cabezas no reciben L(d) ni C̄(d). Los dos valores se siguen usando en
+   la fórmula.
+
+Se mantienen los datos, la pérdida, los hiperparámetros, las 50 épocas, las
+semillas, `save_initial` y la elección de época por validación. El arranque
+sigue siendo exactamente la combinación. Configs:
+`python scripts/generate_dos_cabezas_configs.py --variante dc2`; resultados en
+`results/dos_cabezas_v2`.
+
+*Reglas:*
+- dc2 se define después de ver 2025, así que su resultado en 2025 es
+  descriptivo. No se probarán más variantes.
+- Cuál de las dos (dc1 o dc2) se evalúa en 2026 se decide por la pérdida de
+  validación 2024: media de las 3 semillas en su mejor época. No se decide
+  por 2025.
+- El criterio 5 no cambia, y 2026 decide.
+
+Antes de entrenar se repiten las comprobaciones de 8.14 (pruebas del modelo y
+control de arranque) con dc2.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```

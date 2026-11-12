@@ -76,6 +76,26 @@ Entradas de forward
 Devuelve HS (B, 1, H, W) en metros, tanto en entrenamiento como en
 evaluacion, asi que usa la misma perdida y la misma evaluacion que el resto
 de modelos. predict_components devuelve ademas w y delta de cada tesela.
+
+Variante dc2 (protocolo 2026, 8.16): codificador congelado y cabezas sin L ni Cm
+---------------------------------------------------------------------------------
+En dc1 (codificador entrenado desde cero, 21 M de parametros, cabezas con
+L(d) y Cm(d)) la mejor epoca fue la 1 o la 3 y despues la red memorizo: la
+perdida de entrenamiento bajo a la mitad y la de validacion no. Con tres
+argumentos opcionales (por defecto, dc1 sin cambios):
+
+    encoder_in_channels  el codificador solo ve los primeros N canales de la
+                         entrada (26: los de la red B, en su mismo orden)
+    encoder_init         pesos de la red B (state_dict de ResUNetPP); se
+                         copian enc1-enc3, bottleneck_in, aspp y
+                         bottleneck_out, y tienen que estar todos
+    freeze_encoder       el codificador no se entrena (requires_grad False) y
+                         se queda en modo evaluacion aunque se llame a train()
+    head_signals         False: las cabezas solo ven el cuello; L(d) y Cm(d)
+                         se siguen usando en la formula
+
+Asi solo se entrenan las dos cabezas (unos 130 000 parametros) sobre lo que
+la red B ya sabe ver de cada tesela. El arranque sigue siendo la combinacion.
 """
 
 import math
@@ -113,7 +133,11 @@ class ResUNetPPDosCabezas(nn.Module):
                  clim_index: int = 26,
                  w_range: tuple = (0.5, 1.5),
                  delta_max: float = 0.5,
-                 head_reduction: int = 4):
+                 head_reduction: int = 4,
+                 encoder_in_channels: int = None,
+                 encoder_init: str = None,
+                 freeze_encoder: bool = False,
+                 head_signals: bool = True):
         super().__init__()
         if out_channels != 1:
             raise ValueError('ResUNetPPDosCabezas solo admite out_channels = 1')
@@ -128,9 +152,16 @@ class ResUNetPPDosCabezas(nn.Module):
         if features is None:
             features = [64, 128, 256, 512]
         f1, f2, f3, f4 = features
+        enc_in = in_channels if encoder_in_channels is None else int(encoder_in_channels)
+        if not 0 < enc_in <= in_channels:
+            raise ValueError(f'encoder_in_channels = {enc_in} fuera de 1..{in_channels}')
+        if freeze_encoder and not encoder_init:
+            raise ValueError('freeze_encoder sin encoder_init: se congelaria un codificador aleatorio')
+        self.encoder_in_channels = enc_in
+        self.head_signals = bool(head_signals)
 
         # --- Codificador y cuello ASPP: los mismos bloques que ResUNetPP ---
-        self.enc1 = ResidualBlock(in_channels, f1, num_groups)
+        self.enc1 = ResidualBlock(enc_in, f1, num_groups)
         self.enc2 = ResidualBlock(f1,          f2, num_groups)
         self.enc3 = ResidualBlock(f2,          f3, num_groups)
         self.pool = nn.MaxPool2d(2)
@@ -144,7 +175,7 @@ class ResUNetPPDosCabezas(nn.Module):
 
         def cabeza():
             return nn.Sequential(
-                nn.Linear(f4 + len(self.SIGNALS), mid),     # cuello + [L(d), Cm(d)]
+                nn.Linear(f4 + (len(self.SIGNALS) if self.head_signals else 0), mid),
                 nn.ReLU(inplace=True),
                 nn.Dropout(dropout_p) if dropout_p > 0 else nn.Identity(),
                 nn.Linear(mid, 1),
@@ -165,9 +196,49 @@ class ResUNetPPDosCabezas(nn.Module):
         # desplazamiento de la salida cruda para que 0 -> w = 1 con cualquier w_range
         self._a0 = math.atanh((1.0 - self._w_centro) / self._w_semiancho)
 
+        self.encoder_init = encoder_init
+        self.freeze_encoder = bool(freeze_encoder)
+        if encoder_init:
+            self._load_encoder(encoder_init)
+        if self.freeze_encoder:
+            for mod in self._encoder_modules():
+                for p in mod.parameters():
+                    p.requires_grad_(False)
+                mod.eval()
+
+    # ------------------------------------------------------------------
+    ENCODER = ('enc1', 'enc2', 'enc3', 'bottleneck_in', 'aspp', 'bottleneck_out')
+
+    def _encoder_modules(self):
+        return [getattr(self, n) for n in self.ENCODER]
+
+    def _load_encoder(self, path: str):
+        """Copia el codificador y el cuello ASPP de un state_dict de ResUNetPP."""
+        sd = torch.load(path, map_location='cpu')
+        if isinstance(sd, dict) and 'state_dict' in sd:
+            sd = sd['state_dict']
+        sd = {(k[7:] if k.startswith('module.') else k): v for k, v in sd.items()}
+        propio = {k: v for k, v in self.state_dict().items() if k.split('.')[0] in self.ENCODER}
+        faltan = [k for k in propio if k not in sd]
+        if faltan:
+            raise ValueError(f'{path}: faltan {len(faltan)} pesos del codificador (p. ej. {faltan[0]})')
+        malos = [k for k in propio if tuple(sd[k].shape) != tuple(propio[k].shape)]
+        if malos:
+            raise ValueError(f'{path}: forma distinta en {malos[0]}: {tuple(sd[malos[0]].shape)} '
+                             f'frente a {tuple(propio[malos[0]].shape)}')
+        self.load_state_dict({k: sd[k] for k in propio}, strict=False)
+        print(f'  codificador cargado de {path} ({len(propio)} tensores)')
+
+    def train(self, mode: bool = True):
+        super().train(mode)
+        if getattr(self, 'freeze_encoder', False):
+            for mod in self._encoder_modules():
+                mod.eval()
+        return self
+
     # ------------------------------------------------------------------
     def _encode(self, x: torch.Tensor) -> torch.Tensor:
-        e1 = self.enc1(x)
+        e1 = self.enc1(x[:, :self.encoder_in_channels])
         e2 = self.enc2(self.pool(e1))
         e3 = self.enc3(self.pool(e2))
         b = self.bottleneck_in(self.pool(e3))
@@ -177,10 +248,15 @@ class ResUNetPPDosCabezas(nn.Module):
     def _w_delta(self, x: torch.Tensor, signals: torch.Tensor):
         """w y delta de cada tesela, ya acotados. Forma (B, 1, 1, 1).
 
-        Las cabezas reciben el cuello de la red y los dos escalares de la
-        fecha, L(d) y Cm(d) (protocolo 2026, 8.15)."""
-        v = self.gap(self._encode(x))                                   # (B, f4)
-        v = torch.cat([v, signals.to(v.dtype)], dim=1)                  # (B, f4 + 2)
+        Las cabezas reciben el cuello de la red y, si head_signals, los dos
+        escalares de la fecha, L(d) y Cm(d) (protocolo 2026, 8.15 y 8.16)."""
+        if self.freeze_encoder:
+            with torch.no_grad():
+                v = self.gap(self._encode(x))                           # (B, f4)
+        else:
+            v = self.gap(self._encode(x))                               # (B, f4)
+        if self.head_signals:
+            v = torch.cat([v, signals.to(v.dtype)], dim=1)              # (B, f4 + 2)
         w = self._w_centro + self._w_semiancho * torch.tanh(self.head_w(v) + self._a0)
         delta = self.delta_max * torch.tanh(self.head_delta(v))
         return w.view(-1, 1, 1, 1), delta.view(-1, 1, 1, 1)
