@@ -1,0 +1,98 @@
+{
+  "descripcion": "Niveles por fecha para la red de dos cabezas (protocolo 2026, 8.13). Test: media de la prediccion de la red B y de la climatologia sobre todos los pixeles volados, como en la combinacion.",
+  "fuentes": {
+    "niveles_clim_v2": "analysis/niveles_por_fecha_clim_v2.csv",
+    "b_dir": "results/regen2024/sat_v2",
+    "clim_npz": "results/regen2024/clim_v1/climatologia_sola/climatologia_sola_predictions.npz"
+  },
+  "test_por_semilla": {
+    "7": {
+      "20250317": {
+        "nivel_m": 1.102501,
+        "nivel_last_m": 0.93707,
+        "clim_media_m": 0.766308
+      },
+      "20250327": {
+        "nivel_m": 1.059271,
+        "nivel_last_m": 0.991254,
+        "clim_media_m": 0.708957
+      },
+      "20250401": {
+        "nivel_m": 1.236156,
+        "nivel_last_m": 1.170259,
+        "clim_media_m": 0.809658
+      },
+      "20250424": {
+        "nivel_m": 1.001045,
+        "nivel_last_m": 0.912139,
+        "clim_media_m": 0.778188
+      },
+      "20250521": {
+        "nivel_m": 0.555877,
+        "nivel_last_m": 0.576581,
+        "clim_media_m": 0.954602
+      }
+    },
+    "42": {
+      "20250317": {
+        "nivel_m": 0.993931,
+        "nivel_last_m": 0.925118,
+        "clim_media_m": 0.766308
+      },
+      "20250327": {
+        "nivel_m": 1.036113,
+        "nivel_last_m": 1.039757,
+        "clim_media_m": 0.708957
+      },
+      "20250401": {
+        "nivel_m": 1.221741,
+        "nivel_last_m": 1.230731,
+        "clim_media_m": 0.809658
+      },
+      "20250424": {
+        "nivel_m": 0.974629,
+        "nivel_last_m": 0.975874,
+        "clim_media_m": 0.778188
+      },
+      "20250521": {
+        "nivel_m": 0.540922,
+        "nivel_last_m": 0.612672,
+        "clim_media_m": 0.954602
+      }
+    },
+    "123": {
+      "20250317": {
+        "nivel_m": 1.054002,
+        "nivel_last_m": 0.905792,
+        "clim_media_m": 0.766308
+      },
+      "20250327": {
+        "nivel_m": 1.039144,
+        "nivel_last_m": 0.99105,
+        "clim_media_m": 0.708957
+      },
+      "20250401": {
+        "nivel_m": 1.201807,
+        "nivel_last_m": 1.157679,
+        "clim_media_m": 0.809658
+      },
+      "20250424": {
+        "nivel_m": 0.989704,
+        "nivel_last_m": 0.888,
+        "clim_media_m": 0.778188
+      },
+      "20250521": {
+        "nivel_m": 0.581855,
+        "nivel_last_m": 0.583177,
+        "clim_media_m": 0.954602
+      }
+    }
+  },
+  "controles": {
+    "1_reproduce_hybrid_max_dif_m": 0.0,
+    "2_clim_media_max_dif_m": 4.600826852829698e-07,
+    "tolerancia_2_m": 0.0001,
+    "fallos": [],
+    "superados": true
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "descripcion": "Canales de climatologia v2 (protocolo 2026, 8.13). En entrenamiento, cada temporada recibe la climatologia de las otras temporadas de entrenamiento; en validacion y test, igual que clim_v1.",
+  "canales": [
+    "clim",
+    "clim_disp"
+  ],
+  "temporadas_entrenamiento": {
+    "2021": [
+      "20210202",
+      "20210304",
+      "20210323",
+      "20210414",
+      "20210504"
+    ],
+    "2022": [
+      "20211216",
+      "20220112",
+      "20220128",
+      "20220218",
+      "20220417",
+      "20220516"
+    ],
+    "2023": [
+      "20221201",
+      "20230213",
+      "20230316",
+      "20230328"
+    ]
+  },
+  "por_fecha": {
+    "20210202": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [
+        2022,
+        2023
+      ],
+      "n_teselas": 118,
+      "cobertura_media_teselas": 0.996595,
+      "clim_media_m": 0.874571,
+      "nivel_obs_m": 1.066428
+    },
+    "20210304": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [
+        2022,
+        2023
+      ],
+      "n_teselas": 194,
+      "cobertura_media_teselas": 0.998294,
+      "clim_media_m": 0.74231,
+      "nivel_obs_m": 1.256563
+    },
+    "20210323": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [
+        2022,
+        2023
+      ],
+      "n_teselas": 194,
+      "cobertura_media_teselas": 0.99836,
+      "clim_media_m": 0.734893,
+      "nivel_obs_m": 1.029308
+    },
+    "20210414": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [
+        2022,
+        2023
+      ],
+      "n_teselas": 195,
+      "cobertura_media_teselas": 0.998303,
+      "clim_media_m": 0.742355,
+      "nivel_obs_m": 0.588118
+    },
+    "20210504": {
+      "split": "train",
+      "temporada": 2021,
+      "temporadas_usadas": [
+        2022,
+        2023
+      ],
+      "n_teselas": 257,
+      "cobertura_media_teselas": 0.990489,
+      "clim_media_m": 0.831821,
+      "nivel_obs_m": 0.375028
+    },
+    "20211216": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 374,
+      "cobertura_media_teselas": 0.984314,
+      "clim_media_m": 0.561497,
+      "nivel_obs_m": 1.113861
+    },
+    "20220112": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 319,
+      "cobertura_media_teselas": 0.987552,
+      "clim_media_m": 0.550436,
+      "nivel_obs_m": 0.932782
+    },
+    "20220128": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 280,
+      "cobertura_media_teselas": 0.992778,
+      "clim_media_m": 0.576483,
+      "nivel_obs_m": 1.024331
+    },
+    "20220218": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 379,
+      "cobertura_media_teselas": 0.98153,
+      "clim_media_m": 0.560077,
+      "nivel_obs_m": 0.904904
+    },
+    "20220417": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 270,
+      "cobertura_media_teselas": 0.992732,
+      "clim_media_m": 0.533935,
+      "nivel_obs_m": 0.648083
+    },
+    "20220516": {
+      "split": "train",
+      "temporada": 2022,
+      "temporadas_usadas": [
+        2021,
+        2023
+      ],
+      "n_teselas": 219,
+      "cobertura_media_teselas": 0.989186,
+      "clim_media_m": 0.648297,
+      "nivel_obs_m": 0.246447
+    },
+    "20221201": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 335,
+      "cobertura_media_teselas": 0.991518,
+      "clim_media_m": 0.794632,
+      "nivel_obs_m": 0.23689
+    },
+    "20230213": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 367,
+      "cobertura_media_teselas": 0.979846,
+      "clim_media_m": 0.767678,
+      "nivel_obs_m": 0.878655
+    },
+    "20230316": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 363,
+      "cobertura_media_teselas": 0.991227,
+      "clim_media_m": 0.790423,
+      "nivel_obs_m": 0.498627
+    },
+    "20230328": {
+      "split": "train",
+      "temporada": 2023,
+      "temporadas_usadas": [
+        2021,
+        2022
+      ],
+      "n_teselas": 377,
+      "cobertura_media_teselas": 0.979522,
+      "clim_media_m": 0.773323,
+      "nivel_obs_m": 0.364194
+    },
+    "20240125": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 95,
+      "cobertura_media_teselas": 0.994393,
+      "clim_media_m": 0.690782,
+      "nivel_obs_m": 0.163458
+    },
+    "20240213": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 95,
+      "cobertura_media_teselas": 0.993985,
+      "clim_media_m": 0.676052,
+      "nivel_obs_m": 0.602125
+    },
+    "20240307": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 56,
+      "cobertura_media_teselas": 0.995896,
+      "clim_media_m": 0.730353,
+      "nivel_obs_m": 1.325261
+    },
+    "20240314": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 82,
+      "cobertura_media_teselas": 0.992631,
+      "clim_media_m": 0.741965,
+      "nivel_obs_m": 1.552762
+    },
+    "20240405": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 29,
+      "cobertura_media_teselas": 0.997096,
+      "clim_media_m": 0.743667,
+      "nivel_obs_m": 1.516161
+    },
+    "20240508": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 75,
+      "cobertura_media_teselas": 0.973476,
+      "clim_media_m": 0.844751,
+      "nivel_obs_m": 0.640881
+    },
+    "20240605": {
+      "split": "val",
+      "temporada": 2024,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 33,
+      "cobertura_media_teselas": 0.998364,
+      "clim_media_m": 0.896934,
+      "nivel_obs_m": 0.163584
+    },
+    "20250317": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 57,
+      "cobertura_media_teselas": 0.990192,
+      "clim_media_m": 0.766308,
+      "nivel_obs_m": null
+    },
+    "20250327": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 87,
+      "cobertura_media_teselas": 0.978851,
+      "clim_media_m": 0.708957,
+      "nivel_obs_m": null
+    },
+    "20250401": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 23,
+      "cobertura_media_teselas": 0.996436,
+      "clim_media_m": 0.809658,
+      "nivel_obs_m": null
+    },
+    "20250424": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 23,
+      "cobertura_media_teselas": 0.998239,
+      "clim_media_m": 0.778188,
+      "nivel_obs_m": null
+    },
+    "20250521": {
+      "split": "test",
+      "temporada": 2025,
+      "temporadas_usadas": [
+        2021,
+        2022,
+        2023
+      ],
+      "n_teselas": 30,
+      "cobertura_media_teselas": 0.98814,
+      "clim_media_m": 0.954602,
+      "nivel_obs_m": null
+    }
+  },
+  "control_1_igual_a_clim_v1": {
+    "teselas_comparadas": 685,
+    "distintas": [],
+    "superado": true
+  },
+  "control_2_temporadas": {
+    "superado": true
+  },
+  "control_3_entrenamiento_sin_climatologia": {
+    "teselas": 0,
+    "ejemplos": []
+  },
+  "teselas": {
+    "escritas": 4926,
+    "ya_existian": 0
+  }
+}

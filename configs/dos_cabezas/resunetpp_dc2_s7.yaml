@@ -1,0 +1,94 @@
+# Red de dos cabezas dc2, protocolo 2026 (8.16) (scripts/generate_dos_cabezas_configs.py)
+experiment:
+  name: resunetpp_dc2_s7
+data:
+  root: dataset_v4_ms_sx200
+  csv_file: dataset_v4_ms_sx200.csv
+  images_dir: images
+  masks_dir: masks
+  source: lidar
+  split_type: temporal
+  use_sce: false
+  augmentation: false
+  norm_version: v3
+  extra_channels_dir:
+  - sat_v2
+  - clim_v2
+  channel_indices:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  date_levels_csv: analysis/dos_cabezas/niveles_s7.csv
+  date_level_cols:
+  - nivel_m
+  - clim_media_m
+  date_level_cols_last:
+  - nivel_last_m
+  - clim_media_m
+  loss_requires_channel: 31
+model:
+  architecture: resunetpp_dos_cabezas
+  in_channels: 28
+  out_channels: 1
+  features:
+  - 64
+  - 128
+  - 256
+  - 512
+  dropout_p: 0.077
+  num_groups: 8
+  clim_index: 26
+  w_range:
+  - 0.5
+  - 1.5
+  delta_max: 0.5
+  encoder_in_channels: 26
+  encoder_init: results/regen2024/weights/resunetpp_sat2_B_s7.pth
+  freeze_encoder: true
+  head_signals: false
+training:
+  seed: 7
+  batch_size: 8
+  learning_rate: 0.0001287
+  epochs: 50
+  loss: spatial_mse
+  lambda_pearson: 0.0
+  masked_loss: true
+  weight_decay: 0.0001239
+  optimizer: adamw
+  grad_clip: 1.0
+  early_stopping: false
+  num_workers: 0
+  device: auto
+  save_initial: true
+evaluation:
+  save_predictions: true
+output:
+  models_dir: results/dos_cabezas_v2/weights
+  results_dir: results/dos_cabezas_v2/resunetpp_dc2_s7
+  model_name: resunetpp_dc2_s7

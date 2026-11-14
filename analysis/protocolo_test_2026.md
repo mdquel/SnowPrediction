@@ -476,6 +476,31 @@ sigue siendo exactamente la combinación. Configs:
 Antes de entrenar se repiten las comprobaciones de 8.14 (pruebas del modelo y
 control de arranque) con dc2.
 
+**8.17. Resultado de dc2 y red seleccionada para 2026 (12-11-2026).**
+
+- *dc2 en 2025 (descriptivo), R² en la mejor época, dc2 / combinación por
+  semilla 7, 42, 123:* 0,442/0,416, 0,407/0,388, 0,421/0,397. Media 0,423
+  frente a 0,400 (+0,023; 3/3 semillas). Cumple el criterio 5 en 2025.
+- *Última época:* 0,308/0,347, 0,225/0,360, 0,196/0,333. Media 0,243 frente
+  a 0,346.
+- *SPAEF en la mejor época:* menor que el de la combinación en las 3
+  semillas (media 0,399 frente a 0,409).
+- *Curvas:* mejores épocas 14, 1 y 1. La pérdida de entrenamiento solo baja
+  de 0,15 a 0,137: ya no memoriza, pero la validación oscila (0,184–0,206)
+  sin mejorar con las épocas.
+- *Selección para 2026 (regla de 8.16):* mejor pérdida de validación 2024,
+  media de las 3 semillas. dc1: 0,1890 (0,1915, 0,1882, 0,1872). dc2:
+  0,1860 (0,1844, 0,1887, 0,1848). **Se evalúa dc2 en 2026**, con los pesos
+  de su mejor época por semilla (`results/dos_cabezas_v2/weights`, copia en
+  D:/P5_dos_cabezas_v2).
+- *Limitación:* dc2 cambia dos cosas a la vez (codificador congelado y
+  cabezas sin L/C̄) y sus efectos no se separaron. No se prueban más
+  variantes.
+
+Fuentes: `results/dos_cabezas_v2/*/*_metrics.json`, `*_history.json`,
+`results/dos_cabezas/*/*_history.json` y
+`analysis/clim_v1_hibrido_regen2024.json` (bloque B_paso1).
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```

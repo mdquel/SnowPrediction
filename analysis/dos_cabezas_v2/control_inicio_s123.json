@@ -1,0 +1,32 @@
+{
+  "config": "configs/dos_cabezas/resunetpp_dc2_s123.yaml",
+  "semilla": 123,
+  "tolerancia_m": 0.0001,
+  "arranque_frente_a_combinacion": {
+    "mejor_epoca": {
+      "teselas": 220,
+      "diferencia_maxima_m": 1.03431425202416e-06,
+      "w_igual_a_1_y_delta_igual_a_0": true
+    },
+    "ultima_epoca": {
+      "teselas": 220,
+      "diferencia_maxima_m": 1.3743660254306178e-06,
+      "w_igual_a_1_y_delta_igual_a_0": true
+    }
+  },
+  "perdida_solo_con_climatologia": {
+    "validacion": {
+      "teselas": 465,
+      "pixeles_sin_climatologia_en_la_perdida": 0,
+      "fraccion_de_pixeles_validos_excluida": 0.002782
+    },
+    "entrenamiento_muestra": {
+      "teselas": 213,
+      "pixeles_sin_climatologia_en_la_perdida": 0,
+      "fraccion_de_pixeles_validos_excluida": 0.004247
+    }
+  },
+  "perdida_validacion_al_arrancar": 0.193277,
+  "fallos": [],
+  "superado": true
+}
