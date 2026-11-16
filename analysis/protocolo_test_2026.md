@@ -520,3 +520,10 @@ f6519b3a2dd63ca253995c55ac6259c3  SD_20260312.tif
 - Si la referencia sin nieve sigue siendo la del 26-06-2021 y el procesado es
   el mismo que en 2021-2025.
 - Por qué el 13-05-2026 usa -9998 como valor sin dato.
+
+**Respuesta de Jesús Revuelto (correo del 16-11-2026).** El valor −9998 del
+13-05-2026 es un error de exportación; debería ser −9999, como en el resto de
+fechas. No se pide un fichero corregido, para que la huella MD5 registrada en
+el apartado 9 siga siendo válida. Al leer el mapa del 13-05-2026, el −9998 se
+trata como "sin dato", igual que el −9999. Quedan pendientes la referencia sin
+nieve, el procesado y el dron (pregunta reformulada el 16-11-2026).
