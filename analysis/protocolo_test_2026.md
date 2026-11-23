@@ -501,6 +501,28 @@ Fuentes: `results/dos_cabezas_v2/*/*_metrics.json`, `*_history.json`,
 `results/dos_cabezas/*/*_history.json` y
 `analysis/clim_v1_hibrido_regen2024.json` (bloque B_paso1).
 
+**8.18. Regla de causalidad temporal y reentrenamiento de dc2 con clim_v1
+(23-11-2026, antes de entrenar y antes de abrir 2026).**
+
+- *Regla.* Ningún dato de entrenamiento, validación o test usa información de
+  fechas posteriores. Para una fecha de la temporada t, la climatología o
+  cualquier canal derivado de otros vuelos solo usa temporadas anteriores a t.
+- *Motivo.* La clim_v2 (8.13) daba a las fechas de entrenamiento una
+  climatología con otras temporadas de entrenamiento, también posteriores (por
+  ejemplo, 2021 con 2022 y 2023). No afecta a la validación de 2024 ni al test
+  de 2025, que son idénticos en las dos versiones, pero no es causal.
+- *Cambio.* dc2 se reentrena con la clim_v1 en entrenamiento. Todo lo demás se
+  mantiene como en 8.16: codificador de B congelado, cabezas sin L(d) ni C̄(d),
+  hiperparámetros, 50 épocas, semillas 7, 42 y 123, `save_initial` y elección
+  de época por validación. Los niveles L(d) y C̄(d) se recalculan con la
+  clim_v1.
+- *Consecuencia.* Las fechas de 2021 no tienen climatología y quedan fuera de
+  la pérdida: la red entrena con menos fechas.
+- *Red para 2026.* La versión causal sustituye a dc2 como red para 2026, sea
+  cual sea su resultado. Se decide ahora, antes de ver nada. dc1 y dc2 quedan
+  como registro.
+- *Antes de entrenar* se repiten las comprobaciones de 8.14.
+
 ## 9. Huellas MD5 de los mapas recibidos
 
 ```
