@@ -65,4 +65,91 @@ Se compara B frente a A, y D frente a C. Cuenta como mejora si se cumplen las tr
 
 ## Resultados
 
-(Se añaden aquí cuando se calculen, sin cambiar nada de lo anterior.)
+### Resultados (25-11-2026)
+
+Ficheros: `analysis/exploratorio_climatologia.json` (cifras) y
+`analysis/exploratorio_climatologia.log` (salida del script). Ejecutado en una
+instancia Vast.ai (RTX 5070 Ti, sin usar la GPU) con las máscaras del pendrive,
+que ya tienen corregido marzo de 2024; se excluyeron las de 2025.
+
+**Control previo superado:** la variante A reproduce C̄(d) y L(d) de
+`analysis/niveles_por_fecha_clim_v2.csv` en las 7 fechas de 2024.
+
+| | Climatología | Combinación | R² | RMSE (m) | Sesgo (m) | Correlación por tesela |
+|---|---|---|---|---|---|---|
+| A | media | sumando | 0,679 | 0,460 | +0,020 | 0,663 |
+| B | mediana | sumando | 0,637 | 0,489 | +0,032 | 0,651 |
+| C | media | multiplicando | 0,561 | 0,538 | −0,021 | 0,663 |
+| D | dibujo | multiplicando | 0,425 | 0,616 | −0,019 | 0,677 |
+
+La correlación por tesela se calculó en las 465 teselas de validación.
+
+**Según el criterio registrado, ninguna variante mejora:**
+
+- B frente a A: R² −0,042, correlación −0,011, mejor en 2 de 7 fechas.
+- D frente a C: R² −0,136, correlación +0,014, mejor en 3 de 7 fechas.
+- Informativo, C frente a A (multiplicar frente a sumar): R² −0,118.
+
+**Conclusión.** La climatología actual (media de los vuelos, combinación
+sumando) es la mejor de las cuatro en 2024. La mediana es peor en casi todas
+las fechas. La del dibujo tiene la correlación más alta (el dibujo en "veces"
+se parece algo más al real), pero pierde al aplicarse multiplicando.
+
+### Observación posterior: sumar o multiplicar según la nieve del día
+
+Vista **al mirar los resultados**; no es una prueba registrada.
+
+R² por fecha de 2024, con la climatología media (A sumando, C multiplicando):
+
+| Fecha | Nieve media L(d) | A (sumando) | C (multiplicando) | Mejor |
+|---|---|---|---|---|
+| 25-01-2024 | 0,16 m | −0,760 | +0,446 | multiplicar |
+| 13-02-2024 | 0,60 m | −0,276 | +0,015 | multiplicar |
+| 07-03-2024 | 1,33 m | +0,712 | +0,228 | sumar |
+| 14-03-2024 | 1,55 m | +0,570 | +0,264 | sumar |
+| 05-04-2024 | 1,52 m | +0,659 | +0,209 | sumar |
+| 08-05-2024 | 0,64 m | +0,425 | +0,433 | igual |
+| 05-06-2024 | 0,16 m | +0,073 | +0,172 | multiplicar |
+
+R² por fecha de las cuatro variantes:
+
+| Fecha | A | B | C | D |
+|---|---|---|---|---|
+| 25-01-2024 | −0,760 | −1,335 | +0,446 | +0,518 |
+| 13-02-2024 | −0,276 | −0,745 | +0,015 | −0,237 |
+| 07-03-2024 | +0,712 | +0,675 | +0,228 | −0,152 |
+| 14-03-2024 | +0,570 | +0,590 | +0,264 | +0,056 |
+| 05-04-2024 | +0,659 | +0,660 | +0,209 | −0,316 |
+| 08-05-2024 | +0,425 | +0,358 | +0,433 | +0,475 |
+| 05-06-2024 | +0,073 | −0,207 | +0,172 | +0,232 |
+
+**Qué se ve.** Sumar es claramente mejor en las fechas de mucha nieve (más de
+1,3 m de media) y multiplicar en las de poca (0,16 m). Con un nivel intermedio
+(0,64 m) dan lo mismo. El R² total favorece a sumar porque las fechas de mucha
+nieve tienen más píxeles con nieve y más variación, y pesan más.
+
+**Explicación física probable.**
+
+- Con poca nieve, sumar resta lo mismo en todas partes: la climatología de un
+  año medio (unos 0,7 m) baja en bloque hasta 0,16 m y casi todo el mapa queda a
+  cero. Solo sobreviven los hoyos, y el dibujo se pierde. Multiplicar lo escala
+  (×0,2) y conserva el dibujo.
+- Con mucha nieve, multiplicar exagera el contraste (×2): los hoyos se disparan
+  y las crestas apenas suben. En la realidad las crestas también ganan algo de
+  nieve, y eso se parece más a sumar.
+
+**Por qué no es una prueba.** La idea salió al mirar 2024, que es también donde
+se midió, y son solo 7 fechas de un año. Para comprobarla habría que:
+
+1. registrar antes una regla concreta, por ejemplo multiplicar por debajo de un
+   nivel y sumar por encima, o una mezcla de las dos que dependa de L(d), con su
+   umbral fijado de antemano;
+2. elegir el umbral sin usar 2024 (con los años de entrenamiento);
+3. medirla en años distintos de 2024 sin repetir el uso del test de 2025, por
+   ejemplo con validación cruzada dentro de 2021–2023 o con 2026 si se registra
+   antes de abrirlo.
+
+**Por qué interesa.** El paso de la climatología al día ya no sería una suma
+fija, sino que dependería de cuánta nieve hay. Encaja con lo que intentaba
+aprender la red de dos cabezas con w (el contraste según el nivel), pero con
+una regla física sencilla y sin entrenar nada.
